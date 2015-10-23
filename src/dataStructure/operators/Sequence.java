@@ -1,4 +1,4 @@
-package operators;
+package dataStructure.operators;
 
 import dataStructure.Drawing;
 import dataStructure.Operator;

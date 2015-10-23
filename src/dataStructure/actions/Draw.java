@@ -1,4 +1,4 @@
-package actions;
+package dataStructure.actions;
 
 import dataStructure.Action;
 import dataStructure.DrawingTool;

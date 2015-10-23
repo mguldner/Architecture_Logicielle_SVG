@@ -1,4 +1,4 @@
-package tools;
+package dataStructure.tools;
 
 import dataStructure.DrawingTool;
 

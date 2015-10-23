@@ -1,4 +1,4 @@
-package paths;
+package dataStructure.paths;
 
 import dataStructure.Path;
 import utils.Point2D;
