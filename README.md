@@ -1,6 +1,7 @@
 # Architecture_Logicielle_SVG
 This project aims to create a drawing library in Java. 
 It is a school project of the Ecole des Mines de Nantes.
+[Mozilla's SVG documentation](https://developer.mozilla.org/en-US/docs/Web/SVG) was chosen as a base for the implementation of the SVG export mode.
 
 ## Prerequisites
 - This project is developed with [Java 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html), so you need to have it installed on your computer.
