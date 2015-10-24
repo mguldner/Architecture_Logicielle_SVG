@@ -1,6 +1,6 @@
 # Architecture_Logicielle_SVG
-This project aims to create a drawing library in Java. 
-It is a school project of the Ecole des Mines de Nantes.
+This project aims to create a drawing library in Java.  
+It is a school project of the Ecole des Mines de Nantes.  
 [Mozilla's SVG documentation](https://developer.mozilla.org/en-US/docs/Web/SVG) was chosen as a base for the implementation of the SVG export mode.
 
 ## Prerequisites
