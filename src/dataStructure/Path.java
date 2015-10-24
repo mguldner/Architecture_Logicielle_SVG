@@ -3,10 +3,36 @@ package dataStructure;
 import utils.Point2D;
 
 public abstract class Path {
+	/**
+	 * Constants
+	 */
+	private final boolean DEFAULT_PATH_CLOSED = false;
+	/**
+	 * Variables
+	 */
 	private Point2D[] points;
+	private boolean closed;
 	
+	/**
+	 * Constructors
+	 */
+	public Path(Point2D[] points) {
+		this.points = points;
+		this.closed = DEFAULT_PATH_CLOSED;
+	}
+	public Path(Point2D[] points, boolean closed) {
+		this.points = points;
+		this.closed = closed;
+	}
+	
+	/**
+	 * Getters
+	 */
 	public Point2D[] getPoints() {
 		return points;
+	}
+	public boolean isClosed() {
+		return closed;
 	}
 	
 	/*============ Functions dedicated to each export mode ============*/

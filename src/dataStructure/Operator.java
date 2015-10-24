@@ -1,5 +1,5 @@
 package dataStructure;
-public abstract class Operator implements Drawing {
+public abstract class Operator extends Drawing {
 	/**
 	 * As we chose to define an operator as a function that is applied to an array of Drawings,
 	 * we define here the drawings.
@@ -7,11 +7,17 @@ public abstract class Operator implements Drawing {
 	 */
 	private Drawing[] drawings;
 	
+	public Operator() {
+		this.drawings = new Drawing[0];
+	}
+	public Operator(Drawing[] drawings) {
+		this.drawings = drawings;
+	}
 	/**
 	 * These abstracts methods are implemented by each type of operator.
 	 * They are necessary to interpret the logical drawing in a given export mode
 	 */
-	public abstract void applySvgOperation();
+	public abstract String applySvgOperation();
 	public abstract void applyJavaOperation();
 	
 	/**
@@ -26,9 +32,8 @@ public abstract class Operator implements Drawing {
 		return this.drawings;
 	}
 
-	@Override
-	public void generateSvgDrawing() {
-		this.applySvgOperation();
+	public String generateSvgCode() {
+		return this.applySvgOperation();
 	}
 
 	@Override

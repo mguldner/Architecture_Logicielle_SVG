@@ -17,17 +17,17 @@ package dataStructure;
  * for all types of actions.
  * 
  */
-public abstract class Action implements Drawing {
+public abstract class Action extends Drawing {
 	/**
 	 * These abstracts methods are implemented by each type of action.
 	 * They are necessary to interpret the logical drawing in a given export mode
 	 */
-	public abstract void applySvgAction();
+	public abstract String applySvgAction();
 	public abstract void applyJavaAction();
 
-	public void generateSvgDrawing() {
-		this.applySvgAction();
-	}
+	public String generateSvgCode() {
+		return this.applySvgAction();
+	};
 
 	public void generateJavaDrawing() {
 		this.applyJavaAction();
