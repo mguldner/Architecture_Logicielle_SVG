@@ -1,12 +1,13 @@
 package dataStructure.actions;
 
 import dataStructure.Action;
-import dataStructure.DrawingTool;
 import dataStructure.Path;
+import dataStructure.Tool;
+import dataStructure.tools.Pen;
 
 public class Draw extends Action {
 	private Path path;
-	private DrawingTool tool;
+	private Tool tool;
 	
 
 	@Override
