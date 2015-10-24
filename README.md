@@ -2,6 +2,10 @@
 This project aims to create a drawing library in Java. 
 It is a school project of the Ecole des Mines de Nantes.
 
+## Prerequisites
+- This project is developed with [Java 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html), so you need to have it installed on your computer.
+- In order to help your understanding of the project's structure, we created several class diagrams with [ObjectAid](http://www.objectaid.com/). It is obviously not mandatory to have the project working, but highly recommended.
+
 ## How to fast install with Eclipse
 1. Open Eclipse and import the project going  
 `File > Import > Git > Project from Git > Clone URI`
