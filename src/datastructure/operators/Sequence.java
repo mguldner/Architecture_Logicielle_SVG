@@ -1,7 +1,7 @@
-package dataStructure.operators;
+package datastructure.operators;
 
-import dataStructure.Drawing;
-import dataStructure.Operator;
+import datastructure.Drawing;
+import datastructure.Operator;
 
 public class Sequence extends Operator {
 	/*=================================*/

@@ -1,6 +1,6 @@
-package dataStructure.tools.pens;
+package datastructure.tools.pens;
 
-import dataStructure.tools.Pen;
+import datastructure.tools.Pen;
 
 /**
  * 

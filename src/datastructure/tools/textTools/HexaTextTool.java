@@ -1,6 +1,6 @@
-package dataStructure.tools.textTools;
+package datastructure.tools.textTools;
 
-import dataStructure.tools.TextTool;
+import datastructure.tools.TextTool;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package dataStructure;
+package datastructure;
 
 import utils.Point2D;
 

@@ -1,4 +1,4 @@
-package dataStructure;
+package datastructure;
 /**
  * 
  * This abstract class allows the user to easily add new types of actions 
@@ -44,7 +44,7 @@ public abstract class Action extends Drawing {
 	public String generateSvgCode() {
 		return this.applySvgAction();
 	};
-	public void generateJavaDrawing() {
+	public void generateJavaCode() {
 		this.applyJavaAction();
 	}
 

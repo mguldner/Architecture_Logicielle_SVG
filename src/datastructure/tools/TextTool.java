@@ -1,6 +1,6 @@
-package dataStructure.tools;
+package datastructure.tools;
 
-import dataStructure.Tool;
+import datastructure.Tool;
 
 public class TextTool extends Tool {
 	/*==============================*/

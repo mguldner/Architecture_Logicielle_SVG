@@ -1,10 +1,10 @@
-package dataStructure.actions;
+package datastructure.actions;
 
 import java.awt.Graphics2D;
 
-import dataStructure.Action;
-import dataStructure.Path;
-import dataStructure.Tool;
+import datastructure.Action;
+import datastructure.Path;
+import datastructure.Tool;
 
 public class Draw extends Action {
 	/*==============================*/

@@ -1,4 +1,4 @@
-package dataStructure;
+package datastructure;
 
 import javax.swing.JFrame;
 
@@ -54,4 +54,5 @@ public abstract class Drawing {
 	  window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  window.setVisible(true);
 	};
+	public abstract void generateJavaCode();
 }

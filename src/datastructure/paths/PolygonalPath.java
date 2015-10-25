@@ -1,6 +1,6 @@
-package dataStructure.paths;
+package datastructure.paths;
 
-import dataStructure.Path;
+import datastructure.Path;
 import utils.Point2D;
 
 public class PolygonalPath extends Path {

@@ -1,6 +1,6 @@
-package dataStructure.tools;
+package datastructure.tools;
 
-import dataStructure.Tool;
+import datastructure.Tool;
 
 public abstract class Pen extends Tool {
 	/*==============================*/

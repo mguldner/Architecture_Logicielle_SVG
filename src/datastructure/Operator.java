@@ -1,4 +1,4 @@
-package dataStructure;
+package datastructure;
 public abstract class Operator extends Drawing {
 	/*==============================*/
 	/*========== Variables =========*/
@@ -63,9 +63,9 @@ public abstract class Operator extends Drawing {
 	public String generateSvgCode() {
 		return this.applySvgOperation();
 	}
-//	@Override
-//	public void generateJavaDrawing() {
-//		this.applyJavaOperation();
-//	}
+	@Override
+	public void generateJavaCode() {
+		this.applyJavaOperation();
+	}
 
 }

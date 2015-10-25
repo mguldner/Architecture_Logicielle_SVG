@@ -1,12 +1,12 @@
 package main;
 
-import dataStructure.Drawing;
-import dataStructure.Path;
-import dataStructure.Tool;
-import dataStructure.actions.Draw;
-import dataStructure.operators.Sequence;
-import dataStructure.paths.PolygonalPath;
-import dataStructure.tools.pens.HexaPen;
+import datastructure.Drawing;
+import datastructure.Path;
+import datastructure.Tool;
+import datastructure.actions.Draw;
+import datastructure.operators.Sequence;
+import datastructure.paths.PolygonalPath;
+import datastructure.tools.pens.HexaPen;
 import utils.Point2D;
 
 public class Main {
