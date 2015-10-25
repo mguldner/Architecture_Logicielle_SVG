@@ -5,37 +5,49 @@ import dataStructure.Path;
 import dataStructure.Tool;
 
 public class Draw extends Action {
-	/**
-	 * Variables
-	 */
+	/*==============================*/
+	/*========== Variables =========*/
+	/*==============================*/
 	private Path path;
 	private Tool tool;
+
 	
-	/**
-	 * Constructors
-	 */
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public Draw(Path path, Tool tool) {
-		// TODO Auto-generated constructor stub
 		this.path = path;
 		this.tool = tool;
 	}
+	
+	
+	/*========================================*/
+	/*============ Shared Methods ============*/
+	/*========================================*/
 
+	
+	/*===============================================================*/
+	/*============ Methods dedicated to each export mode ============*/
+	/*===============================================================*/
+	
+		/*=================================================*/
+		/*================== SVG export ===================*/
+		/*=================================================*/
 	@Override
 	public String applySvgAction() {
-		// TODO Auto-generated method stub
 		String svgCode = "<path ";
 		svgCode += path.generateSvgPath() + " ";
 		svgCode += tool.applySvgTool();
 		svgCode += "/>\n";
-		System.out.println(svgCode);
 		return svgCode;
-
 	}
 
+		/*=================================================*/
+		/*================== Java export ==================*/
+		/*=================================================*/
 	@Override
 	public void applyJavaAction() {
 		// TODO Auto-generated method stub
-
 	}
 
 }

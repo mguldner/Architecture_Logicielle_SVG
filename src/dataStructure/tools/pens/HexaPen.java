@@ -8,12 +8,10 @@ import dataStructure.tools.Pen;
  * This is the basic pen, the one corresponding to the original model in hexadecimal
  *
  */
-public class HexaPen extends Pen {
-	
-	/**
-	 * Constructors
-	 */
-
+public class HexaPen extends Pen {	
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public HexaPen() {
 		super();
 	}

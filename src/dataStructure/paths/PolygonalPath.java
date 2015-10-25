@@ -4,7 +4,9 @@ import dataStructure.Path;
 import utils.Point2D;
 
 public class PolygonalPath extends Path {
-
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public PolygonalPath(Point2D[] points) {
 		super(points);
 	}
@@ -12,6 +14,19 @@ public class PolygonalPath extends Path {
 		super(points, closed);
 	}
 
+	
+	/*========================================*/
+	/*============ Shared methods ============*/
+	/*========================================*/
+
+	
+	/*===============================================================*/
+	/*============ Methods dedicated to each export mode ============*/
+	/*===============================================================*/
+	
+		/*=================================================*/
+		/*================== SVG export ===================*/
+		/*=================================================*/
 	@Override
 	public String generateSvgPath() {
 		String svgCode = "d=\"";
@@ -29,6 +44,9 @@ public class PolygonalPath extends Path {
 		return svgCode;
 	}
 
+		/*=================================================*/
+		/*================== Java export ==================*/
+		/*=================================================*/
 	@Override
 	public Point2D[] generateJavaPath() {
 		return this.getPoints();

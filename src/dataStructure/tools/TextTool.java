@@ -3,23 +3,25 @@ package dataStructure.tools;
 import dataStructure.Tool;
 
 public class TextTool extends Tool {
-	/**
-	 * Constants
-	 */
+	/*==============================*/
+	/*========== Constants =========*/
+	/*==============================*/
 	private final String DEFAULT_FONT_NAME = "Arial";
 	private final int DEFAULT_FONT_SIZE = 1;
 	private final String DEFAULT_FONT_STYLE = "";
+
 	
-	/**
-	 * Variables
-	 */
+	/*==============================*/
+	/*========== Variables =========*/
+	/*==============================*/
 	private String fontName;
 	private int fontSize;
 	private String fontStyle;
+
 	
-	/**
-	 * Constructors
-	 */
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public TextTool() {
 		super();
 		this.fontName = this.DEFAULT_FONT_NAME;
@@ -38,19 +40,33 @@ public class TextTool extends Tool {
 		this.fontSize = fontSize;
 		this.fontStyle = fontStyle;
 	}	
+
 	
+	/*========================================*/
+	/*============ Shared Methods ============*/
+	/*========================================*/
+
+	
+	/*===============================================================*/
+	/*============ Methods dedicated to each export mode ============*/
+	/*===============================================================*/
+	
+		/*=================================================*/
+		/*================== SVG export ===================*/
+		/*=================================================*/
 	@Override
 	public String applySvgTool() {
-		// TODO Auto-generated method stub
 		return "font-family=\"" + this.fontName + "\" " +
 				"font-size=\"" + this.fontSize + "\" " +
-				"stroke=\"" + this.getHexaColorCode() + "\"";
-		
+				"stroke=\"" + this.getHexaColorCode() + "\"";		
 	}
+	
+		/*=================================================*/
+		/*================== Java export ==================*/
+		/*=================================================*/
 	@Override
 	public void applyJavaTool() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

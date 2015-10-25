@@ -1,5 +1,8 @@
 package main;
 
+import dataStructure.Drawing;
+import dataStructure.Path;
+import dataStructure.Tool;
 import dataStructure.actions.Draw;
 import dataStructure.operators.Sequence;
 import dataStructure.paths.PolygonalPath;
@@ -7,11 +10,19 @@ import dataStructure.tools.pens.HexaPen;
 import utils.Point2D;
 
 public class Main {
-	/**
+	/*
 	 * Put here all your instructions to create your drawing
 	 */
 	public static void main(String[] args) {
-		HexaPen redPen = new HexaPen("#ff0000");
+		/*=========================*/
+		/*========= TOOLS =========*/
+		/*=========================*/
+		Tool redPen = new HexaPen("#ff0000");
+		
+		
+		/*=========================*/
+		/*========= PATHS =========*/
+		/*=========================*/
 		Point2D[] points1 = {
 			new Point2D(6,6),
 			new Point2D(12, 12)
@@ -20,19 +31,26 @@ public class Main {
 				new Point2D(12,12),
 				new Point2D(18,6)
 		};
+		Path polygonalPath1 = new PolygonalPath(points1, false);
+		Path polygonalPath2 = new PolygonalPath(points2, false);
 		
-		PolygonalPath polygonalPath1 = new PolygonalPath(points1, false);
-		PolygonalPath polygonalPath2 = new PolygonalPath(points2, false);
 		
-		Draw draw1 = new Draw(polygonalPath1, redPen);
-		Draw draw2 = new Draw(polygonalPath2, redPen);
-		Draw[] drawingArray = {
+		/*=========================*/
+		/*======== DRAWINGS =======*/
+		/*=========================*/
+		Drawing draw1 = new Draw(polygonalPath1, redPen);
+		Drawing draw2 = new Draw(polygonalPath2, redPen);
+		Drawing[] drawingArray = {
 				draw1,
 				draw2
 		};
 		
-		Sequence sequence = new Sequence(drawingArray);
+		Drawing sequence = new Sequence(drawingArray);
 		
+		
+		/*=========================*/
+		/*======== EXPORTS =======*/
+		/*=========================*/
 		sequence.generateSvgDrawing(200,200);
 
 	}

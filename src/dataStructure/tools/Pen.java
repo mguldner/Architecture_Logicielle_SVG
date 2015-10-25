@@ -3,20 +3,21 @@ package dataStructure.tools;
 import dataStructure.Tool;
 
 public abstract class Pen extends Tool {
-	/**
-	 * Constants
-	 */
+	/*==============================*/
+	/*========== Constants =========*/
+	/*==============================*/
 	private final int DEFAULT_THICKNESS = 1;
-	
-	/**
-	 * Variables
-	 */
-	private int thickness;
-	
-	/**
-	 * Constructors
-	 */
 
+	
+	/*==============================*/
+	/*========== Variables =========*/
+	/*==============================*/
+	private int thickness;
+
+	
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public Pen() {
 		super();
 		this.thickness = this.DEFAULT_THICKNESS;
@@ -33,10 +34,11 @@ public abstract class Pen extends Tool {
 		super(color);
 		this.thickness = thickness;
 	}
+
 	
-	/**
-	 * Getters
-	 */
+	/*============================*/
+	/*========== Getters =========*/
+	/*============================*/
 	/**
 	 * Getter
 	 * @return the int corresponding to the thickness of the tool
@@ -44,25 +46,34 @@ public abstract class Pen extends Tool {
 	public int getThickness() {
 		return thickness;
 	}
+
 	
-	/**
-	 * Methods
-	 */
+	/*===================================*/
+	/*========== Shared Methods =========*/
+	/*===================================*/
+
 	
+	/*===============================================================*/
+	/*============ Methods dedicated to each export mode ============*/
+	/*===============================================================*/
+	
+		/*=================================================*/
+		/*================== SVG export ===================*/
+		/*=================================================*/
 	@Override
-	/**
-	 * 
+	/** 
 	 * @return the part of code related to drawing with a pen in SVG
 	 */
 	public String applySvgTool() {
 		return "stroke-width=\"" + this.getThickness() + "\" " +
 				"stroke=\""+ this.getHexaColorCode() + "\"";
-		
 	}
 	
+		/*=================================================*/
+		/*================== Java export ==================*/
+		/*=================================================*/
 	@Override
 	public void applyJavaTool() {
 		// TODO Auto-generated method stub
-		
 	}
 }

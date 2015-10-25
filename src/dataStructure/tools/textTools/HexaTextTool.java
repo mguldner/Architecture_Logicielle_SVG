@@ -8,7 +8,10 @@ import dataStructure.tools.TextTool;
  * This is the basic text tool, the one corresponding to the original model in hexadecimal
  *
  */
-public class HexaTextTool extends TextTool {
+public class HexaTextTool extends TextTool {	
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public HexaTextTool() {
 		super();
 	}

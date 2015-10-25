@@ -6,15 +6,39 @@ package dataStructure;
  *
  */
 public abstract class Drawing {
+	/*========================================*/
+	/*============ Shared Methods ============*/
+	/*========================================*/
 	
+	
+	/*===============================================================*/
+	/*============ Methods dedicated to each export mode ============*/
+	/*===============================================================*/
+	
+		/*=================================================*/
+		/*================== SVG export ===================*/
+		/*=================================================*/
+	/**
+	 * This method produces the final svg export, giving it the height and the width wanted by the user
+	 * @param height
+	 * @param width
+	 */
 	public void generateSvgDrawing(int height, int width) {
 		String svgCode = "<svg height=\"" + height + "\" width=\"" + width + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 		svgCode += this.generateSvgCode();
 		svgCode += "</svg>";
 		System.out.println(svgCode);
 	};
-	
+	/**
+	 * This method is useful to get the svg code of each part of the drawing.
+	 * It is compulsory to have the code working. 
+	 * @return the code of the drawing without the \<svg\> tags
+	 */
 	public abstract String generateSvgCode();
 	
+	
+		/*=======================================================*/
+		/*==================== Java export ======================*/
+		/*=======================================================*/
 	public abstract void generateJavaDrawing();
 }

@@ -3,19 +3,22 @@ package dataStructure;
 import utils.Point2D;
 
 public abstract class Path {
-	/**
-	 * Constants
-	 */
+	/*==============================*/
+	/*========== Constants =========*/
+	/*==============================*/
 	private final boolean DEFAULT_PATH_CLOSED = false;
-	/**
-	 * Variables
-	 */
+
+	
+	/*==============================*/
+	/*========== Variables =========*/
+	/*==============================*/
 	private Point2D[] points;
 	private boolean closed;
+
 	
-	/**
-	 * Constructors
-	 */
+	/*=================================*/
+	/*========== Constructors =========*/
+	/*=================================*/
 	public Path(Point2D[] points) {
 		this.points = points;
 		this.closed = DEFAULT_PATH_CLOSED;
@@ -24,10 +27,11 @@ public abstract class Path {
 		this.points = points;
 		this.closed = closed;
 	}
+
 	
-	/**
-	 * Getters
-	 */
+	/*============================*/
+	/*========== Getters =========*/
+	/*============================*/
 	public Point2D[] getPoints() {
 		return points;
 	}
@@ -35,19 +39,34 @@ public abstract class Path {
 		return closed;
 	}
 	
-	/*============ Functions dedicated to each export mode ============*/
+	
+	/*========================================*/
+	/*============ Shared Methods ============*/
+	/*========================================*/
+	
+	
+	/*===============================================================*/
+	/*============ Methods dedicated to each export mode ============*/
+	/*===============================================================*/
 	/* The idea here is to create functions that return what is "needed" to apply the drawing.
 	 * 
 	 * Basically, for a svg we need a string that will be inserted in a svg component.
 	 * 
 	 * On the other hand, for a Java export that will be executed, we need the points that will be used by
 	 * the library to generate a drawing.
-	 **/
+	 */
 	
+		/*=================================================*/
+		/*================== SVG export ===================*/
+		/*=================================================*/
 	/**
 	 * @return a string that represents the "path part" of a svg component
 	 */
 	public abstract String generateSvgPath();
+	
+		/*=================================================*/
+		/*================== Java export ==================*/
+		/*=================================================*/
 	public abstract Point2D[] generateJavaPath();
 
 }
