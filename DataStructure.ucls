@@ -82,8 +82,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="datastructure.tools.textTools.HexaTextTool" project="Architecture_Logicielle_SVG" 
-    file="/Architecture_Logicielle_SVG/src/datastructure/tools/textTools/HexaTextTool.java" binary="false" 
+  <class id="10" language="java" name="datastructure.tools.texttools.HexaTextTool" project="Architecture_Logicielle_SVG" 
+    file="/Architecture_Logicielle_SVG/src/datastructure/tools/texttools/HexaTextTool.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="908" y="1004"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

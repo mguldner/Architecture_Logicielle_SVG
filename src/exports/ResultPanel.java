@@ -1,17 +1,20 @@
 package exports;
 
+import datastructure.Drawing;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import datastructure.Drawing;
 
 /**
  * This class allows the representation of the drawing 
  * with the Graphics2D library.
  */
-public class ResultPanel extends JPanel {
+public class ResultPanel extends JPanel { 
+  private static final long serialVersionUID = -6598904090856293425L;
+  
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -20,9 +23,9 @@ public class ResultPanel extends JPanel {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
-  public ResultPanel(Drawing d) {
+  public ResultPanel(Drawing drawing) {
     super();
-    this.drawing = d;
+    this.drawing = drawing;
   }
   
   /*============================*/
@@ -35,9 +38,10 @@ public class ResultPanel extends JPanel {
   /*============================*/
   /*========== Methods =========*/
   /*============================*/
+  @Override
   public void paintComponent(Graphics graphics) {
-    Graphics2D g = (Graphics2D) graphics;
+    Graphics2D graph = (Graphics2D) graphics;
     Drawing drawing = this.getDrawing();
-    drawing.generateJavaCode(g);
+    drawing.generateJavaCode(graph);
   }
 }
