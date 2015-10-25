@@ -31,20 +31,17 @@ Please check your code with it before each pull request.
 
 ## Improve your library
 
-### How to add an action
-To create a new action, you only have to follow these two steps:  
-1. Create a class in `datastructure.actions` that extends `Action`.
+### How to add an action 
+1. Create a class in `datastructure.actions` that extends `Action`.  
 2. Write the corresponding code for each export mode, following the example of the `Draw` class.
 
-### How to add a new operator
-To create a new operator, please follow these easy steps:  
-1. Create a class in `datastructure.operators` that extends `Operator`.
-2. Write the code of the `applyFunction` method.
+### How to add a new operator 
+1. Create a class in `datastructure.operators` that extends `Operator`.  
+2. Write the code of the `applyFunction` method.  
 3. Write the corresponding code for each export mode, following the example of the `Sequence` class.
 
 ### How to add a new path
-To create a new path:
-1. Create a class in `datastructure.paths` that extends `Path`.
+1. Create a class in `datastructure.paths` that extends `Path`.  
 2. Write the corresponding code for each export mode, following the example of the `PolygonalPath` class.
 
 ### Tools
@@ -59,7 +56,6 @@ Else, create a new package `datastructure.tools.YOUR_TOOL_NAMEs`.
 3. Write the constructors you need, following the example of `Pen` and `HexaPen`.
 
 #### Add a new tool
-To create a new tool:
 1. Create a class in `datastructure.tools` that extends `Tool` with its own variables and constructors.
 2. Write the corresponding code for each export mode, following the example of the `Pen` class.
 
@@ -67,13 +63,14 @@ To create a new tool:
 Depending on the type of export you want, the method will be different.
 
 #### Export with non-Java render engine
-The principle here is to generate a string that will contain the whole encoded drawing. This string will be exported to a file.
-1. In the `Drawing` class, add a `public void generateExportModeDrawing` method that will get the string and will export it.
-2. Still in `Drawing`, add a `public abstract String generateExportModeCode()` method that will generate the string.
+The principle here is to generate a string that will contain the whole encoded drawing.  
+This string will be exported to a file.  
+1. In the `Drawing` class, add a `public void generateExportModeDrawing` method that will get the string and will export it.  
+2. Still in `Drawing`, add a `public abstract String generateExportModeCode()` method that will generate the string.  
 3. Implement all the needed methods following the example of the `SVG` export.
 
 #### Export with Java rendering
-The principle here is to apply Java functions.
-1. In the `Drawing` class, add a `public void generateExportModeDrawing` method that will create the window and display the drawing.
-2. Still in `Drawing`, add a `public abstract void generateExportModeCode()` method that will be called by the above function and will trigger every drawing-dedicated methods.
+The principle here is to apply Java functions.  
+1. In the `Drawing` class, add a `public void generateExportModeDrawing` method that will create the window and display the drawing.  
+2. Still in `Drawing`, add a `public abstract void generateExportModeCode()` method that will be called by the above function and will trigger every drawing-dedicated methods.  
 3. Implement all the needed methods following the example of the `Java` export.
