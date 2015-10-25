@@ -18,7 +18,7 @@ package dataStructure;
  * 
  */
 public abstract class Action extends Drawing {
-	/*============================================*/
+	/*============================================*/ 
 	/*==============  Shared Methods =============*/
 	/*============================================*/
 	
@@ -29,7 +29,8 @@ public abstract class Action extends Drawing {
 
 	/*
 	 * These abstracts methods are implemented by each type of action.
-	 * They are necessary to interpret the logical drawing in a given export mode
+	 * They are necessary to interpret the logical drawing in a given export
+	 * mode.
 	 */
 	/**
 	 * @return the svg element code

@@ -5,6 +5,7 @@ It is a school project of the Ecole des Mines de Nantes.
 
 ## Prerequisites
 - This project is developed with [Java 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html), so you need to have it installed on your computer.
+- This project's code is checked with [Checkstyle](https://github.com/checkstyle/checkstyle) and its [Eclipse plug-in](https://github.com/checkstyle/checkstyle). Please check your code with it before each pull request.
 - In order to help your understanding of the project's structure, we created several class diagrams with [ObjectAid](http://www.objectaid.com/). It is obviously not mandatory to have the project working, but highly recommended.
 
 ## How to fast install with Eclipse

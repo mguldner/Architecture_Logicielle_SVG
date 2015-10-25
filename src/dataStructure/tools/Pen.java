@@ -40,7 +40,7 @@ public abstract class Pen extends Tool {
 	/*========== Getters =========*/
 	/*============================*/
 	/**
-	 * Getter
+	 * Getter.
 	 * @return the int corresponding to the thickness of the tool
 	 */
 	public int getThickness() {
@@ -65,8 +65,8 @@ public abstract class Pen extends Tool {
 	 * @return the part of code related to drawing with a pen in SVG
 	 */
 	public String applySvgTool() {
-		return "stroke-width=\"" + this.getThickness() + "\" " +
-				"stroke=\""+ this.getHexaColorCode() + "\"";
+		return "stroke-width=\"" + this.getThickness() + "\" " 
+		        + "stroke=\"" + this.getHexaColorCode() + "\"";
 	}
 	
 		/*=================================================*/

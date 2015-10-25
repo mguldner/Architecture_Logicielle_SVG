@@ -24,12 +24,12 @@ public class Main {
 		/*========= PATHS =========*/
 		/*=========================*/
 		Point2D[] points1 = {
-			new Point2D(6,6),
+			new Point2D(6, 6),
 			new Point2D(12, 12)
 		};
 		Point2D[] points2 = {
-				new Point2D(12,12),
-				new Point2D(18,6)
+				new Point2D(12, 12),
+				new Point2D(18, 6)
 		};
 		Path polygonalPath1 = new PolygonalPath(points1, false);
 		Path polygonalPath2 = new PolygonalPath(points2, false);
@@ -52,6 +52,7 @@ public class Main {
 		/*======== EXPORTS =======*/
 		/*=========================*/
 		sequence.generateSvgDrawing(200,200);
+		sequence.generateJavaDrawing(200,200);
 
 	}
 

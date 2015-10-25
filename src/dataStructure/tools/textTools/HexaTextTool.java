@@ -5,7 +5,8 @@ import dataStructure.tools.TextTool;
 /**
  * 
  * This text tool takes the color in hexadecimal.
- * This is the basic text tool, the one corresponding to the original model in hexadecimal
+ * This is the basic text tool, the one corresponding 
+ * to the original model in hexadecimal
  *
  */
 public class HexaTextTool extends TextTool {	

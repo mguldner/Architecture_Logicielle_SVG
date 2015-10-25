@@ -1,5 +1,7 @@
 package dataStructure.actions;
 
+import java.awt.Graphics2D;
+
 import dataStructure.Action;
 import dataStructure.Path;
 import dataStructure.Tool;

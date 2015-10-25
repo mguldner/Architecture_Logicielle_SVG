@@ -34,11 +34,12 @@ public class TextTool extends Tool {
 		this.fontSize = this.DEFAULT_FONT_SIZE;
 		this.fontStyle = this.DEFAULT_FONT_STYLE;
 	}
-	public TextTool(String color, String fontName, int fontSize, String fontStyle) {
+	public TextTool(String color, String fontName, 
+	                int fontSize, String fontStyle) {
 		super();
 		this.fontName = fontName;
 		this.fontSize = fontSize;
-		this.fontStyle = fontStyle;
+		this.fontStyle = fontStyle; 
 	}	
 
 	

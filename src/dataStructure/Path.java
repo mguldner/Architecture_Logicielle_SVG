@@ -25,7 +25,7 @@ public abstract class Path {
 	}
 	public Path(Point2D[] points, boolean closed) {
 		this.points = points;
-		this.closed = closed;
+		this.closed = closed; 
 	}
 
 	
@@ -48,12 +48,14 @@ public abstract class Path {
 	/*===============================================================*/
 	/*============ Methods dedicated to each export mode ============*/
 	/*===============================================================*/
-	/* The idea here is to create functions that return what is "needed" to apply the drawing.
+	/* The idea here is to create functions that return what is "needed" 
+	 * to apply the drawing.
 	 * 
-	 * Basically, for a svg we need a string that will be inserted in a svg component.
+	 * Basically, for a svg we need a string that will be inserted in a 
+	 * svg component.
 	 * 
-	 * On the other hand, for a Java export that will be executed, we need the points that will be used by
-	 * the library to generate a drawing.
+	 * On the other hand, for a Java export that will be executed, we need 
+	 * the points that will be used by the library to generate a drawing.
 	 */
 	
 		/*=================================================*/

@@ -29,7 +29,7 @@ public abstract class Tool {
 	/*========== Getters =========*/
 	/*============================*/	
 	/**
-	 * Getter
+	 * Getter.
 	 * @return the hexacode corresponding to the color
 	 */
 	public String getHexaColorCode() {
@@ -45,9 +45,11 @@ public abstract class Tool {
 	/*===============================================================*/	
 	/*============ Methods dedicated to each export mode ============*/
 	/*===============================================================*/	
-	/* The idea here is to create functions that return what is "needed" to apply the drawing.
+	/* The idea here is to create functions that return what is "needed" 
+	 * to apply the drawing.
 	 * 
-	 * Basically, for a svg we need a string that will be inserted in a svg component.
+	 * Basically, for a svg we need a string that will be inserted in a 
+	 * svg component.
 	 */
 	
 		/*=================================================*/

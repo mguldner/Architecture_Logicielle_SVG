@@ -6,7 +6,7 @@ import dataStructure.Operator;
 public class Sequence extends Operator {
 	/*=================================*/
 	/*========== Constructors =========*/
-	/*=================================*/
+	/*=================================*/ 
 	public Sequence() {
 		super();
 	}
@@ -20,7 +20,9 @@ public class Sequence extends Operator {
 	/*========================================*/
 	@Override
 	public Drawing[] applyFunction() {
-		//Here now need to modify the drawing array as we just want to draw all of them
+		/*Here now need to modify the drawing array as
+		 *we just want to draw all of them
+		 **/
 		return this.getDrawings();
 	}
 
@@ -36,7 +38,7 @@ public class Sequence extends Operator {
 	public String applySvgOperation() {
 		Drawing[] selectedDrawings = this.applyFunction();
 		String svgCode = "";
-		for (int i=0; i < selectedDrawings.length; i++) {
+		for (int i = 0; i < selectedDrawings.length; i++) {
 			svgCode += selectedDrawings[i].generateSvgCode();
 		}
 		return svgCode;

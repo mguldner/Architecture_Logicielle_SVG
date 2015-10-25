@@ -1,12 +1,16 @@
 package dataStructure;
+
+import javax.swing.JFrame;
+
 /**
  * 
  * This abstract class is the base of all the model structure.
- * The structure is defined as a tree, tree that has leaves (actions) and subtrees (operators).
+ * The structure is defined as a tree, tree that has leaves (actions) 
+ * and subtrees (operators).
  *
  */
 public abstract class Drawing {
-	/*========================================*/
+	/*========================================*/ 
 	/*============ Shared Methods ============*/
 	/*========================================*/
 	
@@ -19,12 +23,15 @@ public abstract class Drawing {
 		/*================== SVG export ===================*/
 		/*=================================================*/
 	/**
-	 * This method produces the final svg export, giving it the height and the width wanted by the user
+	 * This method produces the final svg export, giving it the height and 
+	 * the width wanted by the user.
 	 * @param height
 	 * @param width
 	 */
 	public void generateSvgDrawing(int height, int width) {
-		String svgCode = "<svg height=\"" + height + "\" width=\"" + width + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+		String svgCode = "<svg height=\"" + height 
+		                 + "\" width=\"" + width 
+		                 + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 		svgCode += this.generateSvgCode();
 		svgCode += "</svg>";
 		System.out.println(svgCode);
@@ -40,5 +47,11 @@ public abstract class Drawing {
 		/*=======================================================*/
 		/*==================== Java export ======================*/
 		/*=======================================================*/
-	public abstract void generateJavaDrawing();
+	public void generateJavaDrawing(int height, int width) {
+	  JFrame window = new JFrame();
+	  window.setTitle("Drawing");
+	  window.setSize(width, height);
+	  window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  window.setVisible(true);
+	};
 }

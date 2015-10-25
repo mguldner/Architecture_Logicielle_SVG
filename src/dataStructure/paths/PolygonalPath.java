@@ -6,7 +6,7 @@ import utils.Point2D;
 public class PolygonalPath extends Path {
 	/*=================================*/
 	/*========== Constructors =========*/
-	/*=================================*/
+	/*=================================*/ 
 	public PolygonalPath(Point2D[] points) {
 		super(points);
 	}
@@ -37,8 +37,9 @@ public class PolygonalPath extends Path {
 			svgCode += " L" + points[i].getX() + " " + points[i].getY();
 		}
 		
-		if (this.isClosed())
-			svgCode += " Z";
+		if (this.isClosed()) {
+		  svgCode += " Z";		  
+		}
 		
 		svgCode += "\"";
 		return svgCode;
