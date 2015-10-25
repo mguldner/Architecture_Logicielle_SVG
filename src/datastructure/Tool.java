@@ -2,6 +2,17 @@ package datastructure;
 
 import java.awt.Graphics2D;
 
+/**
+ * This class allows the user to easily add new tools.
+ * 
+ * If the user wants to add a new "export" mode (basic export modes are 
+ * to SVG and to Java), they need to declare a new abstract method:
+ * <code>
+ *  public abstract void applyNewExportModeTool();
+ * </code>
+ * The <code>applyNewExportModeTool</code> method will have to be 
+ * implemented for all tools.
+ */
 public abstract class Tool {
 	/*==============================*/
 	/*========== Constants =========*/

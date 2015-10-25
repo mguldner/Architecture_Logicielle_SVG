@@ -9,6 +9,9 @@ import datastructure.paths.PolygonalPath;
 import datastructure.tools.pens.HexaPen;
 import utils.Point2D;
 
+/**
+ * This class owns the main method.
+ */
 public class Main {
 	/*
 	 * Put here all your instructions to create your drawing

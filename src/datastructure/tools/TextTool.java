@@ -4,6 +4,18 @@ import java.awt.Graphics2D;
 
 import datastructure.Tool;
 
+/**
+ * This class allows the user to easily add new TextTools 
+ * (basic types being HexaTextTool and RgbTextTool)
+ * 
+ * If the user wants to add a new "export" mode (basic export modes are 
+ * to SVG and to Java), they need to declare a new abstract method:
+ * <code>
+ *  public abstract void applyNewExportModeTool();
+ * </code>
+ * The <code>applyNewExportModeTool</code> method will have to be 
+ * implemented for all pens.
+ */
 public class TextTool extends Tool {
 	/*==============================*/
 	/*========== Constants =========*/

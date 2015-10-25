@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * This class contains several useful functions.
+ */
 public class UsefulFunctions {
   
   public static int[] convertHexaToRGB(String hexaCode) {

@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * This class allows drawings to be represented in 2D.
+ */
 public class Point2D {
 	/*==============================*/
 	/*========== Variables =========*/

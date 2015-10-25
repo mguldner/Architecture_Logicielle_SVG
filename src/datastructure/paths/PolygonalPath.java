@@ -6,6 +6,12 @@ import java.awt.geom.GeneralPath;
 import datastructure.Path;
 import utils.Point2D;
 
+/**
+ * This class is the representation of a path.
+ * It creates a path where all the points are linked
+ * by lines.
+ *
+ */
 public class PolygonalPath extends Path {
 	/*=================================*/
 	/*========== Constructors =========*/

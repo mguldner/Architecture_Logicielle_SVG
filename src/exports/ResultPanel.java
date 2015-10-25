@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 
 import datastructure.Drawing;
 
+/**
+ * This class allows the representation of the drawing 
+ * with the Graphics2D library.
+ */
 public class ResultPanel extends JPanel {
   /*==============================*/
   /*========== Variables =========*/

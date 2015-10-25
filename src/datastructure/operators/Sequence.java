@@ -5,6 +5,11 @@ import java.awt.Graphics2D;
 import datastructure.Drawing;
 import datastructure.Operator;
 
+/**
+ * This class is the representation of an operation.
+ * It takes an array of drawings and draws each of them in 
+ * the order of the array.
+ */
 public class Sequence extends Operator {
 	/*=================================*/
 	/*========== Constructors =========*/
