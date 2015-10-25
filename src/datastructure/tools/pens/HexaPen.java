@@ -1,12 +1,11 @@
 package datastructure.tools.pens;
 
 import datastructure.tools.Pen;
+import utils.UsefulFunctions;
 
 /**
  * 
  * This pen takes the color in hexadecimal.
- * This is the basic pen, the one corresponding to 
- * the original model in hexadecimal
  *
  */
 public class HexaPen extends Pen {	
@@ -17,13 +16,13 @@ public class HexaPen extends Pen {
 		super();
 	}
 	public HexaPen(String color) {
-		super(color);
+		super(UsefulFunctions.convertHexaToRGB(color));
 	}
 	public HexaPen(int thickness) {
 		super(thickness);
 	}
 	public HexaPen(String color, int thickness) {
-		super(color, thickness);
+		super(UsefulFunctions.convertHexaToRGB(color), thickness);
 	}
 
 }

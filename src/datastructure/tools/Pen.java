@@ -1,5 +1,9 @@
 package datastructure.tools;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import datastructure.Tool;
 
 public abstract class Pen extends Tool {
@@ -26,11 +30,11 @@ public abstract class Pen extends Tool {
 		super();
 		this.thickness =  thickness;
 	}
-	public Pen(String color) {
+	public Pen(int[] color) {
 		super(color);
 		this.thickness = this.DEFAULT_THICKNESS;
 	}
-	public Pen(String color, int thickness){
+	public Pen(int[] color, int thickness){
 		super(color);
 		this.thickness = thickness;
 	}
@@ -65,15 +69,21 @@ public abstract class Pen extends Tool {
 	 * @return the part of code related to drawing with a pen in SVG
 	 */
 	public String applySvgTool() {
+	  int[] rgbColorCode = this.getRgbColorCode();
 		return "stroke-width=\"" + this.getThickness() + "\" " 
-		        + "stroke=\"" + this.getHexaColorCode() + "\"";
+		        + "stroke=\"rgb(" + rgbColorCode[0] + ","
+		        + rgbColorCode[1] + ","
+		        + rgbColorCode[2]
+		        + ")\"";
 	}
 	
 		/*=================================================*/
 		/*================== Java export ==================*/
 		/*=================================================*/
 	@Override
-	public void applyJavaTool() {
-		// TODO Auto-generated method stub
+	public void applyJavaTool(Graphics2D g) {
+	  int[] rgbColorCode = this.getRgbColorCode();
+	  g.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
+	  g.setStroke(new BasicStroke(this.getThickness()));
 	}
 }

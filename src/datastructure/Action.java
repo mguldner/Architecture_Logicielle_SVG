@@ -1,4 +1,7 @@
 package datastructure;
+
+import java.awt.Graphics2D;
+
 /**
  * 
  * This abstract class allows the user to easily add new types of actions 
@@ -36,7 +39,7 @@ public abstract class Action extends Drawing {
 	 * @return the svg element code
 	 */
 	public abstract String applySvgAction();
-	public abstract void applyJavaAction();
+	public abstract void applyJavaAction(Graphics2D g);
 
 	/*
 	 * These methods are just meant to have more meaningful methods names
@@ -44,8 +47,8 @@ public abstract class Action extends Drawing {
 	public String generateSvgCode() {
 		return this.applySvgAction();
 	};
-	public void generateJavaCode() {
-		this.applyJavaAction();
+	public void generateJavaCode(Graphics2D g) {
+		this.applyJavaAction(g);
 	}
 
 }

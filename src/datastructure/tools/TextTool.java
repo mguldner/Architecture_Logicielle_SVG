@@ -1,5 +1,7 @@
 package datastructure.tools;
 
+import java.awt.Graphics2D;
+
 import datastructure.Tool;
 
 public class TextTool extends Tool {
@@ -28,15 +30,15 @@ public class TextTool extends Tool {
 		this.fontSize = this.DEFAULT_FONT_SIZE;
 		this.fontStyle = this.DEFAULT_FONT_STYLE;
 	}
-	public TextTool(String color) {
+	public TextTool(int[] color) {
 		super(color);
 		this.fontName = this.DEFAULT_FONT_NAME;
 		this.fontSize = this.DEFAULT_FONT_SIZE;
 		this.fontStyle = this.DEFAULT_FONT_STYLE;
 	}
-	public TextTool(String color, String fontName, 
+	public TextTool(int[] color, String fontName, 
 	                int fontSize, String fontStyle) {
-		super();
+		super(color);
 		this.fontName = fontName;
 		this.fontSize = fontSize;
 		this.fontStyle = fontStyle; 
@@ -57,16 +59,20 @@ public class TextTool extends Tool {
 		/*=================================================*/
 	@Override
 	public String applySvgTool() {
-		return "font-family=\"" + this.fontName + "\" " +
-				"font-size=\"" + this.fontSize + "\" " +
-				"stroke=\"" + this.getHexaColorCode() + "\"";		
+	  int[] rgbColorCode = this.getRgbColorCode();
+		return "font-family=\"" + this.fontName + "\" "
+				+ "font-size=\"" + this.fontSize + "\" "
+				+ "stroke=\"rgb(" + rgbColorCode[0] + ","
+        + rgbColorCode[1] + ","
+        + rgbColorCode[2] + ","
+        + ")\"";	
 	}
 	
 		/*=================================================*/
 		/*================== Java export ==================*/
 		/*=================================================*/
 	@Override
-	public void applyJavaTool() {
+	public void applyJavaTool(Graphics2D g) {
 		// TODO Auto-generated method stub
 	}
 

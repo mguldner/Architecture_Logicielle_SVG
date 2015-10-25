@@ -1,5 +1,7 @@
 package datastructure;
 
+import java.awt.Graphics2D;
+
 import utils.Point2D;
 
 public abstract class Path {
@@ -69,6 +71,6 @@ public abstract class Path {
 		/*=================================================*/
 		/*================== Java export ==================*/
 		/*=================================================*/
-	public abstract Point2D[] generateJavaPath();
+	public abstract void generateJavaPath(Graphics2D g);
 
 }

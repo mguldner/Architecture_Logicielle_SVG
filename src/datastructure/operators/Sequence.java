@@ -1,5 +1,7 @@
 package datastructure.operators;
 
+import java.awt.Graphics2D;
+
 import datastructure.Drawing;
 import datastructure.Operator;
 
@@ -48,9 +50,12 @@ public class Sequence extends Operator {
 		/*================== Java export ==================*/
 		/*=================================================*/
 	@Override
-	public void applyJavaOperation() {
+	public void applyJavaOperation(Graphics2D g) {
 		Drawing[] selectedDrawings = this.applyFunction();
 		// TODO Write here what to do to produce the corresponding section
+		for (int i = 0; i < selectedDrawings.length; i++) {
+		  selectedDrawings[i].generateJavaCode(g);
+		}
 	}
 
 

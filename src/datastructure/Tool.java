@@ -1,16 +1,18 @@
 package datastructure;
 
+import java.awt.Graphics2D;
+
 public abstract class Tool {
 	/*==============================*/
 	/*========== Constants =========*/
 	/*==============================*/
-	private final String DEFAULT_COLORCODE = "#fff";
+	private final int[] DEFAULT_COLORCODE = {250,250,250};
 
 	
 	/*==============================*/
 	/*========== Variables =========*/
 	/*==============================*/	
-	private String hexaColorCode;
+	private int[] rgbColorCode;
 	
 	
 	
@@ -18,10 +20,10 @@ public abstract class Tool {
 	/*========== Constructors =========*/
 	/*=================================*/	
 	public Tool() {
-		this.hexaColorCode = this.DEFAULT_COLORCODE;
+		this.rgbColorCode = this.DEFAULT_COLORCODE;
 	}
-	public Tool(String color) {
-		this.hexaColorCode = color;
+	public Tool(int[] color) {
+		this.rgbColorCode = color;
 	}
 
 	
@@ -32,8 +34,8 @@ public abstract class Tool {
 	 * Getter.
 	 * @return the hexacode corresponding to the color
 	 */
-	public String getHexaColorCode() {
-		return hexaColorCode;
+	public int[] getRgbColorCode() {
+		return rgbColorCode;
 	}
 
 	
@@ -60,6 +62,6 @@ public abstract class Tool {
 		/*=================================================*/
 		/*================== Java export ==================*/
 		/*=================================================*/
-	public abstract void applyJavaTool();
+	public abstract void applyJavaTool(Graphics2D g);
 
 }

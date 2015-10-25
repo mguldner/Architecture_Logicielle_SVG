@@ -1,12 +1,11 @@
 package datastructure.tools.textTools;
 
 import datastructure.tools.TextTool;
+import utils.UsefulFunctions;
 
 /**
  * 
  * This text tool takes the color in hexadecimal.
- * This is the basic text tool, the one corresponding 
- * to the original model in hexadecimal
  *
  */
 public class HexaTextTool extends TextTool {	
@@ -17,9 +16,9 @@ public class HexaTextTool extends TextTool {
 		super();
 	}
 	public HexaTextTool(String color) {
-		super(color);
+		super(UsefulFunctions.convertHexaToRGB(color));
 	}
 	public HexaTextTool(String color, String fontName, int fontSize, String fontStyle) {
-		super(color, fontName, fontSize, fontStyle);
+		super(UsefulFunctions.convertHexaToRGB(color), fontName, fontSize, fontStyle);
 	}
 }

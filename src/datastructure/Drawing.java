@@ -1,6 +1,10 @@
 package datastructure;
 
+import java.awt.Graphics2D;
+
 import javax.swing.JFrame;
+
+import exports.ResultPanel;
 
 /**
  * 
@@ -52,7 +56,9 @@ public abstract class Drawing {
 	  window.setTitle("Drawing");
 	  window.setSize(width, height);
 	  window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  window.setContentPane(new ResultPanel(this));
 	  window.setVisible(true);
 	};
-	public abstract void generateJavaCode();
+	
+	public abstract void generateJavaCode(Graphics2D g);
 }

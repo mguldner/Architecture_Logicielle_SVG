@@ -1,4 +1,7 @@
 package datastructure;
+
+import java.awt.Graphics2D;
+
 public abstract class Operator extends Drawing {
 	/*==============================*/
 	/*========== Variables =========*/
@@ -55,7 +58,7 @@ public abstract class Operator extends Drawing {
 	 * will return nothing or they will return the code as a string.
 	 */
 	public abstract String applySvgOperation();
-	public abstract void applyJavaOperation();
+	public abstract void applyJavaOperation(Graphics2D g);
 	
 	/*
 	 * These methods are just meant to have more meaningful methods names
@@ -64,8 +67,8 @@ public abstract class Operator extends Drawing {
 		return this.applySvgOperation();
 	}
 	@Override
-	public void generateJavaCode() {
-		this.applyJavaOperation();
+	public void generateJavaCode(Graphics2D g) {
+		this.applyJavaOperation(g);
 	}
 
 }

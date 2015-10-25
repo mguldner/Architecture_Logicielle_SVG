@@ -1,5 +1,8 @@
 package datastructure.paths;
 
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
+
 import datastructure.Path;
 import utils.Point2D;
 
@@ -49,8 +52,20 @@ public class PolygonalPath extends Path {
 		/*================== Java export ==================*/
 		/*=================================================*/
 	@Override
-	public Point2D[] generateJavaPath() {
-		return this.getPoints();
-	}
+	public void generateJavaPath(Graphics2D g) {
+		GeneralPath polygon = new GeneralPath();
+		Point2D[] points = this.getPoints();
+		
+		polygon.moveTo(points[0].getX(), points[0].getY());
+		
+		for (int i = 1; i < points.length; i++) {
+      polygon.lineTo(points[i].getX(), points[i].getY());
+		};
+		
+		if (this.isClosed()) {
+		  polygon.closePath();
+		}
+		g.draw(polygon);
+	} 
 
 }

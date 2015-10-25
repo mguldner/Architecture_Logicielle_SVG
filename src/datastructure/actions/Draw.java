@@ -48,8 +48,10 @@ public class Draw extends Action {
 		/*================== Java export ==================*/
 		/*=================================================*/
 	@Override
-	public void applyJavaAction() {
+	public void applyJavaAction(Graphics2D g) {
 		// TODO Auto-generated method stub
+	  tool.applyJavaTool(g);
+	  path.generateJavaPath(g);
 	}
 
 }

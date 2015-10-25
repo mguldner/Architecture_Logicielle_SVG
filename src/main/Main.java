@@ -17,7 +17,8 @@ public class Main {
 		/*=========================*/
 		/*========= TOOLS =========*/
 		/*=========================*/
-		Tool redPen = new HexaPen("#ff0000");
+	  Tool redPen = new HexaPen("#ff0000");
+		Tool greenPen = new HexaPen("#00ff00", 6);
 		
 		
 		/*=========================*/
@@ -39,7 +40,7 @@ public class Main {
 		/*======== DRAWINGS =======*/
 		/*=========================*/
 		Drawing draw1 = new Draw(polygonalPath1, redPen);
-		Drawing draw2 = new Draw(polygonalPath2, redPen);
+		Drawing draw2 = new Draw(polygonalPath2, greenPen);
 		Drawing[] drawingArray = {
 				draw1,
 				draw2
