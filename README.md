@@ -29,6 +29,9 @@ Please check your code with it before each pull request.
 `File > Import > Git > Projects from Git > Existing local repository > Add > Browse`
 4. Select your project in the result field and click Finish
 
+## Use the library
+In order to use this library, just edit the `main.Main`'s `main` function.
+
 ## Improve your library
 
 ### How to add an action 
