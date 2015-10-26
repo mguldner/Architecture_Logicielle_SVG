@@ -1,6 +1,7 @@
 package datastructure.tools;
 
 import datastructure.Tool;
+import managers.ColorManager;
 import utils.Constants;
 import visitors.Visitor;
 
@@ -15,7 +16,7 @@ import visitors.Visitor;
  * The <code>applyNewExportModeTool</code> method will have to be 
  * implemented for all pens.
  */
-public abstract class Pen extends Tool {
+public class Pen extends Tool {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -35,13 +36,13 @@ public abstract class Pen extends Tool {
     this.thickness =  thickness;
   }
   
-  public Pen(int[] color) {
-    super(color);
+  public Pen(ColorManager colorManager) {
+    super(colorManager);
     this.thickness = Constants.DEFAULT_PEN_THICKNESS;
   }
   
-  public Pen(int[] color, int thickness) {
-    super(color);
+  public Pen(ColorManager colorManager, int thickness) {
+    super(colorManager);
     this.thickness = thickness;
   }
 

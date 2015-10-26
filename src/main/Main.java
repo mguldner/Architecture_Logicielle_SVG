@@ -6,8 +6,10 @@ import datastructure.Tool;
 import datastructure.actions.Draw;
 import datastructure.operators.Sequence;
 import datastructure.paths.PolygonalPath;
-import datastructure.tools.pens.HexaPen;
+import datastructure.tools.Pen;
+import managers.ColorManager;
 import utils.Point2D;
+import utils.UsefulFunctions;
 import visitors.VisitorJava;
 import visitors.VisitorSvg;
 
@@ -20,11 +22,20 @@ public class Main {
    * @param args arguments
    */
   public static void main(String[] args) {
+//    UsefulFunctions.getColorCodeType("#fff");
+//    UsefulFunctions.getColorCodeType("#f0f");
+//    UsefulFunctions.getColorCodeType("#f0fc");
+//    UsefulFunctions.getColorCodeType("f0f");
+//    UsefulFunctions.getColorCodeType("f#0f");
+    
     /*=========================*/
     /*========= TOOLS =========*/
     /*=========================*/
-    Tool redPen = new HexaPen("#ff0000");
-    Tool greenPen = new HexaPen("#00ff00", 6);
+    ColorManager redCm = new ColorManager("hex", "#ff0000");
+    ColorManager greenCm = new ColorManager("hex", "#00ff00");
+    
+    Tool redPen = new Pen(redCm);
+    Tool greenPen = new Pen(greenCm, 6);
     
     
     /*=========================*/

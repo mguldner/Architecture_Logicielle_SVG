@@ -1,6 +1,7 @@
 package datastructure; 
 
-import utils.Constants;
+import managers.ColorManager;
+
 import visitors.Visitor;
 
 /**
@@ -9,32 +10,33 @@ import visitors.Visitor;
 public abstract class Tool {
   /*==============================*/
   /*========== Variables =========*/
-  /*==============================*/  
-  private int[] rgbColorCode;
-  
-  
-  
+  /*==============================*/
+  private ColorManager colorManager;
+    
   /*=================================*/  
   /*========== Constructors =========*/
   /*=================================*/  
   public Tool() {
-    this.rgbColorCode = Constants.DEFAULT_COLORCODE;
+    this.colorManager = new ColorManager();
   }
   
-  public Tool(int[] color) {
-    this.rgbColorCode = color;
+  public Tool(ColorManager colorManager) {
+    this.colorManager = colorManager;
   }
 
   
   /*============================*/  
   /*========== Getters =========*/
   /*============================*/  
+  public ColorManager getColorManager() {
+    return this.colorManager;
+  }
   /**
    * Getter.
    * @return the hexacode corresponding to the color
    */
   public int[] getRgbColorCode() {
-    return rgbColorCode;
+    return this.getColorManager().getRgbCode();
   }
 
   

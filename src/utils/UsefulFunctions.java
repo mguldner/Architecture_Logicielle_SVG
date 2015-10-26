@@ -1,9 +1,27 @@
 package utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * This class contains several useful functions.
  */
 public class UsefulFunctions {
+  public static String getColorCodeType(String colorCode) {
+    String[] patterns = {
+      "^#[a-fA-F0-9]{3}|[a-fA-F0-9]{6}"  
+    };
+    Pattern pattern = Pattern.compile(patterns[0]);
+    Matcher matcher = pattern.matcher(colorCode);
+    
+    if (matcher.find())
+      System.out.println(colorCode + ": Ok");
+    else
+      System.out.println(colorCode + ": Not Ok");
+      
+    return "Ok";
+  }
+  
   /**
    * This function convert an string representing a color with its
    * hexadecimal code to an array of int representing the rgb code.

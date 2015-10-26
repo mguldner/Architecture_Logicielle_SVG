@@ -1,6 +1,7 @@
 package datastructure.tools;
 
 import datastructure.Tool;
+import managers.ColorManager;
 import utils.Constants;
 import visitors.Visitor;
 
@@ -37,25 +38,25 @@ public class TextTool extends Tool {
     this.fontStyle = Constants.DEFAULT_FONT_STYLE;
   }
   /**
-   * Constructor with a color setting.
-   * @param color is the rgb code in an array
+   * Constructor with a color manager. 
+   * @param colorManager color manager
    */
-  public TextTool(int[] color) {
-    super(color);
+  public TextTool(ColorManager colorManager) {
+    super(colorManager);
     this.fontName = Constants.DEFAULT_FONT_NAME;
     this.fontSize = Constants.DEFAULT_FONT_SIZE;
     this.fontStyle = Constants.DEFAULT_FONT_STYLE;
   }
   /**
    * Constructor with color, fontName, fontSize and fontStyle.
-   * @param color rgb code as array
+   * @param colorManager color manager
    * @param fontName as a string
    * @param fontSize as an int
    * @param fontStyle as a string
    */
-  public TextTool(int[] color, String fontName, 
+  public TextTool(ColorManager colorManager, String fontName, 
                   int fontSize, String fontStyle) {
-    super(color);
+    super(colorManager);
     this.fontName = fontName;
     this.fontSize = fontSize;
     this.fontStyle = fontStyle; 
