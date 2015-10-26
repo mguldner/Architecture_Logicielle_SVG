@@ -9,7 +9,6 @@ import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
 import managers.ColorManager;
 import utils.Point2D;
-import utils.UsefulFunctions;
 import visitors.VisitorJava;
 import visitors.VisitorSvg;
 
@@ -21,13 +20,7 @@ public class Main {
    * Put here all your instructions to create your drawing.
    * @param args arguments
    */
-  public static void main(String[] args) {
-//    UsefulFunctions.getColorCodeType("#fff");
-//    UsefulFunctions.getColorCodeType("#f0f");
-//    UsefulFunctions.getColorCodeType("#f0fc");
-//    UsefulFunctions.getColorCodeType("f0f");
-//    UsefulFunctions.getColorCodeType("f#0f");
-    
+  public static void main(String[] args) {    
     /*=========================*/
     /*========= TOOLS =========*/
     /*=========================*/
