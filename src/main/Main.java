@@ -8,6 +8,8 @@ import datastructure.operators.Sequence;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.pens.HexaPen;
 import utils.Point2D;
+import visitors.VisitorJava;
+import visitors.VisitorSvg;
 
 /**
  * This class owns the main method.
@@ -54,10 +56,10 @@ public class Main {
     
     
     /*=========================*/
-    /*======== EXPORTS =======*/
+    /*======== EXPORTS ========*/
     /*=========================*/
-    sequence.generateSvgDrawing(200,200);
-    sequence.generateJavaDrawing(200,200);
+    sequence.export(new VisitorSvg(), 200, 200);
+    sequence.export(new VisitorJava(), 200, 200);
 
   }
 

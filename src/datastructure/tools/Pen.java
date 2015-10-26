@@ -2,11 +2,7 @@ package datastructure.tools;
 
 import datastructure.Tool;
 import utils.Constants;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-
+import visitors.Visitor;
 
 /**
  * This class allows the user to easily add new Pens 
@@ -65,32 +61,7 @@ public abstract class Pen extends Tool {
   /*===================================*/
   /*========== Shared Methods =========*/
   /*===================================*/
-
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
-  @Override
-  public String applySvgTool() {
-    int[] rgbColorCode = this.getRgbColorCode();
-    return "stroke-width=\"" + this.getThickness() + "\" " 
-            + "stroke=\"rgb(" + rgbColorCode[0] + ","
-            + rgbColorCode[1] + ","
-            + rgbColorCode[2]
-            + ")\"";
-  }
-  
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public void applyJavaTool(Graphics2D graph) {
-    int[] rgbColorCode = this.getRgbColorCode();
-    graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
-    graph.setStroke(new BasicStroke(this.getThickness()));
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitPen(this.getThickness(), this.getRgbColorCode(), optionalParams);
   }
 }

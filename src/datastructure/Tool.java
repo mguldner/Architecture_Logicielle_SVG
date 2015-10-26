@@ -1,18 +1,10 @@
 package datastructure; 
 
-import java.awt.Graphics2D;
-
 import utils.Constants;
+import visitors.Visitor;
 
 /**
  * This class allows the user to easily add new tools.
- * If the user wants to add a new "export" mode (basic export modes are 
- * to SVG and to Java), they need to declare a new abstract method:
- * <code>
- *  public abstract void applyNewExportModeTool();
- * </code>
- * The <code>applyNewExportModeTool</code> method will have to be 
- * implemented for all tools.
  */
 public abstract class Tool {
   /*==============================*/
@@ -49,26 +41,6 @@ public abstract class Tool {
   /*========================================*/  
   /*============ Shared Methods ============*/
   /*========================================*/  
-
-  
-  /*===============================================================*/  
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/  
-  /* The idea here is to create functions that return what is "needed" 
-   * to apply the drawing.
-   * 
-   * Basically, for a svg we need a string that will be inserted in a 
-   * svg component.
-   */
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
-  public abstract String applySvgTool();
-  
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  public abstract void applyJavaTool(Graphics2D graph);
+  public abstract String render(Visitor visitor, Object[] optionalParams);
 
 }

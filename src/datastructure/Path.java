@@ -2,21 +2,11 @@ package datastructure;
 
 import utils.Constants;
 import utils.Point2D;
-
-import java.awt.Graphics2D;
-
+import visitors.Visitor;
 
 /**
  * This class allows the user to easily add new paths 
- * (basic types being PolygonalPath and BezierCurve)
- * If the user wants to add a new "export" mode (basic export modes are 
- * to SVG and to Java), they need to declare a new abstract method:
- * <code>
- *  public abstract void generateNewExportModePath();
- * </code>
- * The <code>generateNewExportModePath</code> method will have to be 
- * implemented for all paths.
- *
+ * (basic types being PolygonalPath and BezierCurve).
  */
 public abstract class Path {
   /*==============================*/
@@ -40,7 +30,7 @@ public abstract class Path {
   
   public Path(Point2D[] points, boolean closed) {
     this.points = points;
-    this.closed = closed; 
+    this.closed = closed;
   }
 
   
@@ -59,32 +49,6 @@ public abstract class Path {
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
-  
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  /* The idea here is to create functions that return what is "needed" 
-   * to apply the drawing.
-   * 
-   * Basically, for a svg we need a string that will be inserted in a 
-   * svg component.
-   * 
-   * On the other hand, for a Java export that will be executed, we need 
-   * the points that will be used by the library to generate a drawing.
-   */
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
-  /**
-   * @return a string that represents the "path part" of a svg component.
-   */
-  public abstract String generateSvgPath();
-  
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  public abstract void generateJavaPath(Graphics2D graph);
+  public abstract String render(Visitor visitor, Object[] optionalParams);
 
 }
