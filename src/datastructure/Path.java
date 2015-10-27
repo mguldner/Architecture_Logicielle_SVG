@@ -3,7 +3,7 @@ package datastructure;
 import utils.Constants;
 import utils.Point2D;
 
-import java.awt.Graphics2D;
+import java.awt.Shape;
 
 
 /**
@@ -12,7 +12,7 @@ import java.awt.Graphics2D;
  * If the user wants to add a new "export" mode (basic export modes are 
  * to SVG and to Java), they need to declare a new abstract method:
  * <code>
- *  public abstract void generateNewExportModePath();
+ *  public abstract YOURTYPE generateNewExportModePath();
  * </code>
  * The <code>generateNewExportModePath</code> method will have to be 
  * implemented for all paths.
@@ -85,6 +85,6 @@ public abstract class Path {
   /*=================================================*/
   /*================== Java export ==================*/
   /*=================================================*/
-  public abstract void generateJavaPath(Graphics2D graph);
+  public abstract Shape generateJavaPath();
 
 }

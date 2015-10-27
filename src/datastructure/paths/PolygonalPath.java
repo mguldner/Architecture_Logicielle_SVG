@@ -3,7 +3,7 @@ package datastructure.paths;
 import datastructure.Path;
 import utils.Point2D;
 
-import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 
 /**
@@ -59,7 +59,7 @@ public class PolygonalPath extends Path {
   /*================== Java export ==================*/
   /*=================================================*/
   @Override
-  public void generateJavaPath(Graphics2D graph) {
+  public Shape generateJavaPath() {
     GeneralPath polygon = new GeneralPath();
     Point2D[] points = this.getPoints();
     
@@ -72,7 +72,7 @@ public class PolygonalPath extends Path {
     if (this.isClosed()) {
       polygon.closePath();
     }
-    graph.draw(polygon);
+    return polygon;
   } 
 
 }
