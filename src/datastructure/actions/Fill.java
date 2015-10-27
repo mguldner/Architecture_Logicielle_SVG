@@ -2,6 +2,7 @@ package datastructure.actions;
 
 import datastructure.Action;
 import datastructure.Path;
+import utils.Constants;
 import utils.UsefulFunctions;
 
 import java.awt.Color;
@@ -25,9 +26,9 @@ public class Fill extends Action {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
-  public Fill(Path path, String hexaCode) {
+  public Fill(Path path) {
     this.path = path;
-    this.rgbColorCode = UsefulFunctions.convertHexaToRgb(hexaCode);
+    this.rgbColorCode = Constants.DEFAULT_COLORCODE;
   }
   
   
@@ -59,7 +60,7 @@ public class Fill extends Action {
   @Override
   public void applyJavaAction(Graphics2D graph) {
     graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
-    //graph.fill(path.generateJavaPath(new Graphics2D()));
+    graph.fill(path.generateJavaPath());
   }
 
 }
