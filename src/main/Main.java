@@ -45,6 +45,7 @@ public class Main {
     /*=========================*/
     Drawing draw1 = new Draw(polygonalPath1, redPen);
     Drawing draw2 = new Draw(polygonalPath2, greenPen);
+    Drawing draw3 = new Fill(polygonalPath2, "#ff0000");
     Drawing[] drawingArray = {
         draw1,
         draw2
