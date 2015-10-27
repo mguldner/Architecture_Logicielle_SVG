@@ -57,9 +57,8 @@ public class Draw extends Action {
   /*=================================================*/
   @Override
   public void applyJavaAction(Graphics2D graph) {
-    // TODO Auto-generated method stub
     tool.applyJavaTool(graph);
-    path.generateJavaPath(graph);
+    graph.draw(path.generateJavaPath());
   }
 
 }
