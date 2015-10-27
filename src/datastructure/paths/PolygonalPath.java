@@ -2,9 +2,7 @@ package datastructure.paths;
 
 import datastructure.Path;
 import utils.Point2D;
-
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
+import visitors.Visitor;
 
 /**
  * This class is the representation of a path.
@@ -28,51 +26,8 @@ public class PolygonalPath extends Path {
   /*========================================*/
   /*============ Shared methods ============*/
   /*========================================*/
-
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
-  @Override
-  public String generateSvgPath() {
-    String svgCode = "d=\"";
-    Point2D[] points = this.getPoints();
-    
-    svgCode += "M" + points[0].getX() + " " + points[0].getY();
-    for (int i = 1; i < this.getPoints().length; i++) {
-      svgCode += " L" + points[i].getX() + " " + points[i].getY();
-    }
-    
-    if (this.isClosed()) {
-      svgCode += " Z";      
-    }
-    
-    svgCode += "\"";
-    return svgCode;
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitPolygonalPath(this.getPoints(), this.isClosed(), optionalParams);
   }
-
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public Shape generateJavaPath() {
-    GeneralPath polygon = new GeneralPath();
-    Point2D[] points = this.getPoints();
-    
-    polygon.moveTo(points[0].getX(), points[0].getY());
-    
-    for (int i = 1; i < points.length; i++) {
-      polygon.lineTo(points[i].getX(), points[i].getY());
-    }
-    
-    if (this.isClosed()) {
-      polygon.closePath();
-    }
-    return polygon;
-  } 
 
 }

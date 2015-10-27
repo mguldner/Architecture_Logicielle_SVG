@@ -6,8 +6,11 @@ import datastructure.Tool;
 import datastructure.actions.Draw;
 import datastructure.operators.Sequence;
 import datastructure.paths.PolygonalPath;
-import datastructure.tools.pens.HexaPen;
+import datastructure.tools.Pen;
+import managers.ColorManager;
 import utils.Point2D;
+import visitors.VisitorJava;
+import visitors.VisitorSvg;
 
 /**
  * This class owns the main method.
@@ -17,12 +20,15 @@ public class Main {
    * Put here all your instructions to create your drawing.
    * @param args arguments
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) {    
     /*=========================*/
     /*========= TOOLS =========*/
     /*=========================*/
-    Tool redPen = new HexaPen("#ff0000");
-    Tool greenPen = new HexaPen("#00ff00", 6);
+    ColorManager redCm = new ColorManager("hex", "#ff0000");
+    ColorManager greenCm = new ColorManager("hex", "#00ff00");
+    
+    Tool redPen = new Pen(redCm);
+    Tool greenPen = new Pen(greenCm, 6);
     
     
     /*=========================*/
@@ -55,10 +61,10 @@ public class Main {
     
     
     /*=========================*/
-    /*======== EXPORTS =======*/
+    /*======== EXPORTS ========*/
     /*=========================*/
-    sequence.generateSvgDrawing(200,200);
-    sequence.generateJavaDrawing(200,200);
+    sequence.export(new VisitorSvg(), 200, 200);
+    sequence.export(new VisitorJava(), 200, 200);
 
   }
 
