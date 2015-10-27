@@ -1,10 +1,9 @@
 package visitors;
 
-import java.awt.Graphics2D;
-
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
+import managers.ColorManager;
 import utils.Point2D;
 
 public class VisitorSvg extends Visitor{
@@ -63,6 +62,18 @@ public class VisitorSvg extends Visitor{
     svgCode += "/>\n";
     return svgCode;
   }
+  
+  @Override
+  public String visitFill(Path path, ColorManager color,
+      Object[] optionalParams) {
+    String svgCode = "<path ";
+    int[] rgbColor = color.getRgbCode();
+    svgCode += path.render(this, optionalParams) + " ";
+    svgCode += "fill=\"rgb(" + rgbColor[0] + "," 
+      + rgbColor[1] + "," + rgbColor[2] + ")\" ";
+    svgCode += "/>\n";
+    return svgCode;
+  }
 
   @Override
   public void visitExport(Drawing drawing, int height, int width) {
@@ -73,4 +84,5 @@ public class VisitorSvg extends Visitor{
     svgCode += "</svg>";
     System.out.println(svgCode);
   }
+
 }

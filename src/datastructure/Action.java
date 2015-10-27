@@ -8,6 +8,6 @@ import visitors.Visitor;
  */
 public abstract class Action extends Drawing {
   
-  public abstract String render(Visitor visitor, Object[] optionalParams);  
+  public abstract Object render(Visitor visitor, Object[] optionalParams);  
   
 }

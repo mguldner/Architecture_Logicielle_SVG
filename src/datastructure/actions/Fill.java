@@ -2,11 +2,9 @@ package datastructure.actions;
 
 import datastructure.Action;
 import datastructure.Path;
-import utils.Constants;
-import utils.UsefulFunctions;
+import managers.ColorManager;
+import visitors.Visitor;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 
 /**
  * This class is the representation of one type of Action.
@@ -21,46 +19,34 @@ public class Fill extends Action {
    * tool: Tool to use.
    */
   private Path path;
-  private int[] rgbColorCode;
+  private ColorManager color;
   
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
-  public Fill(Path path) {
+  /**
+   * Construct a drawing by filling a closed path.
+   * @param path the closed path to fill.
+   * @param color the color with which the path has to be filled.
+   */
+  public Fill(Path path, ColorManager color) {
+    if (!path.isClosed()) {
+      throw new Error("Path is not closed : unable to fill");
+    }
     this.path = path;
-    this.rgbColorCode = Constants.DEFAULT_COLORCODE;
+    this.color = color;
   }
   
-  
+  public Fill(Path path) {
+    this(path, new ColorManager());
+  }
+    
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
-
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
   @Override
-  public String applySvgAction() {
-    String svgCode = "<path ";
-    svgCode += path.generateSvgPath() + " ";
-    svgCode += "style=\"rgb(" + rgbColorCode[0] + "," 
-      + rgbColorCode[1] + "," + rgbColorCode[2] + ")\" ";
-    svgCode += "/>\n";
-    return svgCode;
-  }
-
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public void applyJavaAction(Graphics2D graph) {
-    graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
-    graph.fill(path.generateJavaPath());
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitFill(path, color, optionalParams);
   }
 
 }

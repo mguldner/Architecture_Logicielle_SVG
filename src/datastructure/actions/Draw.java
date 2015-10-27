@@ -41,6 +41,7 @@ public class Draw extends Action {
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
+  @Override
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitDraw(this.getPath(), this.getTool(), optionalParams);
   }

@@ -26,7 +26,7 @@ public class PolygonalPath extends Path {
   /*========================================*/
   /*============ Shared methods ============*/
   /*========================================*/
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Object render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitPolygonalPath(this.getPoints(), this.isClosed(), optionalParams);
   }
 

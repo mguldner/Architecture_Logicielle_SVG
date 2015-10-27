@@ -3,6 +3,7 @@ package visitors;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
 import exports.ResultPanel;
+import managers.ColorManager;
 import utils.Point2D;
 
 public class VisitorJava extends Visitor {
@@ -34,7 +36,7 @@ public class VisitorJava extends Visitor {
   }
 
   @Override
-  public String visitPolygonalPath(Point2D[] points, boolean closed,
+  public Shape visitPolygonalPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -53,9 +55,7 @@ public class VisitorJava extends Visitor {
     if (closed) {
       polygon.closePath();
     }
-    Graphics2D graph = (Graphics2D) optionalParams[0];
-    graph.draw(polygon);
-    return "Ok";
+    return polygon;
   }
 
   @Override
@@ -76,10 +76,29 @@ public class VisitorJava extends Visitor {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
-    }    
+    }  
+    
+    Graphics2D graph = (Graphics2D)(optionalParams[0]);
+    
     tool.render(this, optionalParams);
-    path.render(this, optionalParams);
+    graph.draw((Shape)path.render(this, optionalParams));
     return "Ok";
+  }
+  
+  @Override
+  public String visitFill(Path path, ColorManager color,
+      Object[] optionalParams) {
+    if (optionalParams == null || optionalParams.length < 1 
+        || ! (optionalParams[0] instanceof Graphics2D)) {
+      throw new Error("No valid graphic given");
+    }  
+   
+    Graphics2D graph = (Graphics2D)(optionalParams[0]);
+    int[] rgbColor = color.getRgbCode();
+    
+    graph.setColor(new Color(rgbColor[0], rgbColor[1], rgbColor[2]));
+    graph.fill((Shape)path.render(this, optionalParams));
+    return null;
   }
 
   @Override
