@@ -1,12 +1,9 @@
 package datastructure.tools;
 
 import datastructure.Tool;
+import managers.ColorManager;
 import utils.Constants;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-
+import visitors.Visitor;
 
 /**
  * This class allows the user to easily add new Pens 
@@ -19,7 +16,7 @@ import java.awt.Graphics2D;
  * The <code>applyNewExportModeTool</code> method will have to be 
  * implemented for all pens.
  */
-public abstract class Pen extends Tool {
+public class Pen extends Tool {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -39,13 +36,13 @@ public abstract class Pen extends Tool {
     this.thickness =  thickness;
   }
   
-  public Pen(int[] color) {
-    super(color);
+  public Pen(ColorManager colorManager) {
+    super(colorManager);
     this.thickness = Constants.DEFAULT_PEN_THICKNESS;
   }
   
-  public Pen(int[] color, int thickness) {
-    super(color);
+  public Pen(ColorManager colorManager, int thickness) {
+    super(colorManager);
     this.thickness = thickness;
   }
 
@@ -65,32 +62,7 @@ public abstract class Pen extends Tool {
   /*===================================*/
   /*========== Shared Methods =========*/
   /*===================================*/
-
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
-  @Override
-  public String applySvgTool() {
-    int[] rgbColorCode = this.getRgbColorCode();
-    return "stroke-width=\"" + this.getThickness() + "\" " 
-            + "stroke=\"rgb(" + rgbColorCode[0] + ","
-            + rgbColorCode[1] + ","
-            + rgbColorCode[2]
-            + ")\"";
-  }
-  
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public void applyJavaTool(Graphics2D graph) {
-    int[] rgbColorCode = this.getRgbColorCode();
-    graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
-    graph.setStroke(new BasicStroke(this.getThickness()));
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitPen(this.getThickness(), this.getRgbColorCode(), optionalParams);
   }
 }

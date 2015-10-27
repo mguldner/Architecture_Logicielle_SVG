@@ -7,7 +7,9 @@ public class Constants {
   
   public static final int DEFAULT_PEN_THICKNESS = 1;
   
+  public static final String DEFAULT_COLOR_TYPE = "rgb";
   public static final int[] DEFAULT_COLORCODE = {250, 250, 250};
   
   public static final boolean DEFAULT_PATH_CLOSED = false;
+  
 }
