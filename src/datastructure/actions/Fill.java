@@ -8,7 +8,7 @@ import visitors.Visitor;
 
 /**
  * This class is the representation of one type of Action.
- * This action draws a path with a tool.
+ * This action fill the inside of a closed path with a color.
  */
 public class Fill extends Action {
   /*==============================*/
@@ -16,7 +16,7 @@ public class Fill extends Action {
   /*==============================*/
   /**
    * path: Path to follow.
-   * tool: Tool to use.
+   * color: Color to use.
    */
   private Path path;
   private ColorManager color;
