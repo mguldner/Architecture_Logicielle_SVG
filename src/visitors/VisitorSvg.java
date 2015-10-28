@@ -1,10 +1,9 @@
 package visitors;
 
-import java.awt.Graphics2D;
-
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
+import managers.ColorManager;
 import utils.Point2D;
 
 public class VisitorSvg extends Visitor{
@@ -47,6 +46,24 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
+  public Object visitBezierPath(Point2D[] points, boolean closed,
+      Object[] optionalParams) {
+    String svgCode = "d=\"";
+    
+    svgCode += "M" + points[0].getX() + " " + points[0].getY() + " "
+        + "C" + points[1].getX() + " " + points[1].getY() + ", "
+        + points[2].getX() + " " + points[2].getY() + ", "
+        + points[3].getX() + " " + points[3].getY();
+    
+    if (closed) {
+      svgCode += " Z";
+    }
+    
+    svgCode += "\"";
+    return svgCode;
+  }
+  
+  @Override
   public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
     String svgCode = "";
     for (int i = 0; i < drawings.length; i++) {
@@ -73,4 +90,5 @@ public class VisitorSvg extends Visitor{
     svgCode += "</svg>";
     System.out.println(svgCode);
   }
+
 }

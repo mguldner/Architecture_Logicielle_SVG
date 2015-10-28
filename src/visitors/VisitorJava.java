@@ -3,6 +3,7 @@ package visitors;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 
 import javax.swing.JFrame;
@@ -17,7 +18,8 @@ public class VisitorJava extends Visitor {
 
   @Override
   public String visitPen(int thickness, int[] rgbColorCode, Object[] optionalParams) {
-    if (optionalParams == null || optionalParams.length < 1 || ! (optionalParams[0] instanceof Graphics2D)) {
+    if (optionalParams == null || optionalParams.length < 1 
+        || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
     Graphics2D graph = (Graphics2D) optionalParams[0];
@@ -34,13 +36,12 @@ public class VisitorJava extends Visitor {
   }
 
   @Override
-  public String visitPolygonalPath(Point2D[] points, boolean closed,
+  public Shape visitPolygonalPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    
     
     GeneralPath polygon = new GeneralPath();
     
@@ -53,9 +54,29 @@ public class VisitorJava extends Visitor {
     if (closed) {
       polygon.closePath();
     }
-    Graphics2D graph = (Graphics2D) optionalParams[0];
-    graph.draw(polygon);
-    return "Ok";
+    return polygon;
+  }
+  
+
+  @Override
+  public Shape visitBezierPath(Point2D[] points, boolean closed,
+      Object[] optionalParams) {
+    if (optionalParams == null || optionalParams.length < 1 
+        || ! (optionalParams[0] instanceof Graphics2D)) {
+      throw new Error("No valid graphic given");
+    }
+    GeneralPath bezier = new GeneralPath();
+    
+    bezier.moveTo(points[0].getX(), points[0].getY());
+    bezier.curveTo(points[1].getX(), points[1].getY(), 
+        points[2].getX(), points[2].getY(), 
+        points[3].getX(), points[3].getY());
+    
+    if (closed) {
+      bezier.closePath();
+    }
+    
+    return bezier;
   }
 
   @Override
