@@ -13,7 +13,7 @@ import visitors.Visitor;
 public class Loop extends Operator{
 
   // n represents the number of iteration for the Loop
-  private int n;
+  private int numberIterations;
   
   /*=================================*/
   /*========== Constructors =========*/
@@ -27,16 +27,24 @@ public class Loop extends Operator{
     super(drawings);
   }
   
+  /*============================*/
+  /*========== Getters =========*/
+  /*============================*/
+  
+  public int getNumberIterations() {
+    return this.numberIterations;
+  }
+  
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
   
   @Override
   public Drawing[] applyFunction() {
-    Drawing[] drawings = new Drawing[this.getDrawings().length * this.n];
+    Drawing[] drawings = new Drawing[this.getDrawings().length * this.getNumberIterations()];
     int compt = 0;
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
+    for (int i = 0; i < this.getNumberIterations(); i++) {
+      for (int j = 0; j < numberIterations; j++) {
         drawings[compt] = this.getDrawings()[j];
         compt++;
       }
@@ -50,7 +58,7 @@ public class Loop extends Operator{
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitSequence(this.applyFunction(), optionalParams);
+    return visitor.visitOperator(this.applyFunction(), optionalParams);
   }
 
 }
