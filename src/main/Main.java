@@ -5,9 +5,12 @@ import datastructure.Path;
 import datastructure.Tool;
 import datastructure.actions.Draw;
 import datastructure.actions.Fill;
+import datastructure.actions.Insert;
+import datastructure.actions.Label;
 import datastructure.operators.Sequence;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
+import datastructure.tools.TextTool;
 import managers.ColorManager;
 import utils.Point2D;
 import visitors.VisitorJava;
@@ -31,6 +34,7 @@ public class Main {
     Tool redPen = new Pen(redCm);
     Tool greenPen = new Pen(greenCm, 6);
     
+    Tool textTool = new TextTool(redCm);
     
     /*=========================*/
     /*========= PATHS =========*/
@@ -59,11 +63,15 @@ public class Main {
     /*=========================*/
     Drawing draw1 = new Draw(polygonalPath1, redPen);
     Drawing draw2 = new Draw(polygonalPath2, greenPen);
-    Drawing draw3 = new Fill(polygonalPath3, greenCm);
+    Drawing fill1 = new Fill(polygonalPath3, greenCm);
+    Drawing insert1 = new Insert(draw1, polygonalPath2);
+    Drawing label1 = new Label("Hello world", new Point2D(100, 100), (TextTool)textTool);
     Drawing[] drawingArray = {
-        draw1,
-        draw2,
-        draw3
+        //draw1,
+        //draw2,
+        //fill1,
+        //insert1,
+        label1
     };
     
     Drawing sequence = new Sequence(drawingArray);

@@ -3,6 +3,7 @@ package visitors;
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
+import datastructure.tools.TextTool;
 import managers.ColorManager;
 import utils.Point2D;
 
@@ -17,7 +18,7 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
-  public String visitTextTool(String fontName, int fontSize, String fontStyle,
+  public String visitTextTool(String fontName, int fontSize, int fontStyle,
       int[] rgbColorCode, Object[] optionalParams) {
     return "font-family=\"" + fontName + "\" "
         + "font-size=\"" + fontSize + "\" "
@@ -72,6 +73,21 @@ public class VisitorSvg extends Visitor{
     svgCode += "fill=\"rgb(" + rgbColor[0] + "," 
       + rgbColor[1] + "," + rgbColor[2] + ")\" ";
     svgCode += "/>\n";
+    return svgCode;
+  }
+
+  @Override
+  public String visitInsert(Drawing drawing, Path path, Object[] optionalParams) {
+    String svgCode = "";
+    return svgCode;
+  }
+
+  @Override
+  public String visitLabel(String text, Point2D position, TextTool textTool,
+      Object[] optionalParams) {
+    String svgCode = "<text x=\"" + position.getX() + "\" y=\"" + position.getY() + "\" ";
+    svgCode += textTool.render(this, optionalParams);
+    svgCode += ">" + text + "</text>";
     return svgCode;
   }
 

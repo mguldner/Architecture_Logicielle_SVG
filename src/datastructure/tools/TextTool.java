@@ -22,7 +22,7 @@ public class TextTool extends Tool {
   /*==============================*/
   private String fontName;
   private int fontSize;
-  private String fontStyle;
+  private int fontStyle;
 
   
   /*=================================*/
@@ -55,7 +55,7 @@ public class TextTool extends Tool {
    * @param fontStyle as a string
    */
   public TextTool(ColorManager colorManager, String fontName, 
-                  int fontSize, String fontStyle) {
+                  int fontSize, int fontStyle) {
     super(colorManager);
     this.fontName = fontName;
     this.fontSize = fontSize;
@@ -70,8 +70,8 @@ public class TextTool extends Tool {
     return this.fontSize;
   }
   
-  public String getFontStyle() {
-    return this.getFontStyle();
+  public int getFontStyle() {
+    return this.fontStyle;
   }
   
   /*========================================*/
