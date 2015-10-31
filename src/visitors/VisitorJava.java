@@ -59,7 +59,7 @@ public class VisitorJava extends Visitor {
   }
 
   @Override
-  public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
+  public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");

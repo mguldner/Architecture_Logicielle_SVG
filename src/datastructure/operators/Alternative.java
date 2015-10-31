@@ -6,58 +6,53 @@ import visitors.Visitor;
 
 /**
  * This class is the representation of an operation.
- * It takes an array of drawings and a number n of iterations and 
- * draws the drawings n time.
+ * It takes a boolean and an array of two drawings, 
+ * and draws the first drawing if the boolean is true, 
+ * and the second otherwise
  */
 
-public class Loop extends Operator{
+public class Alternative extends Operator{
 
-  // n represents the number of iteration for the Loop
-  private int numberIterations;
+  //if the condition is true, draws the first drawing of the list.
+  private boolean firstWanted;
   
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/  
-  
-  public Loop() {
+  public Alternative() {
     super();
   }
   
-  public Loop(Drawing[] drawings, int numberIterations) {
+  public Alternative(Drawing[] drawings, boolean firstWanted) {
     super(drawings);
-    this.numberIterations = numberIterations;
+    this.firstWanted = firstWanted;
   }
   
   /*============================*/
   /*========== Getters =========*/
   /*============================*/
-  
-  public int getNumberIterations() {
-    return this.numberIterations;
+  public boolean getFirstWanted() {
+    return this.firstWanted;
   }
   
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
-  
   @Override
   public Drawing[] applyFunction() {
-    Drawing[] drawings = new Drawing[this.getDrawings().length * this.getNumberIterations()];
-    int compt = 0;
-    for (int i = 0; i < this.getNumberIterations(); i++) {
-      for (int j = 0; j < numberIterations; j++) {
-        drawings[compt] = this.getDrawings()[j];
-        compt++;
-      }
+    Drawing[] drawing = new Drawing[1];
+    if (this.getFirstWanted()) {
+      drawing[0] = this.getDrawings()[0];
+    } else {
+      drawing[0] = this.getDrawings()[1];
     }
-      
-    
-    return drawings;
+    return drawing;
   }
 
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
+  @Override
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitOperator(this.applyFunction(), optionalParams);
   }

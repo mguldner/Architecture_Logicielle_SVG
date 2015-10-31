@@ -4,6 +4,7 @@ import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
 import datastructure.actions.Draw;
+import datastructure.operators.Alternative;
 import datastructure.operators.Sequence;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
@@ -56,8 +57,8 @@ public class Main {
         draw2
     };
     
-    Drawing sequence = new Sequence(drawingArray);
-    
+    //Drawing sequence = new Sequence(drawingArray);
+    Drawing sequence = new Alternative(drawingArray,true);
     
     /*=========================*/
     /*======== EXPORTS ========*/

@@ -47,7 +47,7 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
-  public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
+  public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
     String svgCode = "";
     for (int i = 0; i < drawings.length; i++) {
       svgCode += drawings[i].render(this, optionalParams);
