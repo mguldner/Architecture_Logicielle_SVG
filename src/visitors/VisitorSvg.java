@@ -8,6 +8,9 @@ import managers.ColorManager;
 import utils.Point2D;
 
 public class VisitorSvg extends Visitor{
+  
+  public static int numberOfPathsDef = 0;
+
   @Override
   public String visitPen(int thickness, int[] rgbColorCode, Object[] optionnalParams) {
     return "stroke-width=\"" + thickness + "\" " 
@@ -78,7 +81,19 @@ public class VisitorSvg extends Visitor{
 
   @Override
   public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
-    String svgCode = "";
+    String svgCode = "<defs>\n";
+    svgCode += "<clipPath id=\"path" + numberOfPathsDef + "\">\n";
+    for (int i = 0; i < paths.length; i++) {
+      svgCode += "<path " + paths[i].render(this, optionalParams) + "/>\n";
+      svgCode += "</clipPath>\n";
+    }
+    svgCode += "</defs>\n";
+    
+    String drawSvgCode = (String)drawing.render(this, optionalParams);
+    String modifiedDrawSvgCode = drawSvgCode.substring(0, drawSvgCode.length() - 4);
+    modifiedDrawSvgCode += " clip-path=\"url(#path" + numberOfPathsDef + ")\" />\n";
+    svgCode += modifiedDrawSvgCode;
+    numberOfPathsDef++;
     return svgCode;
   }
 
