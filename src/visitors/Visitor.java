@@ -22,7 +22,7 @@ public abstract class Visitor {
   
   public abstract String visitFill(Path path, ColorManager color, Object[] optionalParams);
 
-  public abstract String visitInsert(Drawing drawing, Path path, Object[] optionalParams);
+  public abstract String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams);
 
   public abstract String visitLabel(String text, Point2D position, 
                                     TextTool textTool, Object[] optionalParams);

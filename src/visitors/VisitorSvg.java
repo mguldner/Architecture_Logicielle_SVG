@@ -22,9 +22,9 @@ public class VisitorSvg extends Visitor{
       int[] rgbColorCode, Object[] optionalParams) {
     return "font-family=\"" + fontName + "\" "
         + "font-size=\"" + fontSize + "\" "
-        + "stroke=\"rgb(" + rgbColorCode[0] + ","
+        + "style=\"stroke:rgb(" + rgbColorCode[0] + ","
         + rgbColorCode[1] + ","
-        + rgbColorCode[2] + ","
+        + rgbColorCode[2]
         + ")\""; 
   }
 
@@ -77,7 +77,7 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
-  public String visitInsert(Drawing drawing, Path path, Object[] optionalParams) {
+  public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
     String svgCode = "";
     return svgCode;
   }

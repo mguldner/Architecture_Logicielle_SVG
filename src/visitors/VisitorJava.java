@@ -42,6 +42,7 @@ public class VisitorJava extends Visitor {
     Graphics2D graph = (Graphics2D) optionalParams[0];
     
     graph.setFont(new Font(fontName, fontStyle, fontSize));
+    graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
     return "Ok";
   }
 
@@ -111,7 +112,7 @@ public class VisitorJava extends Visitor {
   }
 
   @Override
-  public String visitInsert(Drawing drawing, Path path, Object[] optionalParams) {
+  public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
@@ -121,12 +122,12 @@ public class VisitorJava extends Visitor {
     
     Shape oldClip = graph.getClip();
     
-    new ResultPanel(drawing).paintComponent(graph);
-    graph.clip((Shape)path.render(this, optionalParams));
+    for (Path path : paths) {
+      graph.clip((Shape)path.render(this, optionalParams));
+    }
+    drawing.render(this, optionalParams);
     
-    Shape newClip = graph.getClip();
     graph.setClip(oldClip);
-    graph.draw(newClip);
     return "Ok";
   }
   

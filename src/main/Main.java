@@ -34,7 +34,7 @@ public class Main {
     Tool redPen = new Pen(redCm);
     Tool greenPen = new Pen(greenCm, 6);
     
-    Tool textTool = new TextTool(redCm);
+    Tool textTool = new TextTool(greenCm);
     
     /*=========================*/
     /*========= PATHS =========*/
@@ -56,6 +56,7 @@ public class Main {
     Path polygonalPath1 = new PolygonalPath(points1, false);
     Path polygonalPath2 = new PolygonalPath(points2, false);
     Path polygonalPath3 = new PolygonalPath(points3, true);
+    Path[] paths = {polygonalPath3};
     
     
     /*=========================*/
@@ -64,7 +65,7 @@ public class Main {
     Drawing draw1 = new Draw(polygonalPath1, redPen);
     Drawing draw2 = new Draw(polygonalPath2, greenPen);
     Drawing fill1 = new Fill(polygonalPath3, greenCm);
-    Drawing insert1 = new Insert(draw1, polygonalPath2);
+    Drawing insert1 = new Insert(draw1, paths);
     Drawing label1 = new Label("Hello world", new Point2D(100, 100), (TextTool)textTool);
     Drawing[] drawingArray = {
         //draw1,
