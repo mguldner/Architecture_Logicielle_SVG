@@ -90,6 +90,13 @@ public class VisitorJava extends Visitor {
         drawings[i].render(this, optionalParams);
       }
     }
+    if (change == "scaling") {
+      for (int i = 0; i < drawings.length; i++) {
+        ((Graphics2D) optionalParams[0]).scale((double)changeparams[0], 
+            (double)changeparams[1]);
+        drawings[i].render(this, optionalParams);
+      }
+    }
     return "Ok";
   }
 

@@ -74,7 +74,15 @@ public class VisitorSvg extends Visitor{
         svgCode += drawings[i].render(this, optionalParams);
         svgCode += "</g>";
       }
-    }    
+    } 
+    if (change == "scaling") {
+      for (int i = 0; i < drawings.length; i++) {
+        svgCode += "<g transform=\"scale(" + (double)changeparams[0] * i + " " 
+            + (double)changeparams[1] * i + ")\">";
+        svgCode += drawings[i].render(this, optionalParams);
+        svgCode += "</g>";
+      }
+    } 
     return svgCode;
 
   }
