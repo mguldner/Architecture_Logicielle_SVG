@@ -72,14 +72,23 @@ public class VisitorJava extends Visitor {
   }
 
   public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
-                Object[] optionalParams) {
+      Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    for (int i = 0; i < drawings.length; i++) {
-      ((Graphics2D) optionalParams[0]).rotate(Math.toRadians((double)changeparams[0] * i));
-      drawings[i].render(this, optionalParams);
+    if (change == "rotation") {
+      for (int i = 0; i < drawings.length; i++) {
+        ((Graphics2D) optionalParams[0]).rotate(Math.toRadians((double)changeparams[0]));
+        drawings[i].render(this, optionalParams);
+      }
+    }
+    if (change == "translation") {
+      for (int i = 0; i < drawings.length; i++) {
+        ((Graphics2D) optionalParams[0]).translate((double)changeparams[0], 
+              (double)changeparams[1]);
+        drawings[i].render(this, optionalParams);
+      }
     }
     return "Ok";
   }
@@ -87,26 +96,26 @@ public class VisitorJava extends Visitor {
 
 
 
-@Override
-public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
-  if (optionalParams == null || optionalParams.length < 1 
-      || ! (optionalParams[0] instanceof Graphics2D)) {
-    throw new Error("No valid graphic given");
-  }    
-  tool.render(this, optionalParams);
-  path.render(this, optionalParams);
-  return "Ok";
-}
+  @Override
+  public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
+    if (optionalParams == null || optionalParams.length < 1 
+        || ! (optionalParams[0] instanceof Graphics2D)) {
+      throw new Error("No valid graphic given");
+    }    
+    tool.render(this, optionalParams);
+    path.render(this, optionalParams);
+    return "Ok";
+  }
 
-@Override
-public void visitExport(Drawing drawing, int height, int width) {
-  JFrame window = new JFrame();
-  window.setTitle("Drawing");
-  window.setSize(width, height);
-  window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  window.setContentPane(new ResultPanel(drawing));
-  window.setVisible(true);
-}
+  @Override
+  public void visitExport(Drawing drawing, int height, int width) {
+    JFrame window = new JFrame();
+    window.setTitle("Drawing");
+    window.setSize(width, height);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    window.setContentPane(new ResultPanel(drawing));
+    window.setVisible(true);
+  }
 
 
 }

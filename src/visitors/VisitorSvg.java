@@ -12,9 +12,9 @@ public class VisitorSvg extends Visitor{
   @Override
   public String visitPen(int thickness, int[] rgbColorCode, Object[] optionnalParams) {
     return "stroke-width=\"" + thickness + "\" " 
-            + "stroke=\"rgb(" + rgbColorCode[0] + ","
-            + rgbColorCode[1] + ","
-            + rgbColorCode[2]
+        + "stroke=\"rgb(" + rgbColorCode[0] + ","
+        + rgbColorCode[1] + ","
+        + rgbColorCode[2]
             + ")\"";
   }
 
@@ -33,16 +33,16 @@ public class VisitorSvg extends Visitor{
   public String visitPolygonalPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     String svgCode = "d=\"";
-    
+
     svgCode += "M" + points[0].getX() + " " + points[0].getY();
     for (int i = 1; i < points.length; i++) {
       svgCode += " L" + points[i].getX() + " " + points[i].getY();
     }
-    
+
     if (closed) {
       svgCode += " Z";      
     }
-    
+
     svgCode += "\"";
     return svgCode;
   }
@@ -55,23 +55,28 @@ public class VisitorSvg extends Visitor{
     }
     return svgCode;
   }
-  
+
   @Override
   public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
-                          Object[] optionalParams) {
+      Object[] optionalParams) {
     String svgCode = "";
     if (change == "rotation") {
       for (int i = 0; i < drawings.length; i++) {
-        //svgCode += "<g transform=\"matrix" 
-            //+ UsefulFunctions.toString(UsefulFunctions.MatrixRotation(i * 5)) + "\">";
         svgCode += "<g transform=\"rotate(" + (double)changeparams[0] * i + " 0 0)\">";
-        // svgCode += "<g transform=\"matrix" + "(1,2,3,4,7,8)" +  "\">";
+        svgCode += drawings[i].render(this, optionalParams);
+        svgCode += "</g>";
+      }
+    }
+    if (change == "translation") {
+      for (int i = 0; i < drawings.length; i++) {
+        svgCode += "<g transform=\"translate(" + (double)changeparams[0] * i + " " 
+            + (double)changeparams[1] * i + ")\">";
         svgCode += drawings[i].render(this, optionalParams);
         svgCode += "</g>";
       }
     }    
     return svgCode;
-    
+
   }
 
   @Override
@@ -93,5 +98,5 @@ public class VisitorSvg extends Visitor{
     System.out.println(svgCode);
   }
 
-  
+
 }

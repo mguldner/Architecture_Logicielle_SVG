@@ -21,7 +21,13 @@ public class Loop extends Operator{
 
   // n represents the number of iteration for the Loop
   private int numberIterations;
+  
+  // the change to operate : rotation or rotation for the moment
   private String change;
+  
+  // the parameters of the change : 
+      // for a rotation : a double that represents the angle
+      // for a translation : two double for the vector of translation
   private Object[] changeParams;
   
   /*=================================*/

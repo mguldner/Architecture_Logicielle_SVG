@@ -91,26 +91,5 @@ public class UsefulFunctions {
     
     return rgbCode;
   }
-  public static String toString(double[][] matrix) {
-    String result = "(";
-    for (int i = 0; i < matrix.length - 1; i++) {
-      for (int j = 0; j < matrix[0].length; j++) {
-        if (i != matrix.length - 2 || j != matrix[0].length - 1) {
-          result += matrix[i][j] + ",";
-        }
-        else {
-          result += matrix[i][j];
-        }
-      }
-    }
-    result += ")";
-    return result;
-  }
-  public static double[][] MatrixRotation(double d){
-    double[][] matrix = {
-        {Math.cos(d), -Math.sin(d), 0},
-        {Math.sin(d), Math.cos(d), 0},
-        {0, 0,1}};
-    return matrix;
-  }
+
 }

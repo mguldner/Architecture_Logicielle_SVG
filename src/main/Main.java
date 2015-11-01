@@ -39,11 +39,11 @@ public class Main {
     /*=========================*/
     Point2D[] points1 = {
       new Point2D(6, 6),
-      new Point2D(120, 120)
+      new Point2D(12, 12)
     };
     Point2D[] points2 = {
         new Point2D(12, 12),
-        new Point2D(180, 60)
+        new Point2D(18, 6)
     };
     Path polygonalPath1 = new PolygonalPath(points1, false);
     Path polygonalPath2 = new PolygonalPath(points2, false);
@@ -71,7 +71,7 @@ public class Main {
   
     //Drawing sequence = new Sequence(drawingArray);
     //Drawing sequence = new Alternative(drawingArray,true);
-    Object[] changeParams = {5.0};
+    Object[] changeParams = {10.0};
     Drawing sequence = new Loop(drawingArray, 20, "rotation", changeParams);
     
     /*=========================*/
