@@ -6,6 +6,7 @@ import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
 import utils.Point2D;
+import utils.UsefulFunctions;
 
 public class VisitorSvg extends Visitor{
   @Override
@@ -54,6 +55,24 @@ public class VisitorSvg extends Visitor{
     }
     return svgCode;
   }
+  
+  @Override
+  public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
+                          Object[] optionalParams) {
+    String svgCode = "";
+    if (change == "rotation") {
+      for (int i = 0; i < drawings.length; i++) {
+        //svgCode += "<g transform=\"matrix" 
+            //+ UsefulFunctions.toString(UsefulFunctions.MatrixRotation(i * 5)) + "\">";
+        svgCode += "<g transform=\"rotate(" + (double)changeparams[0] * i + " 0 0)\">";
+        // svgCode += "<g transform=\"matrix" + "(1,2,3,4,7,8)" +  "\">";
+        svgCode += drawings[i].render(this, optionalParams);
+        svgCode += "</g>";
+      }
+    }    
+    return svgCode;
+    
+  }
 
   @Override
   public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
@@ -73,4 +92,6 @@ public class VisitorSvg extends Visitor{
     svgCode += "</svg>";
     System.out.println(svgCode);
   }
+
+  
 }

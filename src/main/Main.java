@@ -5,11 +5,13 @@ import datastructure.Path;
 import datastructure.Tool;
 import datastructure.actions.Draw;
 import datastructure.operators.Alternative;
+import datastructure.operators.Loop;
 import datastructure.operators.Sequence;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
 import managers.ColorManager;
 import utils.Point2D;
+import utils.UsefulFunctions;
 import visitors.VisitorJava;
 import visitors.VisitorSvg;
 
@@ -37,11 +39,11 @@ public class Main {
     /*=========================*/
     Point2D[] points1 = {
       new Point2D(6, 6),
-      new Point2D(12, 12)
+      new Point2D(120, 120)
     };
     Point2D[] points2 = {
         new Point2D(12, 12),
-        new Point2D(18, 6)
+        new Point2D(180, 60)
     };
     Path polygonalPath1 = new PolygonalPath(points1, false);
     Path polygonalPath2 = new PolygonalPath(points2, false);
@@ -53,12 +55,24 @@ public class Main {
     Drawing draw1 = new Draw(polygonalPath1, redPen);
     Drawing draw2 = new Draw(polygonalPath2, greenPen);
     Drawing[] drawingArray = {
-        draw1,
-        draw2
+        draw2,
+        draw1
     };
     
+
+    int angle = 30;
+    double[][] matrix = {
+        {Math.cos(angle), -Math.sin(angle), 0},
+        {Math.sin(angle), Math.cos(angle), 0},
+        {0, 0,1}};
+    
+    
+    
+  
     //Drawing sequence = new Sequence(drawingArray);
-    Drawing sequence = new Alternative(drawingArray,true);
+    //Drawing sequence = new Alternative(drawingArray,true);
+    Object[] changeParams = {5.0};
+    Drawing sequence = new Loop(drawingArray, 20, "rotation", changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/

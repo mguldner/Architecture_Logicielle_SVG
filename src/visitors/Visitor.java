@@ -16,6 +16,8 @@ public abstract class Visitor {
   
   public abstract String visitOperator(Drawing[] drawings, Object[] optionalParams);
   
+  public abstract String visitLoop(Drawing[] drawings, String change, Object[] changeparams, Object[] optionalParams);
+  
   public abstract String visitDraw(Path path, Tool tool, Object[] optionalParams);
   
   public abstract void visitExport(Drawing drawing, int height, int width);
