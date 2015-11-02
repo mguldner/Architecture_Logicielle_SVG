@@ -7,16 +7,13 @@ import datastructure.actions.Draw;
 import datastructure.actions.Fill;
 import datastructure.actions.Insert;
 import datastructure.actions.Label;
-import datastructure.operators.Alternative;
 import datastructure.operators.Loop;
-import datastructure.operators.Sequence;
 import datastructure.paths.BezierPath;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
 import datastructure.tools.TextTool;
 import managers.ColorManager;
 import utils.Point2D;
-import utils.UsefulFunctions;
 import visitors.VisitorJava;
 import visitors.VisitorSvg;
 
@@ -53,8 +50,7 @@ public class Main {
         new Point2D(18, 6)
     };
     Point2D[] points3 = {
-<<<<<<< HEAD
-        new Point2D(60, 60)
+        new Point2D(60, 60),
         new Point2D(60, 120),
         new Point2D(120,120)
     };
@@ -78,12 +74,12 @@ public class Main {
     };
     Point2D[] points6 = {
         new Point2D(12,12),
- 	new Point2D(18,6),
-	new Point2D(150,56)
+        new Point2D(18,6),
+        new Point2D(150,56)
     };
     Path polygonalPath1 = new PolygonalPath(points1, false);
     Path polygonalPath2 = new PolygonalPath(points2, false);
-    Path polygonalPath6 = new PolygonalPath(points3, true);
+    Path polygonalPath3 = new PolygonalPath(points3, true);
     Path polygonalPath4 = new PolygonalPath(points4, true);
     Path polygonalPath5 = new PolygonalPath(points5, true);
     Path polygonalPath6 = new PolygonalPath(points6, false);
@@ -108,7 +104,7 @@ public class Main {
         fill2,
         insert1,
         label1,
-	drawBezier
+        drawBezier
     };
 
     //Example with a Sequence :
