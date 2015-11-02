@@ -1,14 +1,17 @@
 package visitors;
 
-import java.awt.Graphics2D;
-
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
+import datastructure.tools.TextTool;
+import managers.ColorManager;
 import utils.Point2D;
 import utils.UsefulFunctions;
 
 public class VisitorSvg extends Visitor{
+  
+  public static int numberOfPathsDef = 0;
+
   @Override
   public String visitPen(int thickness, int[] rgbColorCode, Object[] optionnalParams) {
     return "stroke-width=\"" + thickness + "\" " 
@@ -19,13 +22,13 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
-  public String visitTextTool(String fontName, int fontSize, String fontStyle,
+  public String visitTextTool(String fontName, int fontSize, int fontStyle,
       int[] rgbColorCode, Object[] optionalParams) {
     return "font-family=\"" + fontName + "\" "
         + "font-size=\"" + fontSize + "\" "
-        + "stroke=\"rgb(" + rgbColorCode[0] + ","
+        + "style=\"stroke:rgb(" + rgbColorCode[0] + ","
         + rgbColorCode[1] + ","
-        + rgbColorCode[2] + ","
+        + rgbColorCode[2]
         + ")\""; 
   }
 
@@ -95,6 +98,45 @@ public class VisitorSvg extends Visitor{
     svgCode += "/>\n";
     return svgCode;
   }
+  
+  @Override
+  public String visitFill(Path path, ColorManager color,
+      Object[] optionalParams) {
+    String svgCode = "<path ";
+    int[] rgbColor = color.getRgbCode();
+    svgCode += path.render(this, optionalParams) + " ";
+    svgCode += "fill=\"rgb(" + rgbColor[0] + "," 
+      + rgbColor[1] + "," + rgbColor[2] + ")\" ";
+    svgCode += "/>\n";
+    return svgCode;
+  }
+
+  @Override
+  public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
+    String svgCode = "<defs>\n";
+    svgCode += "<clipPath id=\"path" + numberOfPathsDef + "\">\n";
+    for (int i = 0; i < paths.length; i++) {
+      svgCode += "<path " + paths[i].render(this, optionalParams) + "/>\n";
+      svgCode += "</clipPath>\n";
+    }
+    svgCode += "</defs>\n";
+    
+    String drawSvgCode = (String)drawing.render(this, optionalParams);
+    String modifiedDrawSvgCode = drawSvgCode.substring(0, drawSvgCode.length() - 4);
+    modifiedDrawSvgCode += " clip-path=\"url(#path" + numberOfPathsDef + ")\" />\n";
+    svgCode += modifiedDrawSvgCode;
+    numberOfPathsDef++;
+    return svgCode;
+  }
+
+  @Override
+  public String visitLabel(String text, Point2D position, TextTool textTool,
+      Object[] optionalParams) {
+    String svgCode = "<text x=\"" + position.getX() + "\" y=\"" + position.getY() + "\" ";
+    svgCode += textTool.render(this, optionalParams);
+    svgCode += ">" + text + "</text>";
+    return svgCode;
+  }
 
   @Override
   public void visitExport(Drawing drawing, int height, int width) {
@@ -105,6 +147,4 @@ public class VisitorSvg extends Visitor{
     svgCode += "</svg>";
     System.out.println(svgCode);
   }
-
-
 }
