@@ -14,9 +14,11 @@ public abstract class Visitor {
                                        int[] rgbColorCode, Object[] optionalParams);
   
   public abstract Object visitPolygonalPath(Point2D[] points, 
-                                            boolean closed, Object[] optionalParams);
+                                            boolean closed, Object[] optionalParams);  
+  public abstract String visitOperator(Drawing[] drawings, Object[] optionalParams);
   
-  public abstract String visitSequence(Drawing[] drawings, Object[] optionalParams);
+  public abstract String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
+                                       Object[] optionalParams);
   
   public abstract String visitDraw(Path path, Tool tool, Object[] optionalParams);
   
