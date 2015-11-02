@@ -40,16 +40,16 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    
-    
+
+
     GeneralPath polygon = new GeneralPath();
-    
+
     polygon.moveTo(points[0].getX(), points[0].getY());
-    
+
     for (int i = 1; i < points.length; i++) {
       polygon.lineTo(points[i].getX(), points[i].getY());
     }
-    
+
     if (closed) {
       polygon.closePath();
     }
@@ -59,7 +59,7 @@ public class VisitorJava extends Visitor {
   }
 
   @Override
-  public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
+  public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
@@ -70,6 +70,38 @@ public class VisitorJava extends Visitor {
     }
     return "Ok";
   }
+
+  public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
+      Object[] optionalParams) {
+    if (optionalParams == null || optionalParams.length < 1 
+        || ! (optionalParams[0] instanceof Graphics2D)) {
+      throw new Error("No valid graphic given");
+    }
+    if (change == "rotation") {
+      for (int i = 0; i < drawings.length; i++) {
+        ((Graphics2D) optionalParams[0]).rotate(Math.toRadians((double)changeparams[0]));
+        drawings[i].render(this, optionalParams);
+      }
+    }
+    if (change == "translation") {
+      for (int i = 0; i < drawings.length; i++) {
+        ((Graphics2D) optionalParams[0]).translate((double)changeparams[0], 
+              (double)changeparams[1]);
+        drawings[i].render(this, optionalParams);
+      }
+    }
+    if (change == "scaling") {
+      for (int i = 0; i < drawings.length; i++) {
+        ((Graphics2D) optionalParams[0]).scale((double)changeparams[0], 
+            (double)changeparams[1]);
+        drawings[i].render(this, optionalParams);
+      }
+    }
+    return "Ok";
+  }
+
+
+
 
   @Override
   public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
@@ -91,5 +123,6 @@ public class VisitorJava extends Visitor {
     window.setContentPane(new ResultPanel(drawing));
     window.setVisible(true);
   }
+
 
 }

@@ -11,9 +11,13 @@ public abstract class Visitor {
   public abstract String visitTextTool(String fontName, int fontSize, String fontStyle, 
                                        int[] rgbColorCode, Object[] optionalParams);
   
-  public abstract String visitPolygonalPath(Point2D[] points, boolean closed, Object[] optionalParams);
+  public abstract String visitPolygonalPath(Point2D[] points, boolean closed, 
+                                       Object[] optionalParams);
   
-  public abstract String visitSequence(Drawing[] drawings, Object[] optionalParams);
+  public abstract String visitOperator(Drawing[] drawings, Object[] optionalParams);
+  
+  public abstract String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
+                                       Object[] optionalParams);
   
   public abstract String visitDraw(Path path, Tool tool, Object[] optionalParams);
   
