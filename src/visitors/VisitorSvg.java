@@ -124,7 +124,8 @@ public class VisitorSvg extends Visitor{
     String svgCode = "<path ";
     int[] rgbColor = color.getRgbCode();
     svgCode += path.render(this, optionalParams) + " ";
-    svgCode += "fill=\"rgb(" + rgbColor[0] + "," 
+    svgCode = svgCode.substring(0, svgCode.length() - 6);
+    svgCode += "rgb(" + rgbColor[0] + "," 
       + rgbColor[1] + "," + rgbColor[2] + ")\" ";
     svgCode += "/>\n";
     return svgCode;

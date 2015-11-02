@@ -7,7 +7,9 @@ import datastructure.actions.Draw;
 import datastructure.actions.Fill;
 import datastructure.actions.Insert;
 import datastructure.actions.Label;
+import datastructure.operators.Alternative;
 import datastructure.operators.Loop;
+import datastructure.operators.Sequence;
 import datastructure.paths.BezierPath;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
@@ -52,7 +54,7 @@ public class Main {
     Point2D[] points3 = {
         new Point2D(60, 60),
         new Point2D(60, 120),
-        new Point2D(120,120)
+        new Point2D(120,120),
     };
     Point2D[] pointsBezier = {
         new Point2D(10, 10),
@@ -82,7 +84,7 @@ public class Main {
     Path polygonalPath3 = new PolygonalPath(points3, true);
     Path polygonalPath4 = new PolygonalPath(points4, true);
     Path polygonalPath5 = new PolygonalPath(points5, true);
-    Path polygonalPath6 = new PolygonalPath(points6, false);
+    Path polygonalPath6 = new PolygonalPath(points6, true);
     Path bezierPath = new BezierPath(pointsBezier, false);
     Path[] paths = {polygonalPath5};
     
@@ -93,7 +95,7 @@ public class Main {
     Drawing draw2 = new Draw(polygonalPath2, greenPen);
     Drawing drawBezier = new Draw(bezierPath, redPen);
     Drawing draw3 = new Draw(polygonalPath3, redPen);
-    Drawing fill1 = new Fill(polygonalPath3, greenCm);
+    Drawing fill1 = new Fill(polygonalPath6, greenCm);
     Drawing fill2 = new Fill(polygonalPath4, redCm);
     Drawing insert1 = new Insert(fill1, paths);
     Drawing label1 = new Label("Hello world", new Point2D(100, 100), (TextTool)textTool);
@@ -104,18 +106,18 @@ public class Main {
         fill2,
         insert1,
         label1,
-        drawBezier
+        //drawBezier
     };
 
     //Example with a Sequence :
-    //Drawing sequence = new Sequence(drawingArray);
+    Drawing sequence = new Sequence(drawingArray);
      
     //Example with an Alternative :
     //Drawing sequence = new Alternative(drawingArray,true);
     
     //Example with a Loop
-    Object[] changeParams = {15.0};
-    Drawing sequence = new Loop(drawingArray, 5, "rotation", changeParams);
+    //Object[] changeParams = {15.0};
+    //Drawing sequence = new Loop(drawingArray, 5, "rotation", changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/
