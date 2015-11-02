@@ -2,48 +2,51 @@ package datastructure.actions;
 
 import datastructure.Action;
 import datastructure.Path;
-import datastructure.Tool;
+import managers.ColorManager;
 import visitors.Visitor;
+
 
 /**
  * This class is the representation of one type of Action.
- * This action draws a path with a tool.
+ * This action fill the inside of a closed path with a color.
  */
-public class Draw extends Action {
+public class Fill extends Action {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
   /**
    * path: Path to follow.
-   * tool: Tool to use.
+   * color: Color to use.
    */
   private Path path;
-  private Tool tool;
-
+  private ColorManager color;
   
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
-  public Draw(Path path, Tool tool) {
+  /**
+   * Construct a drawing by filling a closed path.
+   * @param path the closed path to fill.
+   * @param color the color with which the path has to be filled.
+   */
+  public Fill(Path path, ColorManager color) {
+    if (!path.isClosed()) {
+      throw new Error("Path is not closed : unable to fill");
+    }
     this.path = path;
-    this.tool = tool;
+    this.color = color;
   }
   
-  public Path getPath() {
-    return this.path;
+  public Fill(Path path) {
+    this(path, new ColorManager());
   }
-  
-  public Tool getTool() {
-    return tool;
-  }
-  
-  
+    
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
   @Override
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitDraw(this.getPath(), this.getTool(), optionalParams);
+    return visitor.visitFill(path, color, optionalParams);
   }
 
 }

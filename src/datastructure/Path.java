@@ -50,5 +50,4 @@ public abstract class Path {
   /*============ Shared Methods ============*/
   /*========================================*/
   public abstract Object render(Visitor visitor, Object[] optionalParams);
-
 }

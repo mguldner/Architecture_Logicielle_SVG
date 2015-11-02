@@ -30,7 +30,7 @@ Please check your code with it before each pull request.
 4. Select your project in the result field and click Finish
 
 ## Use the library
-In order to use this library, just edit the `main.Main`'s `main` function.
+In order to use this library, just edit the `Main.main`'s `main` function.
 
 ## Improve your library
 
