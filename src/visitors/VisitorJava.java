@@ -67,6 +67,27 @@ public class VisitorJava extends Visitor {
     }
     return polygon;
   }
+  
+  @Override
+  public Shape visitBezierPath(Point2D[] points, boolean closed,
+      Object[] optionalParams) {
+    if (optionalParams == null || optionalParams.length < 1 
+        || ! (optionalParams[0] instanceof Graphics2D)) {
+      throw new Error("No valid graphic given");
+    }
+    GeneralPath bezier = new GeneralPath();
+    
+    bezier.moveTo(points[0].getX(), points[0].getY());
+    bezier.curveTo(points[1].getX(), points[1].getY(), 
+        points[2].getX(), points[2].getY(), 
+        points[3].getX(), points[3].getY());
+    
+    if (closed) {
+      bezier.closePath();
+    }
+    
+    return bezier;
+  }
 
   @Override
   public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
@@ -187,6 +208,5 @@ public class VisitorJava extends Visitor {
     window.setContentPane(new ResultPanel(drawing));
     window.setVisible(true);
   }
-
 
 }

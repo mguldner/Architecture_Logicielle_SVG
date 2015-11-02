@@ -45,11 +45,30 @@ public class VisitorSvg extends Visitor{
     if (closed) {
       svgCode += " Z";      
     }
+    
+    svgCode += "\" fill=\"none\"";
 
-    svgCode += "\"";
     return svgCode;
   }
 
+  @Override
+  public Object visitBezierPath(Point2D[] points, boolean closed,
+      Object[] optionalParams) {
+    String svgCode = "d=\"";
+    
+    svgCode += "M" + points[0].getX() + " " + points[0].getY() + " "
+        + "C" + points[1].getX() + " " + points[1].getY() + ", "
+        + points[2].getX() + " " + points[2].getY() + ", "
+        + points[3].getX() + " " + points[3].getY();
+    
+    if (closed) {
+      svgCode += " Z";
+    }
+    
+    svgCode += "\" fill=\"none\"";
+    return svgCode;
+  }
+  
   @Override
   public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
     String svgCode = "";
@@ -147,4 +166,5 @@ public class VisitorSvg extends Visitor{
     svgCode += "</svg>";
     System.out.println(svgCode);
   }
+
 }
