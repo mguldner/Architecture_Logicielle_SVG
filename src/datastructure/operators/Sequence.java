@@ -38,7 +38,7 @@ public class Sequence extends Operator {
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitSequence(this.applyFunction(), optionalParams);
+    return visitor.visitOperator(this.applyFunction(), optionalParams);
   }
   
 }

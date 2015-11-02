@@ -16,6 +16,6 @@ public abstract class Drawing {
     visitor.visitExport(this, height, width);
   }
   
-  public abstract String render(Visitor visitor, Object[] optionalParams);
+  public abstract Object render(Visitor visitor, Object[] optionalParams);
   
 }
