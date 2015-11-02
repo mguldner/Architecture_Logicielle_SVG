@@ -3,7 +3,6 @@ package visitors;
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
-import managers.ColorManager;
 import utils.Point2D;
 
 public class VisitorSvg extends Visitor{
@@ -41,7 +40,7 @@ public class VisitorSvg extends Visitor{
       svgCode += " Z";      
     }
     
-    svgCode += "\"";
+    svgCode += "\" fill=\"none\"";
     return svgCode;
   }
 
@@ -59,7 +58,7 @@ public class VisitorSvg extends Visitor{
       svgCode += " Z";
     }
     
-    svgCode += "\"";
+    svgCode += "\" fill=\"none\"";
     return svgCode;
   }
   
