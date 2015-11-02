@@ -1,12 +1,12 @@
 package exports;
 
 import datastructure.Drawing;
+import visitors.VisitorJava;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
-
 
 /**
  * This class allows the representation of the drawing 
@@ -41,7 +41,8 @@ public class ResultPanel extends JPanel {
   @Override
   public void paintComponent(Graphics graphics) {
     Graphics2D graph = (Graphics2D) graphics;
+    Object[] params = {graph};
     Drawing drawing = this.getDrawing();
-    drawing.generateJavaCode(graph);
+    drawing.render(new VisitorJava(), params);
   }
 }

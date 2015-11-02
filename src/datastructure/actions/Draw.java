@@ -3,8 +3,7 @@ package datastructure.actions;
 import datastructure.Action;
 import datastructure.Path;
 import datastructure.Tool;
-
-import java.awt.Graphics2D;
+import visitors.Visitor;
 
 /**
  * This class is the representation of one type of Action.
@@ -30,36 +29,21 @@ public class Draw extends Action {
     this.tool = tool;
   }
   
+  public Path getPath() {
+    return this.path;
+  }
+  
+  public Tool getTool() {
+    return tool;
+  }
+  
   
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
-
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
   @Override
-  public String applySvgAction() {
-    String svgCode = "<path ";
-    svgCode += path.generateSvgPath() + " ";
-    svgCode += tool.applySvgTool();
-    svgCode += "/>\n";
-    return svgCode;
-  }
-
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public void applyJavaAction(Graphics2D graph) {
-    // TODO Auto-generated method stub
-    tool.applyJavaTool(graph);
-    path.generateJavaPath(graph);
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitDraw(this.getPath(), this.getTool(), optionalParams);
   }
 
 }

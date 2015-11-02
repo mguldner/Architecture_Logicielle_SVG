@@ -1,6 +1,6 @@
-/dataStructure/
-/main/
-/utils/
 /datastructure/
-/view/
+/main/
+/visitors/
+/managers/
 /exports/
+/utils/

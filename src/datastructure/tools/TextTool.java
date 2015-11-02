@@ -1,9 +1,9 @@
 package datastructure.tools;
 
 import datastructure.Tool;
+import managers.ColorManager;
 import utils.Constants;
-
-import java.awt.Graphics2D;
+import visitors.Visitor;
 
 /**
  * This class allows the user to easily add new TextTools 
@@ -22,62 +22,67 @@ public class TextTool extends Tool {
   /*==============================*/
   private String fontName;
   private int fontSize;
-  private String fontStyle;
+  private int fontStyle;
 
   
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
+  /**
+   * Constructor.
+   */
   public TextTool() {
     super();
     this.fontName = Constants.DEFAULT_FONT_NAME;
     this.fontSize = Constants.DEFAULT_FONT_SIZE;
     this.fontStyle = Constants.DEFAULT_FONT_STYLE;
   }
-  public TextTool(int[] color) {
-    super(color);
+  /**
+   * Constructor with a color manager. 
+   * @param colorManager color manager
+   */
+  public TextTool(ColorManager colorManager) {
+    super(colorManager);
     this.fontName = Constants.DEFAULT_FONT_NAME;
     this.fontSize = Constants.DEFAULT_FONT_SIZE;
     this.fontStyle = Constants.DEFAULT_FONT_STYLE;
   }
-  public TextTool(int[] color, String fontName, 
-                  int fontSize, String fontStyle) {
-    super(color);
+  /**
+   * Constructor with color, fontName, fontSize and fontStyle.
+   * @param colorManager color manager
+   * @param fontName as a string
+   * @param fontSize as an int
+   * @param fontStyle as a string
+   */
+  public TextTool(ColorManager colorManager, String fontName, 
+                  int fontSize, int fontStyle) {
+    super(colorManager);
     this.fontName = fontName;
     this.fontSize = fontSize;
     this.fontStyle = fontStyle; 
   }  
 
+  public String getFontName() {
+    return this.fontName;
+  }
+  
+  public int getFontSize() {
+    return this.fontSize;
+  }
+  
+  public int getFontStyle() {
+    return this.fontStyle;
+  }
   
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
-
-  
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
   @Override
-  public String applySvgTool() {
-    int[] rgbColorCode = this.getRgbColorCode();
-    return "font-family=\"" + this.fontName + "\" "
-        + "font-size=\"" + this.fontSize + "\" "
-        + "stroke=\"rgb(" + rgbColorCode[0] + ","
-        + rgbColorCode[1] + ","
-        + rgbColorCode[2] + ","
-        + ")\"";  
-  }
-  
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public void applyJavaTool(Graphics2D graph) {
-    // TODO Auto-generated method stub
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitTextTool(this.getFontName(), 
+                                 this.getFontSize(), 
+                                 this.getFontStyle(), 
+                                 this.getRgbColorCode(), optionalParams);
   }
 
 }

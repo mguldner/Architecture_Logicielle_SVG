@@ -1,22 +1,10 @@
 package datastructure;
 
-import java.awt.Graphics2D;
+import visitors.Visitor;
 
 /**
  * This abstract class allows the user to easily add new operations 
  * (basic types being Sequence, Alternative, Loop).
- * If the user wants to add a new "export" mode (basic export modes are 
- * to SVG and to Java), they need to declare new abstract and non-abstract 
- * methods:
- * <code>
- *  public abstract void applyNewExportModeOperation();
- *  public void generateNewExportModeCode() {
-    this.applyNewExportModeOperation();
-  }
- * </code>
- * The <code>applyNewExportModeOperation</code> method will have to 
- * be implemented for all operations.
- * 
  */
 public abstract class Operator extends Drawing {
   /*==============================*/
@@ -62,32 +50,6 @@ public abstract class Operator extends Drawing {
    */
   public abstract Drawing[] applyFunction();
   
+  public abstract String render(Visitor visitor, Object[] optionalParams);
   
-  /*===============================================================*/
-  /*============ Methods dedicated to each export mode ============*/
-  /*===============================================================*/
-  
-  /*
-   * These abstracts methods are implemented by each type of operator.
-   * They are necessary to interpret the logical drawing in a given 
-   * export mode.
-   * Depending they are associated to a Java export mode or not, they 
-   * will return nothing or they will return the code as a string.
-   */
-  public abstract String applySvgOperation();
-  
-  public abstract void applyJavaOperation(Graphics2D graph);
-  
-  /*
-   * These methods are just meant to have more meaningful methods names
-   */
-  public String generateSvgCode() {
-    return this.applySvgOperation();
-  }
-  
-  @Override
-  public void generateJavaCode(Graphics2D graph) {
-    this.applyJavaOperation(graph);
-  }
-
 }

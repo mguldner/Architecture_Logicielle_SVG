@@ -2,8 +2,7 @@ package datastructure.operators;
 
 import datastructure.Drawing;
 import datastructure.Operator;
-
-import java.awt.Graphics2D;
+import visitors.Visitor;
 
 /**
  * This class is the representation of an operation.
@@ -38,32 +37,8 @@ public class Sequence extends Operator {
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
+  public String render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitOperator(this.applyFunction(), optionalParams);
+  }
   
-  /*=================================================*/
-  /*================== SVG export ===================*/
-  /*=================================================*/
-  @Override
-  public String applySvgOperation() {
-    Drawing[] selectedDrawings = this.applyFunction();
-    String svgCode = "";
-    for (int i = 0; i < selectedDrawings.length; i++) {
-      svgCode += selectedDrawings[i].generateSvgCode();
-    }
-    return svgCode;
-  }
-
-  /*=================================================*/
-  /*================== Java export ==================*/
-  /*=================================================*/
-  @Override
-  public void applyJavaOperation(Graphics2D graph) {
-    Drawing[] selectedDrawings = this.applyFunction();
-    // TODO Write here what to do to produce the corresponding section
-    for (int i = 0; i < selectedDrawings.length; i++) {
-      selectedDrawings[i].generateJavaCode(graph);
-    }
-  }
-
-
-
 }
