@@ -4,6 +4,7 @@ import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
 import datastructure.tools.TextTool;
+import exports.ExportSvg;
 import managers.ColorManager;
 import utils.Point2D;
 import utils.UsefulFunctions;
@@ -52,7 +53,7 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
-  public Object visitBezierPath(Point2D[] points, boolean closed,
+  public String visitBezierPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     String svgCode = "d=\"";
     
@@ -123,9 +124,9 @@ public class VisitorSvg extends Visitor{
       Object[] optionalParams) {
     String svgCode = "<path ";
     int[] rgbColor = color.getRgbCode();
-    svgCode += path.render(this, optionalParams) + " ";
-    svgCode = svgCode.substring(0, svgCode.length() - 6);
-    svgCode += "rgb(" + rgbColor[0] + "," 
+    String pathCode = (String)path.render(this, optionalParams);
+    String pathCodeChanged = pathCode.substring(0, pathCode.length() - 12);
+    svgCode += pathCodeChanged + " fill=\"rgb(" + rgbColor[0] + "," 
       + rgbColor[1] + "," + rgbColor[2] + ")\" ";
     svgCode += "/>\n";
     return svgCode;
@@ -165,7 +166,7 @@ public class VisitorSvg extends Visitor{
         + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
     svgCode += drawing.render(new VisitorSvg(), null);
     svgCode += "</svg>";
-    System.out.println(svgCode);
+    ExportSvg.export(svgCode);
   }
 
 }
