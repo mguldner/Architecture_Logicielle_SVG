@@ -2,6 +2,7 @@ package datastructure.operators;
 
 import datastructure.Drawing;
 import datastructure.Operator;
+import factories.operators.SequenceFactory;
 import visitors.Visitor;
 
 /**
@@ -9,7 +10,7 @@ import visitors.Visitor;
  * It takes an array of drawings and draws each of them in 
  * the order of the array.
  */
-public class Sequence extends Operator {
+public class Sequence extends Operator implements SequenceFactory {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/  
@@ -17,7 +18,7 @@ public class Sequence extends Operator {
     super();
   }
   
-  public Sequence(Drawing[] drawings) {
+  private Sequence(Drawing[] drawings) {
     super(drawings);
   }
 
@@ -39,6 +40,11 @@ public class Sequence extends Operator {
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitOperator(this.applyFunction(), optionalParams);
+  }
+
+  @Override
+  public Sequence createSequence(Drawing[] drawings) {
+    return new Sequence(drawings);
   }
   
 }

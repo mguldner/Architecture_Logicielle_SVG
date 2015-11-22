@@ -2,6 +2,7 @@ package datastructure.operators;
 
 import datastructure.Drawing;
 import datastructure.Operator;
+import factories.operators.AlternativeFactory;
 import visitors.Visitor;
 
 /**
@@ -11,7 +12,7 @@ import visitors.Visitor;
  * and the second otherwise
  */
 
-public class Alternative extends Operator{
+public class Alternative extends Operator implements AlternativeFactory{
 
   //if the condition is true, draws the first drawing of the list.
   private boolean firstWanted;
@@ -23,7 +24,7 @@ public class Alternative extends Operator{
     super();
   }
   
-  public Alternative(Drawing[] drawings, boolean firstWanted) {
+  private Alternative(Drawing[] drawings, boolean firstWanted) {
     super(drawings);
     this.firstWanted = firstWanted;
   }
@@ -55,6 +56,12 @@ public class Alternative extends Operator{
   @Override
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitOperator(this.applyFunction(), optionalParams);
+  }
+
+  @Override
+  public Alternative createAlternative(Drawing[] drawings,
+      boolean firstWanted) {
+    return new Alternative(drawings, firstWanted);
   }
 
 }

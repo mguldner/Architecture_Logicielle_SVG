@@ -2,6 +2,7 @@ package datastructure.operators;
 
 import datastructure.Drawing;
 import datastructure.Operator;
+import factories.operators.LoopFactory;
 import visitors.Visitor;
 
 /**
@@ -17,7 +18,7 @@ import visitors.Visitor;
  * 
  */
 
-public class Loop extends Operator{
+public class Loop extends Operator implements LoopFactory{
 
   // n represents the number of iteration for the Loop
   private int numberIterations;
@@ -38,7 +39,8 @@ public class Loop extends Operator{
     super();
   }
   
-  public Loop(Drawing[] drawings, int numberIterations, String change, Object[] changeParams) {
+  private Loop(Drawing[] drawings, int numberIterations, String change, 
+               Object[] changeParams) {
     super(drawings);
     this.numberIterations = numberIterations;
     this.change = change;
@@ -78,6 +80,12 @@ public class Loop extends Operator{
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitLoop(this.applyFunction(), this.change, this.changeParams, optionalParams);
+  }
+
+  @Override
+  public Loop createLoop(Drawing[] drawings, int numberIterations,
+      String change, Object[] changeParams) {
+    return new Loop(drawings, numberIterations, change, changeParams);
   }
 
 }

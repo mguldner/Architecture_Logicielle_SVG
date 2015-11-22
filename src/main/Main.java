@@ -18,6 +18,9 @@ import factories.actions.DrawFactory;
 import factories.actions.FillFactory;
 import factories.actions.InsertFactory;
 import factories.actions.LabelFactory;
+import factories.operators.AlternativeFactory;
+import factories.operators.LoopFactory;
+import factories.operators.SequenceFactory;
 import managers.ColorManager;
 import utils.Point2D;
 import visitors.VisitorJava;
@@ -39,6 +42,9 @@ public class Main {
     FillFactory fill = new Fill();
     InsertFactory insert = new Insert();
     LabelFactory label = new Label();
+    AlternativeFactory alt = new Alternative();
+    LoopFactory loop = new Loop();
+    SequenceFactory seq = new Sequence();
     
     /*=========================*/
     /*========= TOOLS =========*/
@@ -122,14 +128,14 @@ public class Main {
     };
 
     //Example with a Sequence :
-    Drawing sequence = new Sequence(drawingArray);
+    Drawing sequence = seq.createSequence(drawingArray);
      
     //Example with an Alternative :
-    //Drawing sequence = new Alternative(drawingArray,true);
+    //Drawing sequence = alt.createAlternative(drawingArray,true);
     
     //Example with a Loop
     //Object[] changeParams = {15.0};
-    //Drawing sequence = new Loop(drawingArray, 5, "rotation", changeParams);
+    //Drawing sequence = loop.createLoop(drawingArray, 5, "rotation", changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/
