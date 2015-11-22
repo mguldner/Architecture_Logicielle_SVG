@@ -21,6 +21,7 @@ import factories.actions.LabelFactory;
 import factories.operators.AlternativeFactory;
 import factories.operators.LoopFactory;
 import factories.operators.SequenceFactory;
+import factories.paths.PathFactory;
 import managers.ColorManager;
 import utils.Point2D;
 import visitors.VisitorJava;
@@ -45,6 +46,8 @@ public class Main {
     AlternativeFactory alt = new Alternative();
     LoopFactory loop = new Loop();
     SequenceFactory seq = new Sequence();
+    PathFactory bezPath = new BezierPath();
+    PathFactory polygoPath = new PolygonalPath();
     
     /*=========================*/
     /*========= TOOLS =========*/
@@ -97,13 +100,13 @@ public class Main {
         new Point2D(18,6),
         new Point2D(150,56)
     };
-    Path polygonalPath1 = new PolygonalPath(points1, false);
-    Path polygonalPath2 = new PolygonalPath(points2, false);
-    Path polygonalPath3 = new PolygonalPath(points3, true);
-    Path polygonalPath4 = new PolygonalPath(points4, true);
-    Path polygonalPath5 = new PolygonalPath(points5, true);
-    Path polygonalPath6 = new PolygonalPath(points6, true);
-    Path bezierPath = new BezierPath(pointsBezier, false);
+    Path polygonalPath1 = polygoPath.createPath(points1, false);
+    Path polygonalPath2 = polygoPath.createPath(points2, false);
+    Path polygonalPath3 = polygoPath.createPath(points3, true);
+    Path polygonalPath4 = polygoPath.createPath(points4, true);
+    Path polygonalPath5 = polygoPath.createPath(points5, true);
+    Path polygonalPath6 = polygoPath.createPath(points6, true);
+    Path bezierPath = bezPath.createPath(pointsBezier, false);
     Path[] paths = {polygonalPath5};
     
     /*=========================*/

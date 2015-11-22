@@ -15,6 +15,9 @@ public class BezierPath extends Path {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/ 
+  public BezierPath(){
+    super();
+  }
   
   /**
    * Create a Bezier path with the given points.
@@ -22,14 +25,14 @@ public class BezierPath extends Path {
    *        second Bezier control point, end point).
    * @param closed true if the path is closed.
    */
-  public BezierPath(Point2D[] points, boolean closed) {
+  private BezierPath(Point2D[] points, boolean closed) {
     super(points, closed);
     if (points.length != 4) {
       throw new Error("Unvalid arguments : 4 points needed");
     }
   }
   
-  public BezierPath(Point2D[] points) { 
+  private BezierPath(Point2D[] points) { 
     this(points, Constants.DEFAULT_PATH_CLOSED);
   }
   
@@ -38,6 +41,17 @@ public class BezierPath extends Path {
   /*========================================*/
   public Object render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitBezierPath(this.getPoints(), this.isClosed(), optionalParams);
+  }
+
+  @Override
+  public BezierPath createPath(Point2D[] points, boolean closed) {
+    return new BezierPath(points, closed);
+  }
+
+  @Override
+  public BezierPath createPath(Point2D[] points) {
+    // TODO Auto-generated method stub
+    return new BezierPath(points);
   }
 
 }
