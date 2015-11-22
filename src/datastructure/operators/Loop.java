@@ -1,5 +1,7 @@
 package datastructure.operators;
 
+import java.util.HashMap;
+
 import datastructure.Drawing;
 import datastructure.Operator;
 import visitors.Visitor;
@@ -23,12 +25,12 @@ public class Loop extends Operator{
   private int numberIterations;
   
   // the change to operate : rotation or rotation for the moment
-  private String change;
+  private String[] changes;
   
   // the parameters of the change : 
       // for a rotation : a double that represents the angle
       // for a translation : two double for the vector of translation
-  private Object[] changeParams;
+  private HashMap<String,Double[]> changeParams;
   
   /*=================================*/
   /*========== Constructors =========*/
@@ -38,10 +40,10 @@ public class Loop extends Operator{
     super();
   }
   
-  public Loop(Drawing[] drawings, int numberIterations, String change, Object[] changeParams) {
+  public Loop(Drawing[] drawings, int numberIterations, String[] change, HashMap changeParams) {
     super(drawings);
     this.numberIterations = numberIterations;
-    this.change = change;
+    this.changes = change;
     this.changeParams = changeParams;
   }
   
@@ -77,7 +79,7 @@ public class Loop extends Operator{
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitLoop(this.applyFunction(), this.change, this.changeParams, optionalParams);
+    return visitor.visitLoop(this.applyFunction(), this.changes, this.changeParams, optionalParams);
   }
 
 }

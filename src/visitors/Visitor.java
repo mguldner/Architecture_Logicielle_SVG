@@ -1,5 +1,7 @@
 package visitors;
 
+import java.util.HashMap;
+
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
@@ -32,8 +34,8 @@ public abstract class Visitor {
 
   public abstract String visitOperator(Drawing[] drawings, Object[] optionalParams);
   
-  public abstract String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
-                                       Object[] optionalParams);
+  public abstract String visitLoop(Drawing[] drawings, String[] changes, 
+                HashMap<String, Double[]> changeParams, Object[] optionalParams);
   
   /*===================================*/
   /*========== Action Methods =========*/

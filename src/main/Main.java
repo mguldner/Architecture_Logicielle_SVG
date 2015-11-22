@@ -1,5 +1,7 @@
 package main;
 
+import java.util.HashMap;
+
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
@@ -79,12 +81,17 @@ public class Main {
         new Point2D(18,6),
         new Point2D(150,56)
     };
+    Point2D[] points7 = {
+        new Point2D(10,10),        
+        new Point2D(10,30)
+    };
     Path polygonalPath1 = new PolygonalPath(points1, false);
     Path polygonalPath2 = new PolygonalPath(points2, false);
     Path polygonalPath3 = new PolygonalPath(points3, true);
     Path polygonalPath4 = new PolygonalPath(points4, true);
     Path polygonalPath5 = new PolygonalPath(points5, true);
     Path polygonalPath6 = new PolygonalPath(points6, true);
+    Path polygonalPath7 = new PolygonalPath(points7, false);
     Path bezierPath = new BezierPath(pointsBezier, false);
     Path[] paths = {polygonalPath5};
     
@@ -92,6 +99,7 @@ public class Main {
     /*======== DRAWINGS =======*/
     /*=========================*/
     Drawing draw1 = new Draw(polygonalPath1, redPen);
+    Drawing draw7 = new Draw(polygonalPath7,redPen);
     Drawing draw2 = new Draw(polygonalPath2, greenPen);
     Drawing drawBezier = new Draw(bezierPath, redPen);
     Drawing draw3 = new Draw(polygonalPath3, redPen);
@@ -103,21 +111,32 @@ public class Main {
         //draw1,
         //draw2,
         //fill1,
-        fill2,
-        insert1,
-        label1,
+        //fill2,
+        //insert1,
+        //label1,
         //drawBezier
+        draw7
     };
 
     //Example with a Sequence :
-    Drawing sequence = new Sequence(drawingArray);
+    //Drawing sequence = new Sequence(drawingArray);
      
     //Example with an Alternative :
     //Drawing sequence = new Alternative(drawingArray,true);
     
     //Example with a Loop
     //Object[] changeParams = {15.0};
-    //Drawing sequence = new Loop(drawingArray, 5, "rotation", changeParams);
+    //String[] changes= {"translation","rotation"};
+    String[] changes = {"scaling"};
+    Double[] rotParams={30.0};
+    Double[] transParams={20.0,20.0};
+    Double[] scalParams = {1.5,1.0};
+    HashMap<String,Double[]> changeParams = new HashMap<String,Double[]>();
+    //changeParams.put("rotation", rotParams);
+    //changeParams.put("translation",transParams);
+    changeParams.put("scaling", scalParams);
+    
+    Drawing sequence = new Loop(drawingArray, 5, changes, changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/

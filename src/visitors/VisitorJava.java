@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -38,9 +39,9 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    
+
     Graphics2D graph = (Graphics2D) optionalParams[0];
-    
+
     graph.setFont(new Font(fontName, fontStyle, fontSize));
     graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
     return "Ok";
@@ -53,7 +54,7 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    
+
     GeneralPath polygon = new GeneralPath();
 
     polygon.moveTo(points[0].getX(), points[0].getY());
@@ -67,7 +68,7 @@ public class VisitorJava extends Visitor {
     }
     return polygon;
   }
-  
+
   @Override
   public Shape visitBezierPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
@@ -76,16 +77,16 @@ public class VisitorJava extends Visitor {
       throw new Error("No valid graphic given");
     }
     GeneralPath bezier = new GeneralPath();
-    
+
     bezier.moveTo(points[0].getX(), points[0].getY());
     bezier.curveTo(points[1].getX(), points[1].getY(), 
         points[2].getX(), points[2].getY(), 
         points[3].getX(), points[3].getY());
-    
+
     if (closed) {
       bezier.closePath();
     }
-    
+
     return bezier;
   }
 
@@ -102,32 +103,36 @@ public class VisitorJava extends Visitor {
     return "Ok";
   }
 
-  public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
+  @Override
+  public String visitLoop(Drawing[] drawings, String[] changes, 
+      HashMap<String,Double[]> changeParams, 
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    if (change == "rotation") {
-      for (int i = 0; i < drawings.length; i++) {
-        ((Graphics2D) optionalParams[0]).rotate(Math.toRadians((double)changeparams[0]));
-        drawings[i].render(this, optionalParams);
+    drawings[0].render(this, optionalParams);
+    for (int j = 1; j < drawings.length; j++) {
+      for (int i = 0; i < changeParams.size(); i++) {
+        if (changes[i] == "rotation") {
+          ((Graphics2D) optionalParams[0]).rotate(Math.toRadians(changeParams.get("rotation")[0]*j));
+        }
+        if (changes[i] == "translation") {
+          ((Graphics2D) optionalParams[0]).translate(changeParams.get("translation")[0], 
+              changeParams.get("translation")[1]);
+        }
+        if (changes[i] == "scaling") {
+          ((Graphics2D) optionalParams[0]).scale(changeParams.get("scaling")[0], 
+              changeParams.get("scaling")[1]);
+        }
       }
-    }
-    if (change == "translation") {
-      for (int i = 0; i < drawings.length; i++) {
-        ((Graphics2D) optionalParams[0]).translate((double)changeparams[0], 
-              (double)changeparams[1]);
-        drawings[i].render(this, optionalParams);
+      drawings[j].render(this, optionalParams);
+      for (int i = 0; i < changeParams.size(); i++) {
+        if (changes[i] == "rotation") {
+          ((Graphics2D) optionalParams[0]).rotate(Math.toRadians(360 - changeParams.get("rotation")[0]*j));
+        }
       }
-    }
-    if (change == "scaling") {
-      for (int i = 0; i < drawings.length; i++) {
-        ((Graphics2D) optionalParams[0]).scale((double)changeparams[0], 
-            (double)changeparams[1]);
-        drawings[i].render(this, optionalParams);
-      }
-    }
+    } 
     return "Ok";
   }
 
@@ -140,14 +145,14 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }  
-    
+
     Graphics2D graph = (Graphics2D)(optionalParams[0]);
-    
+
     tool.render(this, optionalParams);
     graph.draw((Shape)path.render(this, optionalParams));
     return "Ok";
   }
-  
+
   @Override
   public String visitFill(Path path, ColorManager color,
       Object[] optionalParams) {
@@ -155,10 +160,10 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }  
-   
+
     Graphics2D graph = (Graphics2D)(optionalParams[0]);
     int[] rgbColor = color.getRgbCode();
-    
+
     graph.setColor(new Color(rgbColor[0], rgbColor[1], rgbColor[2]));
     graph.fill((Shape)path.render(this, optionalParams));
     return "Ok";
@@ -170,20 +175,20 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    
+
     Graphics2D graph = (Graphics2D)(optionalParams[0]);
-    
+
     Shape oldClip = graph.getClip();
-    
+
     for (Path path : paths) {
       graph.clip((Shape)path.render(this, optionalParams));
     }
     drawing.render(this, optionalParams);
-    
+
     graph.setClip(oldClip);
     return "Ok";
   }
-  
+
   @Override
   public String visitLabel(String text, Point2D position, TextTool textTool,
       Object[] optionalParams) {
@@ -191,14 +196,14 @@ public class VisitorJava extends Visitor {
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
     }
-    
+
     Graphics2D graph = (Graphics2D)(optionalParams[0]);
-    
+
     textTool.render(this, optionalParams);
     graph.drawString(text, position.getX(), position.getY());
     return "Ok";
   }
-  
+
   @Override
   public void visitExport(Drawing drawing, int height, int width) {
     JFrame window = new JFrame();
