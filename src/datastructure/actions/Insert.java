@@ -11,7 +11,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action insert a drawing delimited with a path inside an other drawing.
  */
-public class Insert extends Action {
+public class Insert implements Action {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/

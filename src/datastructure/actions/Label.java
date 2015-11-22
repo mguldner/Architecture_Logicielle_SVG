@@ -11,7 +11,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This Action enables to put a label on a Drawing.
  */
-public class Label extends Action {
+public class Label implements Action {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/

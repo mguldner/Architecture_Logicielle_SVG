@@ -6,7 +6,7 @@ import visitors.Visitor;
  * This abstract class allows the user to easily add new operations 
  * (basic types being Sequence, Alternative, Loop).
  */
-public abstract class Operator extends Drawing {
+public abstract class Operator implements Drawing {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/

@@ -9,7 +9,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action draws a path with a tool.
  */
-public class Draw extends Action {
+public class Draw implements Action {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/

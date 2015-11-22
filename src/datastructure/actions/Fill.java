@@ -10,7 +10,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action fill the inside of a closed path with a color.
  */
-public class Fill extends Action {
+public class Fill implements Action {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
