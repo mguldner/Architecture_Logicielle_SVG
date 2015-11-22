@@ -14,6 +14,10 @@ import datastructure.paths.BezierPath;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
 import datastructure.tools.TextTool;
+import factories.actions.DrawFactory;
+import factories.actions.FillFactory;
+import factories.actions.InsertFactory;
+import factories.actions.LabelFactory;
 import managers.ColorManager;
 import utils.Point2D;
 import visitors.VisitorJava;
@@ -27,7 +31,15 @@ public class Main {
    * Put here all your instructions to create your drawing.
    * @param args arguments
    */
-  public static void main(String[] args) {    
+  public static void main(String[] args) {
+    /*=========================*/
+    /*======= FACTORIES =======*/
+    /*=========================*/
+    DrawFactory draw = new Draw();
+    FillFactory fill = new Fill();
+    InsertFactory insert = new Insert();
+    LabelFactory label = new Label();
+    
     /*=========================*/
     /*========= TOOLS =========*/
     /*=========================*/
@@ -91,14 +103,14 @@ public class Main {
     /*=========================*/
     /*======== DRAWINGS =======*/
     /*=========================*/
-    Drawing draw1 = new Draw(polygonalPath1, redPen);
-    Drawing draw2 = new Draw(polygonalPath2, greenPen);
-    Drawing drawBezier = new Draw(bezierPath, redPen);
-    Drawing draw3 = new Draw(polygonalPath3, redPen);
-    Drawing fill1 = new Fill(polygonalPath6, greenCm);
-    Drawing fill2 = new Fill(polygonalPath4, redCm);
-    Drawing insert1 = new Insert(fill1, paths);
-    Drawing label1 = new Label("Hello world", new Point2D(100, 100), (TextTool)textTool);
+    Drawing draw1 = draw.createDraw(polygonalPath1, redPen);
+    Drawing draw2 = draw.createDraw(polygonalPath2, greenPen);
+    Drawing drawBezier = draw.createDraw(bezierPath, redPen);
+    Drawing draw3 = draw.createDraw(polygonalPath3, redPen);
+    Drawing fill1 = fill.createFill(polygonalPath6, greenCm);
+    Drawing fill2 = fill.createFill(polygonalPath4, redCm);
+    Drawing insert1 = insert.createInsert(fill1, paths);
+    Drawing label1 = label.createLabel("Hello world", new Point2D(100, 100), (TextTool)textTool);
     Drawing[] drawingArray = {
         //draw1,
         //draw2,

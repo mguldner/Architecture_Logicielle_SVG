@@ -3,6 +3,7 @@ package datastructure.actions;
 
 import datastructure.Action;
 import datastructure.tools.TextTool;
+import factories.actions.LabelFactory;
 import utils.Point2D;
 import visitors.Visitor;
 
@@ -11,7 +12,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This Action enables to put a label on a Drawing.
  */
-public class Label implements Action {
+public class Label implements Action, LabelFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -33,17 +34,17 @@ public class Label implements Action {
    * @param position the position of the label.
    * @param textTool the TextTool to use.
    */
-  public Label(String text, Point2D position, TextTool textTool) {
+  private Label(String text, Point2D position, TextTool textTool) {
     this.text = text;
     this.position = position;
     this.textTool = textTool;
   }
   
-  public Label(String text, Point2D position) {
+  private Label(String text, Point2D position) {
     this(text, position, new TextTool());
   }
   
-  public Label(String text, TextTool textTool) {
+  private Label(String text, TextTool textTool) {
     this(text, new Point2D(0,0));
   }
   
@@ -57,6 +58,21 @@ public class Label implements Action {
   @Override
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitLabel(text, position, textTool, optionalParams);
+  }
+
+  @Override
+  public Label createLabel(String text, Point2D position, TextTool textTool) {
+    return new Label(text, position, textTool);
+  }
+
+  @Override
+  public Label createLabel(String text, TextTool textTool) {
+    return new Label(text, textTool);
+  }
+
+  @Override
+  public Label createLabel(String text, Point2D position) {
+    return new Label(text, position);
   }
 
 }

@@ -3,13 +3,14 @@ package datastructure.actions;
 import datastructure.Action;
 import datastructure.Path;
 import datastructure.Tool;
+import factories.actions.DrawFactory;
 import visitors.Visitor;
 
 /**
  * This class is the representation of one type of Action.
  * This action draws a path with a tool.
  */
-public class Draw implements Action {
+public class Draw implements Action, DrawFactory{
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -24,7 +25,9 @@ public class Draw implements Action {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
-  public Draw(Path path, Tool tool) {
+  public Draw(){}
+  
+  private Draw(Path path, Tool tool) {
     this.path = path;
     this.tool = tool;
   }
@@ -44,6 +47,11 @@ public class Draw implements Action {
   @Override
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitDraw(this.getPath(), this.getTool(), optionalParams);
+  }
+
+  @Override
+  public Draw createDraw(Path path, Tool tool) {
+    return new Draw(path, tool);
   }
 
 }
