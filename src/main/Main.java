@@ -14,6 +14,7 @@ import datastructure.paths.BezierPath;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
 import datastructure.tools.TextTool;
+import factories.ColorManagerFactory;
 import factories.actions.DrawFactory;
 import factories.actions.FillFactory;
 import factories.actions.InsertFactory;
@@ -52,12 +53,13 @@ public class Main {
     PathFactory polygoPath = new PolygonalPath();
     PenFactory pen = new Pen();
     TextToolFactory textToolf = new TextTool();
+    ColorManagerFactory cm = new ColorManager();
     
     /*=========================*/
     /*========= TOOLS =========*/
     /*=========================*/
-    ColorManager redCm = new ColorManager("hex", "#ff0000");
-    ColorManager greenCm = new ColorManager("hex", "#00ff00");
+    ColorManager redCm = cm.createColorManager("hex", "#ff0000");
+    ColorManager greenCm = cm.createColorManager("hex", "#00ff00");
     
     Tool redPen = pen.createPen(redCm);
     Tool greenPen = pen.createPen(greenCm, 6);
