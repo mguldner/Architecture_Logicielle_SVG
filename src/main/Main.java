@@ -22,6 +22,8 @@ import factories.operators.AlternativeFactory;
 import factories.operators.LoopFactory;
 import factories.operators.SequenceFactory;
 import factories.paths.PathFactory;
+import factories.tools.PenFactory;
+import factories.tools.TextToolFactory;
 import managers.ColorManager;
 import utils.Point2D;
 import visitors.VisitorJava;
@@ -48,6 +50,8 @@ public class Main {
     SequenceFactory seq = new Sequence();
     PathFactory bezPath = new BezierPath();
     PathFactory polygoPath = new PolygonalPath();
+    PenFactory pen = new Pen();
+    TextToolFactory textToolf = new TextTool();
     
     /*=========================*/
     /*========= TOOLS =========*/
@@ -55,10 +59,10 @@ public class Main {
     ColorManager redCm = new ColorManager("hex", "#ff0000");
     ColorManager greenCm = new ColorManager("hex", "#00ff00");
     
-    Tool redPen = new Pen(redCm);
-    Tool greenPen = new Pen(greenCm, 6);
+    Tool redPen = pen.createPen(redCm);
+    Tool greenPen = pen.createPen(greenCm, 6);
     
-    Tool textTool = new TextTool(greenCm);
+    Tool textTool = textToolf.createTextTool(greenCm);
     
     /*=========================*/
     /*========= PATHS =========*/

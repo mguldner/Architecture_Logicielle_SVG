@@ -1,6 +1,7 @@
 package datastructure.tools;
 
 import datastructure.Tool;
+import factories.tools.TextToolFactory;
 import managers.ColorManager;
 import utils.Constants;
 import visitors.Visitor;
@@ -16,7 +17,7 @@ import visitors.Visitor;
  * The <code>applyNewExportModeTool</code> method will have to be 
  * implemented for all pens.
  */
-public class TextTool extends Tool {  
+public class TextTool extends Tool implements TextToolFactory{  
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -41,7 +42,7 @@ public class TextTool extends Tool {
    * Constructor with a color manager. 
    * @param colorManager color manager
    */
-  public TextTool(ColorManager colorManager) {
+  private TextTool(ColorManager colorManager) {
     super(colorManager);
     this.fontName = Constants.DEFAULT_FONT_NAME;
     this.fontSize = Constants.DEFAULT_FONT_SIZE;
@@ -54,7 +55,7 @@ public class TextTool extends Tool {
    * @param fontSize as an int
    * @param fontStyle as a string
    */
-  public TextTool(ColorManager colorManager, String fontName, 
+  private TextTool(ColorManager colorManager, String fontName, 
                   int fontSize, int fontStyle) {
     super(colorManager);
     this.fontName = fontName;
@@ -83,6 +84,15 @@ public class TextTool extends Tool {
                                  this.getFontSize(), 
                                  this.getFontStyle(), 
                                  this.getRgbColorCode(), optionalParams);
+  }
+  @Override
+  public TextTool createTextTool(ColorManager colorManager) {
+    return new TextTool(colorManager);
+  }
+  @Override
+  public TextTool createTextTool(ColorManager colorManager, String fontName,
+      int fontSize, int fontStyle) {
+    return new TextTool(colorManager, fontName, fontSize, fontStyle);
   }
 
 }
