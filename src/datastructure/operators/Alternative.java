@@ -12,8 +12,9 @@ import visitors.Visitor;
  * and the second otherwise
  */
 
-public class Alternative<T> extends Operator<T> implements AlternativeFactory{
+public class Alternative<T> implements Operator<T>, AlternativeFactory{
 
+  private Drawing[] drawings;
   //if the condition is true, draws the first drawing of the list.
   private boolean firstWanted;
   
@@ -21,33 +22,23 @@ public class Alternative<T> extends Operator<T> implements AlternativeFactory{
   /*========== Constructors =========*/
   /*=================================*/  
   public Alternative() {
-    super();
+    this.drawings = new Drawing[0];
   }
   
   private Alternative(Drawing[] drawings, boolean firstWanted) {
-    super(drawings);
+    this.drawings = drawings;
     this.firstWanted = firstWanted;
   }
   
   /*============================*/
   /*========== Getters =========*/
   /*============================*/
+  public Drawing[] getDrawings() {
+    return this.drawings;
+  }
+
   public boolean getFirstWanted() {
     return this.firstWanted;
-  }
-  
-  /*========================================*/
-  /*============ Shared Methods ============*/
-  /*========================================*/
-  @Override
-  public Drawing[] applyFunction() {
-    Drawing[] drawing = new Drawing[1];
-    if (this.getFirstWanted()) {
-      drawing[0] = this.getDrawings()[0];
-    } else {
-      drawing[0] = this.getDrawings()[1];
-    }
-    return drawing;
   }
 
   /*===============================================================*/
@@ -55,7 +46,7 @@ public class Alternative<T> extends Operator<T> implements AlternativeFactory{
   /*===============================================================*/
   @Override
   public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
-    return visitor.visitOperator(this.applyFunction(), optionalParams);
+    return visitor.visitAlternative(this.getDrawings(), this.getFirstWanted(), optionalParams);
   }
 
   @Override

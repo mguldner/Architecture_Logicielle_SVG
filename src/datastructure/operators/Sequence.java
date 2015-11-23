@@ -10,36 +10,34 @@ import visitors.Visitor;
  * It takes an array of drawings and draws each of them in 
  * the order of the array.
  */
-public class Sequence<T> extends Operator<T> implements SequenceFactory {
+public class Sequence<T> implements Operator<T>, SequenceFactory {
+  
+  private Drawing[] drawings;
+  
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/  
   public Sequence() {
-    super();
+    this.drawings = new Drawing[0];
   }
   
-  private Sequence(Drawing[] drawings) {
-    super(drawings);
+  public Sequence(Drawing[] drawings) {
+    this.drawings = drawings;
   }
-
   
-  /*========================================*/
-  /*============ Shared Methods ============*/
-  /*========================================*/
-  @Override
-  public Drawing[] applyFunction() {
-    /*Here now need to modify the drawing array as
-     *we just want to draw all of them
-     **/
-    return this.getDrawings();
-  }
 
+  /*============================*/
+  /*========== Getters =========*/
+  /*============================*/
+  public Drawing[] getDrawings() {
+    return this.drawings;
+  }
   
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
-  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
-    return visitor.visitOperator(this.applyFunction(), optionalParams);
+  public Visitor<T> render(Visitor visitor, Object[] optionalParams) {
+    return visitor.visitSequence(this.getDrawings(), optionalParams);
   }
 
   @Override
