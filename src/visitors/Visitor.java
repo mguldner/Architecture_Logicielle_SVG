@@ -9,54 +9,65 @@ import datastructure.tools.TextTool;
 import managers.ColorManager;
 import utils.Point2D;
 
-public abstract class Visitor {
+public abstract class Visitor<T> {
+  public T result = null;
+  
+  public T getResult() {
+    return result;
+  }
+  
+  public void setResult(T result) {
+    this.result = result;
+  }
   
   /*=================================*/
   /*========== Tool Methods =========*/
   /*=================================*/
-  public abstract String visitPen(int thickness, int[] rgbColorCode, Object[] optionalParams);
+  public abstract Visitor<T> visitPen(int thickness, int[] rgbColorCode, Object[] optionalParams);
   
-  public abstract String visitTextTool(String fontName, int fontSize, int fontStyle, 
+  public abstract Visitor<T> visitTextTool(String fontName, int fontSize, int fontStyle, 
                                        int[] rgbColorCode, Object[] optionalParams);
   
   /*=================================*/
   /*========== Path Methods =========*/
   /*=================================*/
   
-  public abstract Object visitPolygonalPath(Point2D[] points, 
+  public abstract Visitor<T> visitPolygonalPath(Point2D[] points, 
       boolean closed, Object[] optionalParams);
   
-  public abstract Object visitBezierPath(Point2D[] points, boolean closed, Object[] optionalParams);
+  public abstract Visitor<T> visitBezierPath(Point2D[] points, boolean closed, 
+                                             Object[] optionalParams);
   
   /*=====================================*/
   /*========== Operator Methods =========*/
   /*=====================================*/
 
-  public abstract String visitSequence(Drawing[] drawings, Object[] optionalParams);
+  public abstract Visitor<T> visitSequence(Drawing<T>[] drawings, Object[] optionalParams);
   
-  public abstract String visitAlternative(Drawing[] drawings, boolean firstWanted, 
+  public abstract Visitor<T> visitAlternative(Drawing<T>[] drawings, boolean firstWanted, 
       Object[] optionalParams);
   
-  public abstract String visitLoop(Drawing drawing, int numIterations, 
+  public abstract Visitor<T> visitLoop(Drawing<T> drawing, int numIterations, 
                 HashMap<String, Double[]> changeParams, Object[] optionalParams);
   
   /*===================================*/
   /*========== Action Methods =========*/
   /*===================================*/
   
-  public abstract String visitDraw(Path path, Tool tool, Object[] optionalParams);
+  public abstract Visitor<T> visitDraw(Path<T> path, Tool<T> tool, Object[] optionalParams);
      
-  public abstract String visitFill(Path path, ColorManager color, Object[] optionalParams);
+  public abstract Visitor<T> visitFill(Path<T> path, ColorManager color, Object[] optionalParams);
 
-  public abstract String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams);
+  public abstract Visitor<T> visitInsert(Drawing<T> drawing, Path<T>[] paths,
+                              Object[] optionalParams);
 
-  public abstract String visitLabel(String text, Point2D position, 
-                                    TextTool textTool, Object[] optionalParams);
+  public abstract Visitor<T> visitLabel(String text, Point2D position, 
+                                    TextTool<T> textTool, Object[] optionalParams);
 
   /*==================================*/
   /*========== Export Method =========*/
   /*==================================*/
    
-  public abstract void visitExport(Drawing drawing, int height, int width);
+  public abstract void visitExport(Drawing<T> drawing, int height, int width);
   
 }

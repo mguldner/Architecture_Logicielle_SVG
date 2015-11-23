@@ -19,7 +19,7 @@ import visitors.Visitor;
  * 
  */
 
-public class Loop implements Operator, LoopFactory{
+public class Loop<T> implements Operator<T>, LoopFactory<T>{
 
   private Drawing drawing;
   
@@ -39,6 +39,7 @@ public class Loop implements Operator, LoopFactory{
   public Loop() {
     this.drawing = new Sequence();
   }
+
   
   public Loop(Drawing drawing, int numberIterations, 
       HashMap<String, Double[]> changeParams) {
@@ -55,6 +56,7 @@ public class Loop implements Operator, LoopFactory{
     return this.numberIterations;
   }
   
+
   public HashMap<String, Double[]> getChangeParams() {
     return this.changeParams;
   }
@@ -62,7 +64,7 @@ public class Loop implements Operator, LoopFactory{
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitLoop(this.drawing, this.getNumberIterations(), 
         this.changeParams, optionalParams);
   }

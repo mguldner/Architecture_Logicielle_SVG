@@ -11,7 +11,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action fill the inside of a closed path with a color.
  */
-public class Fill implements Action, FillFactory {
+public class Fill<T> implements Action<T>, FillFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -47,7 +47,7 @@ public class Fill implements Action, FillFactory {
   /*============ Shared Methods ============*/
   /*========================================*/
   @Override
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitFill(path, color, optionalParams);
   }
 

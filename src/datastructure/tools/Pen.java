@@ -17,7 +17,7 @@ import visitors.Visitor;
  * The <code>applyNewExportModeTool</code> method will have to be 
  * implemented for all pens.
  */
-public class Pen extends Tool implements PenFactory{
+public class Pen<T> extends Tool<T> implements PenFactory{
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -63,22 +63,22 @@ public class Pen extends Tool implements PenFactory{
   /*===================================*/
   /*========== Shared Methods =========*/
   /*===================================*/
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitPen(this.getThickness(), this.getRgbColorCode(), optionalParams);
   }
 
   @Override
-  public Pen createPen(int thickness) {
-    return new Pen(thickness);
+  public Pen<T> createPen(int thickness) {
+    return new Pen<T>(thickness);
   }
 
   @Override
-  public Pen createPen(ColorManager colorManager) {
-    return new Pen(colorManager);
+  public Pen<T> createPen(ColorManager colorManager) {
+    return new Pen<T>(colorManager);
   }
 
   @Override
-  public Pen createPen(ColorManager colorManager, int thickness) {
-    return new Pen(colorManager, thickness);
+  public Pen<T> createPen(ColorManager colorManager, int thickness) {
+    return new Pen<T>(colorManager, thickness);
   }
 }

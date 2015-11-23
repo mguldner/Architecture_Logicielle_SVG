@@ -1,15 +1,5 @@
 package visitors;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
-import java.util.HashMap;
-
-import javax.swing.JFrame;
-
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
@@ -18,10 +8,22 @@ import exports.ResultPanel;
 import managers.ColorManager;
 import utils.Point2D;
 
-public class VisitorJava extends Visitor {
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.GeneralPath;
+import java.util.HashMap;
+
+
+import javax.swing.JFrame;
+
+
+public class VisitorJava extends Visitor<Shape> {
 
   @Override
-  public String visitPen(int thickness, int[] rgbColorCode, Object[] optionalParams) {
+  public Visitor<Shape> visitPen(int thickness, int[] rgbColorCode, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
@@ -29,11 +31,11 @@ public class VisitorJava extends Visitor {
     Graphics2D graph = (Graphics2D) optionalParams[0];
     graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
     graph.setStroke(new BasicStroke(thickness));
-    return "Ok";
+    return this;
   }
 
   @Override
-  public String visitTextTool(String fontName, int fontSize, int fontStyle,
+  public Visitor<Shape> visitTextTool(String fontName, int fontSize, int fontStyle,
       int[] rgbColorCode, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -44,11 +46,11 @@ public class VisitorJava extends Visitor {
 
     graph.setFont(new Font(fontName, fontStyle, fontSize));
     graph.setColor(new Color(rgbColorCode[0], rgbColorCode[1], rgbColorCode[2]));
-    return "Ok";
+    return this;
   }
 
   @Override
-  public Shape visitPolygonalPath(Point2D[] points, boolean closed,
+  public Visitor<Shape> visitPolygonalPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -66,11 +68,12 @@ public class VisitorJava extends Visitor {
     if (closed) {
       polygon.closePath();
     }
-    return polygon;
+    this.setResult(polygon);
+    return this;
   }
 
   @Override
-  public Shape visitBezierPath(Point2D[] points, boolean closed,
+  public Visitor<Shape> visitBezierPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -86,12 +89,12 @@ public class VisitorJava extends Visitor {
     if (closed) {
       bezier.closePath();
     }
-
-    return bezier;
+    this.setResult(bezier);
+    return this;
   }
 
   @Override
-  public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
+  public Visitor<Shape> visitDraw(Path<Shape> path, Tool<Shape> tool, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
@@ -100,12 +103,12 @@ public class VisitorJava extends Visitor {
     Graphics2D graph = (Graphics2D)(optionalParams[0]);
 
     tool.render(this, optionalParams);
-    graph.draw((Shape)path.render(this, optionalParams));
-    return "Ok";
+    graph.draw((Shape)path.render(this, optionalParams).getResult());
+    return this;
   }
 
   @Override
-  public String visitFill(Path path, ColorManager color,
+  public Visitor<Shape> visitFill(Path<Shape> path, ColorManager color,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -116,12 +119,13 @@ public class VisitorJava extends Visitor {
     int[] rgbColor = color.getRgbCode();
 
     graph.setColor(new Color(rgbColor[0], rgbColor[1], rgbColor[2]));
-    graph.fill((Shape)path.render(this, optionalParams));
-    return "Ok";
+    graph.fill((Shape)path.render(this, optionalParams).getResult());
+    return this;
   }
 
   @Override
-  public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
+  public Visitor<Shape> visitInsert(Drawing<Shape> drawing, Path<Shape>[] paths,
+                                    Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
@@ -130,18 +134,17 @@ public class VisitorJava extends Visitor {
     Graphics2D graph = (Graphics2D)(optionalParams[0]);
 
     Shape oldClip = graph.getClip();
-
-    for (Path path : paths) {
-      graph.clip((Shape)path.render(this, optionalParams));
+    for (Path<Shape> path : paths) {
+      graph.clip((Shape)path.render(this, optionalParams).getResult());
     }
     drawing.render(this, optionalParams);
 
     graph.setClip(oldClip);
-    return "Ok";
+    return this;
   }
 
   @Override
-  public String visitLabel(String text, Point2D position, TextTool textTool,
+  public Visitor<Shape> visitLabel(String text, Point2D position, TextTool<Shape> textTool,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -152,11 +155,11 @@ public class VisitorJava extends Visitor {
 
     textTool.render(this, optionalParams);
     graph.drawString(text, position.getX(), position.getY());
-    return "Ok";
+    return this;
   }
 
   @Override
-  public void visitExport(Drawing drawing, int height, int width) {
+  public void visitExport(Drawing<Shape> drawing, int height, int width) {
     JFrame window = new JFrame();
     window.setTitle("Drawing");
     window.setSize(width, height);
@@ -166,7 +169,7 @@ public class VisitorJava extends Visitor {
   }
 
   @Override
-  public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
+  public Visitor<Shape> visitSequence(Drawing[] drawings, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
       throw new Error("No valid graphic given");
@@ -176,11 +179,11 @@ public class VisitorJava extends Visitor {
       drawings[i].render(this, optionalParams);
     }
 
-    return "Ok";
+    return this;
   }
 
   @Override
-  public String visitAlternative(Drawing[] drawings, boolean firstWanted,
+  public Visitor<Shape> visitAlternative(Drawing[] drawings, boolean firstWanted,
       Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -192,11 +195,11 @@ public class VisitorJava extends Visitor {
     } else {
       drawings[1].render(this, optionalParams);
     }
-    return "Ok";
+    return this;
   }
 
   @Override
-  public String visitLoop(Drawing drawing, int numIterations,
+  public Visitor<Shape> visitLoop(Drawing<Shape> drawing, int numIterations,
       HashMap<String, Double[]> changeParams, Object[] optionalParams) {
     if (optionalParams == null || optionalParams.length < 1 
         || ! (optionalParams[0] instanceof Graphics2D)) {
@@ -220,7 +223,7 @@ public class VisitorJava extends Visitor {
         drawing.render(this, optionalParams);
       }
     }
-    return "Ok";
+    return this;
   }
 
 }

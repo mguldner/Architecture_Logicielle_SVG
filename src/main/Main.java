@@ -1,5 +1,7 @@
 package main;
 
+import java.util.HashMap;
+
 import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
@@ -137,14 +139,17 @@ public class Main {
     };
 
     //Example with a Sequence :
-    Drawing sequence = seq.createSequence(drawingArray);
+//    Drawing sequence = seq.createSequence(drawingArray);
      
     //Example with an Alternative :
-    //Drawing sequence = alt.createAlternative(drawingArray,true);
+//    Drawing sequence = alt.createAlternative(drawingArray,true);
     
     //Example with a Loop
-    //Object[] changeParams = {15.0};
-    //Drawing sequence = loop.createLoop(drawingArray, 5, "rotation", changeParams);
+    HashMap<String, Double[]> changeParams = new HashMap<String, Double[]>();
+    Double[] param = {2.0, 2.0};
+    changeParams.put("scale", param);
+//    Object[] changeParams = {15.0};
+    Drawing sequence = loop.createLoop(fill1, 4, changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/

@@ -1,4 +1,11 @@
 /factories/
 /datastructure/
+/exports/
+/factories/
 /main/
+<<<<<<< HEAD
+/managers/
+/utils/
+=======
+>>>>>>> 603d26356061bb673a4c4bacb4a58315a1c2d452
 /visitors/

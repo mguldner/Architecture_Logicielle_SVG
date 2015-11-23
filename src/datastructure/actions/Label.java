@@ -12,7 +12,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This Action enables to put a label on a Drawing.
  */
-public class Label implements Action, LabelFactory {
+public class Label<T> implements Action<T>, LabelFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -23,7 +23,7 @@ public class Label implements Action, LabelFactory {
    */
   private String text;
   private Point2D position;
-  private TextTool textTool;
+  private TextTool<T> textTool;
   
   /*=================================*/
   /*========== Constructors =========*/
@@ -34,17 +34,17 @@ public class Label implements Action, LabelFactory {
    * @param position the position of the label.
    * @param textTool the TextTool to use.
    */
-  private Label(String text, Point2D position, TextTool textTool) {
+  private Label(String text, Point2D position, TextTool<T> textTool) {
     this.text = text;
     this.position = position;
     this.textTool = textTool;
   }
   
   private Label(String text, Point2D position) {
-    this(text, position, new TextTool());
+    this(text, position, new TextTool<T>());
   }
   
-  private Label(String text, TextTool textTool) {
+  private Label(String text, TextTool<T> textTool) {
     this(text, new Point2D(0,0));
   }
   
@@ -56,7 +56,7 @@ public class Label implements Action, LabelFactory {
   /*============ Shared Methods ============*/
   /*========================================*/
   @Override
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitLabel(text, position, textTool, optionalParams);
   }
 

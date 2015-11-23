@@ -10,7 +10,7 @@ import visitors.Visitor;
  * by lines.
  *
  */
-public class PolygonalPath extends Path {
+public class PolygonalPath<T> extends Path<T> {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/ 
@@ -30,7 +30,7 @@ public class PolygonalPath extends Path {
   /*========================================*/
   /*============ Shared methods ============*/
   /*========================================*/
-  public Object render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitPolygonalPath(this.getPoints(), this.isClosed(), optionalParams);
   }
 

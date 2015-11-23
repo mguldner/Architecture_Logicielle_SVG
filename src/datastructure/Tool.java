@@ -7,7 +7,7 @@ import visitors.Visitor;
 /**
  * This class allows the user to easily add new tools.
  */
-public abstract class Tool {
+public abstract class Tool<T> {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -43,6 +43,6 @@ public abstract class Tool {
   /*========================================*/  
   /*============ Shared Methods ============*/
   /*========================================*/  
-  public abstract String render(Visitor visitor, Object[] optionalParams);
+  public abstract Visitor<T> render(Visitor<T> visitor, Object[] optionalParams);
 
 }
