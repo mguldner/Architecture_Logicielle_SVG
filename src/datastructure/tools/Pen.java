@@ -1,6 +1,7 @@
 package datastructure.tools;
 
 import datastructure.Tool;
+import factories.tools.PenFactory;
 import managers.ColorManager;
 import utils.Constants;
 import visitors.Visitor;
@@ -16,7 +17,7 @@ import visitors.Visitor;
  * The <code>applyNewExportModeTool</code> method will have to be 
  * implemented for all pens.
  */
-public class Pen extends Tool {
+public class Pen extends Tool implements PenFactory{
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -31,17 +32,17 @@ public class Pen extends Tool {
     this.thickness = Constants.DEFAULT_PEN_THICKNESS;
   }
   
-  public Pen(int thickness) {
+  private Pen(int thickness) {
     super();
     this.thickness =  thickness;
   }
   
-  public Pen(ColorManager colorManager) {
+  private Pen(ColorManager colorManager) {
     super(colorManager);
     this.thickness = Constants.DEFAULT_PEN_THICKNESS;
   }
   
-  public Pen(ColorManager colorManager, int thickness) {
+  private Pen(ColorManager colorManager, int thickness) {
     super(colorManager);
     this.thickness = thickness;
   }
@@ -64,5 +65,20 @@ public class Pen extends Tool {
   /*===================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitPen(this.getThickness(), this.getRgbColorCode(), optionalParams);
+  }
+
+  @Override
+  public Pen createPen(int thickness) {
+    return new Pen(thickness);
+  }
+
+  @Override
+  public Pen createPen(ColorManager colorManager) {
+    return new Pen(colorManager);
+  }
+
+  @Override
+  public Pen createPen(ColorManager colorManager, int thickness) {
+    return new Pen(colorManager, thickness);
   }
 }

@@ -3,7 +3,7 @@ package datastructure.actions;
 import datastructure.Action;
 import datastructure.Drawing;
 import datastructure.Path;
-import managers.ColorManager;
+import factories.actions.InsertFactory;
 import visitors.Visitor;
 
 
@@ -11,7 +11,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action insert a drawing delimited with a path inside an other drawing.
  */
-public class Insert extends Action {
+public class Insert implements Action, InsertFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -22,24 +22,18 @@ public class Insert extends Action {
 
   private Drawing drawing;
   private Path[] paths;
-//  private Drawing drawingToInsert;
   
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
+  public Insert(){}
+  
   /**
    * Construct a drawing by filling a closed path.
    * @param path the closed path to fill.
    * @param color the color with which the path has to be filled.
    */
- /* public Insert(Drawing drawing, Drawing drawingToInsert) {
-    if (!path.isClosed()) {
-      throw new Error("Path is not closed : unable to fill");
-    }
-    this.path = path;
-    this.color = color;
-  }*/
-  public Insert(Drawing drawing, Path[] paths){
+  private Insert(Drawing drawing, Path[] paths) {
     this.drawing = drawing;
     this.paths = paths;
   }
@@ -50,6 +44,11 @@ public class Insert extends Action {
   @Override
   public String render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitInsert(drawing, paths, optionalParams);
+  }
+
+  @Override
+  public Insert createInsert(Drawing drawing, Path[] paths) {
+    return new Insert(drawing, paths);
   }
 
 }

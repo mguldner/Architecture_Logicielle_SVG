@@ -14,11 +14,15 @@ public class PolygonalPath extends Path {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/ 
-  public PolygonalPath(Point2D[] points) { 
+  public PolygonalPath() {
+    super();
+  }
+  
+  private PolygonalPath(Point2D[] points) { 
     super(points);
   }
   
-  public PolygonalPath(Point2D[] points, boolean closed) {
+  private PolygonalPath(Point2D[] points, boolean closed) {
     super(points, closed);
   }
 
@@ -28,6 +32,17 @@ public class PolygonalPath extends Path {
   /*========================================*/
   public Object render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitPolygonalPath(this.getPoints(), this.isClosed(), optionalParams);
+  }
+
+  @Override
+  public PolygonalPath createPath(Point2D[] points, boolean closed) {
+    return new PolygonalPath(points, closed);
+  }
+
+  @Override
+  public PolygonalPath createPath(Point2D[] points) {
+    // TODO Auto-generated method stub
+    return new PolygonalPath(points);
   }
 
 }

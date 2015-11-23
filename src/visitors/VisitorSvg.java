@@ -4,9 +4,10 @@ import datastructure.Drawing;
 import datastructure.Path;
 import datastructure.Tool;
 import datastructure.tools.TextTool;
+import exports.ExportSvg;
 import managers.ColorManager;
 import utils.Point2D;
-import utils.UsefulFunctions;
+import java.util.HashMap;
 
 public class VisitorSvg extends Visitor{
   
@@ -52,7 +53,7 @@ public class VisitorSvg extends Visitor{
   }
 
   @Override
-  public Object visitBezierPath(Point2D[] points, boolean closed,
+  public String visitBezierPath(Point2D[] points, boolean closed,
       Object[] optionalParams) {
     String svgCode = "d=\"";
     
@@ -68,46 +69,6 @@ public class VisitorSvg extends Visitor{
     svgCode += "\" fill=\"none\"";
     return svgCode;
   }
-  
-  @Override
-  public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
-    String svgCode = "";
-    for (int i = 0; i < drawings.length; i++) {
-      svgCode += drawings[i].render(this, optionalParams);
-    }
-    return svgCode;
-  }
-
-  @Override
-  public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
-      Object[] optionalParams) {
-    String svgCode = "";
-    if (change == "rotation") {
-      for (int i = 0; i < drawings.length; i++) {
-        svgCode += "<g transform=\"rotate(" + (double)changeparams[0] * i + " 0 0)\">";
-        svgCode += drawings[i].render(this, optionalParams);
-        svgCode += "</g>";
-      }
-    }
-    if (change == "translation") {
-      for (int i = 0; i < drawings.length; i++) {
-        svgCode += "<g transform=\"translate(" + (double)changeparams[0] * i + " " 
-            + (double)changeparams[1] * i + ")\">";
-        svgCode += drawings[i].render(this, optionalParams);
-        svgCode += "</g>";
-      }
-    } 
-    if (change == "scaling") {
-      for (int i = 0; i < drawings.length; i++) {
-        svgCode += "<g transform=\"scale(" + (double)changeparams[0] * i + " " 
-            + (double)changeparams[1] * i + ")\">";
-        svgCode += drawings[i].render(this, optionalParams);
-        svgCode += "</g>";
-      }
-    } 
-    return svgCode;
-
-  }
 
   @Override
   public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
@@ -117,18 +78,20 @@ public class VisitorSvg extends Visitor{
     svgCode += "/>\n";
     return svgCode;
   }
-  
+
   @Override
   public String visitFill(Path path, ColorManager color,
       Object[] optionalParams) {
     String svgCode = "<path ";
     int[] rgbColor = color.getRgbCode();
-    svgCode += path.render(this, optionalParams) + " ";
-    svgCode += "fill=\"rgb(" + rgbColor[0] + "," 
+    String pathCode = (String)path.render(this, optionalParams);
+    String pathCodeChanged = pathCode.substring(0, pathCode.length() - 12);
+    svgCode += pathCodeChanged + " fill=\"rgb(" + rgbColor[0] + "," 
       + rgbColor[1] + "," + rgbColor[2] + ")\" ";
     svgCode += "/>\n";
     return svgCode;
   }
+
 
   @Override
   public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
@@ -148,6 +111,7 @@ public class VisitorSvg extends Visitor{
     return svgCode;
   }
 
+
   @Override
   public String visitLabel(String text, Point2D position, TextTool textTool,
       Object[] optionalParams) {
@@ -164,7 +128,56 @@ public class VisitorSvg extends Visitor{
         + "\" xmlns=\"http://www.w3.org/2000/svg\">\n";
     svgCode += drawing.render(new VisitorSvg(), null);
     svgCode += "</svg>";
-    System.out.println(svgCode);
+    ExportSvg.export(svgCode);
+  }
+  
+  @Override
+  public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
+    String svgCode = "";
+    for (int i = 0; i < drawings.length; i++) {
+      svgCode += drawings[i].render(this, optionalParams);
+    }
+    return svgCode;
+  }
+
+  public String visitAlternative(Drawing[] drawings, boolean firstWanted,
+      Object[] optionalParams) {
+    String svgCode = "";
+
+    if (firstWanted) {
+      svgCode += drawings[0].render(this, optionalParams);
+    } else {
+      svgCode += drawings[1].render(this, optionalParams);
+    }
+    return svgCode;
+  }
+
+  @Override
+  public String visitLoop(Drawing drawing, int numIterations,
+      HashMap<String, Double[]> changeParams, Object[] optionalParams) {
+    String svgCode = "";
+    
+    for (int i = 0 ; i < numIterations ; i++) {
+      if (changeParams.containsKey("rotation")) {
+        Double[] value = changeParams.get("rotation");
+        svgCode += "<g transform=\"rotate(" + value[0] * i 
+            + " 0 0)\">";
+        svgCode += drawing.render(this, optionalParams) + "</g>";
+      }
+      if (changeParams.containsKey("translation")) {
+        Double[] value = changeParams.get("translation");
+        svgCode += "<g transform=\"translate(" + value[0] * i + " " 
+            + value[1] * i + ")\">";
+        svgCode += drawing.render(this, optionalParams) + "</g>";
+      }
+      if (changeParams.containsKey("scale")) {
+        Double[] value = changeParams.get("scale");
+        svgCode += "<g transform=\"scale(" + value[0] * i + " " 
+            + value[1] * i + ")\">";
+        svgCode += drawing.render(this, optionalParams) + "</g>";
+      }
+    }
+    return svgCode;
   }
 
 }

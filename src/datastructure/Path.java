@@ -1,5 +1,6 @@
 package datastructure;
 
+import factories.paths.PathFactory;
 import utils.Constants;
 import utils.Point2D;
 import visitors.Visitor;
@@ -8,7 +9,7 @@ import visitors.Visitor;
  * This class allows the user to easily add new paths 
  * (basic types being PolygonalPath and BezierCurve).
  */
-public abstract class Path {
+public abstract class Path implements PathFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -23,6 +24,8 @@ public abstract class Path {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/
+  public Path() {}
+  
   public Path(Point2D[] points) {
     this.points = points;
     this.closed = Constants.DEFAULT_PATH_CLOSED;

@@ -2,6 +2,7 @@ package datastructure.operators;
 
 import datastructure.Drawing;
 import datastructure.Operator;
+import factories.operators.SequenceFactory;
 import visitors.Visitor;
 
 /**
@@ -9,36 +10,39 @@ import visitors.Visitor;
  * It takes an array of drawings and draws each of them in 
  * the order of the array.
  */
-public class Sequence extends Operator {
+public class Sequence implements Operator, SequenceFactory {
+  
+  private Drawing[] drawings;
+  
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/  
   public Sequence() {
-    super();
+    this.drawings = new Drawing[0];
   }
   
   public Sequence(Drawing[] drawings) {
-    super(drawings);
+    this.drawings = drawings;
   }
-
   
-  /*========================================*/
-  /*============ Shared Methods ============*/
-  /*========================================*/
-  @Override
-  public Drawing[] applyFunction() {
-    /*Here now need to modify the drawing array as
-     *we just want to draw all of them
-     **/
-    return this.getDrawings();
-  }
 
+  /*============================*/
+  /*========== Getters =========*/
+  /*============================*/
+  public Drawing[] getDrawings() {
+    return this.drawings;
+  }
   
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitOperator(this.applyFunction(), optionalParams);
+    return visitor.visitSequence(this.getDrawings(), optionalParams);
+  }
+
+  @Override
+  public Sequence createSequence(Drawing[] drawings) {
+    return new Sequence(drawings);
   }
   
 }

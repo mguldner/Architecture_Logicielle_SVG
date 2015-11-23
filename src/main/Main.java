@@ -7,11 +7,24 @@ import datastructure.actions.Draw;
 import datastructure.actions.Fill;
 import datastructure.actions.Insert;
 import datastructure.actions.Label;
+import datastructure.operators.Alternative;
 import datastructure.operators.Loop;
+import datastructure.operators.Sequence;
 import datastructure.paths.BezierPath;
 import datastructure.paths.PolygonalPath;
 import datastructure.tools.Pen;
 import datastructure.tools.TextTool;
+import factories.ColorManagerFactory;
+import factories.actions.DrawFactory;
+import factories.actions.FillFactory;
+import factories.actions.InsertFactory;
+import factories.actions.LabelFactory;
+import factories.operators.AlternativeFactory;
+import factories.operators.LoopFactory;
+import factories.operators.SequenceFactory;
+import factories.paths.PathFactory;
+import factories.tools.PenFactory;
+import factories.tools.TextToolFactory;
 import managers.ColorManager;
 import utils.Point2D;
 import visitors.VisitorJava;
@@ -25,17 +38,33 @@ public class Main {
    * Put here all your instructions to create your drawing.
    * @param args arguments
    */
-  public static void main(String[] args) {    
+  public static void main(String[] args) {
+    /*=========================*/
+    /*======= FACTORIES =======*/
+    /*=========================*/
+    DrawFactory draw = new Draw();
+    FillFactory fill = new Fill();
+    InsertFactory insert = new Insert();
+    LabelFactory label = new Label();
+    AlternativeFactory alt = new Alternative();
+    LoopFactory loop = new Loop();
+    SequenceFactory seq = new Sequence();
+    PathFactory bezPath = new BezierPath();
+    PathFactory polygoPath = new PolygonalPath();
+    PenFactory pen = new Pen();
+    TextToolFactory textToolf = new TextTool();
+    ColorManagerFactory cm = new ColorManager();
+    
     /*=========================*/
     /*========= TOOLS =========*/
     /*=========================*/
-    ColorManager redCm = new ColorManager("hex", "#ff0000");
-    ColorManager greenCm = new ColorManager("hex", "#00ff00");
+    ColorManager redCm = cm.createColorManager("hex", "#ff0000");
+    ColorManager greenCm = cm.createColorManager("hex", "#00ff00");
     
-    Tool redPen = new Pen(redCm);
-    Tool greenPen = new Pen(greenCm, 6);
+    Tool redPen = pen.createPen(redCm);
+    Tool greenPen = pen.createPen(greenCm, 6);
     
-    Tool textTool = new TextTool(greenCm);
+    Tool textTool = textToolf.createTextTool(greenCm);
     
     /*=========================*/
     /*========= PATHS =========*/
@@ -52,7 +81,7 @@ public class Main {
     Point2D[] points3 = {
         new Point2D(60, 60),
         new Point2D(60, 120),
-        new Point2D(120,120)
+        new Point2D(120,120),
     };
     Point2D[] pointsBezier = {
         new Point2D(10, 10),
@@ -77,26 +106,26 @@ public class Main {
         new Point2D(18,6),
         new Point2D(150,56)
     };
-    Path polygonalPath1 = new PolygonalPath(points1, false);
-    Path polygonalPath2 = new PolygonalPath(points2, false);
-    Path polygonalPath3 = new PolygonalPath(points3, true);
-    Path polygonalPath4 = new PolygonalPath(points4, true);
-    Path polygonalPath5 = new PolygonalPath(points5, true);
-    Path polygonalPath6 = new PolygonalPath(points6, false);
-    Path bezierPath = new BezierPath(pointsBezier, false);
+    Path polygonalPath1 = polygoPath.createPath(points1, false);
+    Path polygonalPath2 = polygoPath.createPath(points2, false);
+    Path polygonalPath3 = polygoPath.createPath(points3, true);
+    Path polygonalPath4 = polygoPath.createPath(points4, true);
+    Path polygonalPath5 = polygoPath.createPath(points5, true);
+    Path polygonalPath6 = polygoPath.createPath(points6, true);
+    Path bezierPath = bezPath.createPath(pointsBezier, false);
     Path[] paths = {polygonalPath5};
     
     /*=========================*/
     /*======== DRAWINGS =======*/
     /*=========================*/
-    Drawing draw1 = new Draw(polygonalPath1, redPen);
-    Drawing draw2 = new Draw(polygonalPath2, greenPen);
-    Drawing drawBezier = new Draw(bezierPath, redPen);
-    Drawing draw3 = new Draw(polygonalPath3, redPen);
-    Drawing fill1 = new Fill(polygonalPath3, greenCm);
-    Drawing fill2 = new Fill(polygonalPath4, redCm);
-    Drawing insert1 = new Insert(fill1, paths);
-    Drawing label1 = new Label("Hello world", new Point2D(100, 100), (TextTool)textTool);
+    Drawing draw1 = draw.createDraw(polygonalPath1, redPen);
+    Drawing draw2 = draw.createDraw(polygonalPath2, greenPen);
+    Drawing drawBezier = draw.createDraw(bezierPath, redPen);
+    Drawing draw3 = draw.createDraw(polygonalPath3, redPen);
+    Drawing fill1 = fill.createFill(polygonalPath6, greenCm);
+    Drawing fill2 = fill.createFill(polygonalPath4, redCm);
+    Drawing insert1 = insert.createInsert(fill1, paths);
+    Drawing label1 = label.createLabel("Hello world", new Point2D(100, 100), (TextTool)textTool);
     Drawing[] drawingArray = {
         //draw1,
         //draw2,
@@ -104,18 +133,18 @@ public class Main {
         fill2,
         insert1,
         label1,
-        drawBezier
+        //drawBezier
     };
 
     //Example with a Sequence :
-    //Drawing sequence = new Sequence(drawingArray);
+    Drawing sequence = seq.createSequence(drawingArray);
      
     //Example with an Alternative :
-    //Drawing sequence = new Alternative(drawingArray,true);
+    //Drawing sequence = alt.createAlternative(drawingArray,true);
     
     //Example with a Loop
-    Object[] changeParams = {15.0};
-    Drawing sequence = new Loop(drawingArray, 5, "rotation", changeParams);
+    //Object[] changeParams = {15.0};
+    //Drawing sequence = loop.createLoop(drawingArray, 5, "rotation", changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/

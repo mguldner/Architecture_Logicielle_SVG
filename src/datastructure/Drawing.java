@@ -7,15 +7,15 @@ import visitors.Visitor;
  * The structure is defined as a tree, tree that has leaves (actions) 
  * and subtrees (operators).
  */
-public abstract class Drawing {
+public interface Drawing {
   /*========================================*/ 
   /*============ Shared Methods ============*/
   /*========================================*/
   
-  public void export(Visitor visitor, int height, int width) {
+  default void export(Visitor visitor, int height, int width) {
     visitor.visitExport(this, height, width);
   }
   
-  public abstract Object render(Visitor visitor, Object[] optionalParams);
+  public Object render(Visitor visitor, Object[] optionalParams);
   
 }

@@ -1,9 +1,10 @@
 package managers;
 
+import factories.ColorManagerFactory;
 import utils.Constants;
 import utils.UsefulFunctions;
 
-public class ColorManager {
+public class ColorManager implements ColorManagerFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -30,7 +31,7 @@ public class ColorManager {
    * @param colorType is a String like rgb or hex
    * @param color is the representation of the color (int[] or String for instance)
    */
-  public ColorManager(String colorType, Object color) {
+  private ColorManager(String colorType, Object color) {
     if (UsefulFunctions.typesCorrespond(colorType, color)) {
       this.colorType = colorType;
       this.color = color;      
@@ -70,6 +71,10 @@ public class ColorManager {
         break;
     }
     return rgbToReturn;
+  }
+  @Override
+  public ColorManager createColorManager(String colorType, Object color) {
+    return new ColorManager(colorType, color);
   }
   
 }

@@ -2,6 +2,7 @@ package datastructure.operators;
 
 import datastructure.Drawing;
 import datastructure.Operator;
+import factories.operators.AlternativeFactory;
 import visitors.Visitor;
 
 /**
@@ -11,8 +12,9 @@ import visitors.Visitor;
  * and the second otherwise
  */
 
-public class Alternative extends Operator{
+public class Alternative implements Operator, AlternativeFactory{
 
+  private Drawing[] drawings;
   //if the condition is true, draws the first drawing of the list.
   private boolean firstWanted;
   
@@ -20,33 +22,23 @@ public class Alternative extends Operator{
   /*========== Constructors =========*/
   /*=================================*/  
   public Alternative() {
-    super();
+    this.drawings = new Drawing[0];
   }
   
-  public Alternative(Drawing[] drawings, boolean firstWanted) {
-    super(drawings);
+  private Alternative(Drawing[] drawings, boolean firstWanted) {
+    this.drawings = drawings;
     this.firstWanted = firstWanted;
   }
   
   /*============================*/
   /*========== Getters =========*/
   /*============================*/
+  public Drawing[] getDrawings() {
+    return this.drawings;
+  }
+
   public boolean getFirstWanted() {
     return this.firstWanted;
-  }
-  
-  /*========================================*/
-  /*============ Shared Methods ============*/
-  /*========================================*/
-  @Override
-  public Drawing[] applyFunction() {
-    Drawing[] drawing = new Drawing[1];
-    if (this.getFirstWanted()) {
-      drawing[0] = this.getDrawings()[0];
-    } else {
-      drawing[0] = this.getDrawings()[1];
-    }
-    return drawing;
   }
 
   /*===============================================================*/
@@ -54,7 +46,13 @@ public class Alternative extends Operator{
   /*===============================================================*/
   @Override
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitOperator(this.applyFunction(), optionalParams);
+    return visitor.visitAlternative(this.getDrawings(), this.getFirstWanted(), optionalParams);
+  }
+
+  @Override
+  public Alternative createAlternative(Drawing[] drawings,
+      boolean firstWanted) {
+    return new Alternative(drawings, firstWanted);
   }
 
 }
