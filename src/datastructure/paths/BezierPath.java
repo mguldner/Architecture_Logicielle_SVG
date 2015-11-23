@@ -11,7 +11,7 @@ import visitors.Visitor;
  * by lines.
  *
  */
-public class BezierPath extends Path {
+public class BezierPath<T> extends Path<T> {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/ 
@@ -39,7 +39,7 @@ public class BezierPath extends Path {
   /*========================================*/
   /*============ Shared methods ============*/
   /*========================================*/
-  public Object render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitBezierPath(this.getPoints(), this.isClosed(), optionalParams);
   }
 

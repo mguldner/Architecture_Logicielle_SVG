@@ -10,7 +10,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action draws a path with a tool.
  */
-public class Draw implements Action, DrawFactory{
+public class Draw<T> implements Action<T>, DrawFactory{
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -19,7 +19,7 @@ public class Draw implements Action, DrawFactory{
    * tool: Tool to use.
    */
   private Path path;
-  private Tool tool;
+  private Tool<T> tool;
 
   
   /*=================================*/
@@ -27,7 +27,7 @@ public class Draw implements Action, DrawFactory{
   /*=================================*/
   public Draw(){}
   
-  private Draw(Path path, Tool tool) {
+  private Draw(Path path, Tool<T> tool) {
     this.path = path;
     this.tool = tool;
   }
@@ -36,7 +36,7 @@ public class Draw implements Action, DrawFactory{
     return this.path;
   }
   
-  public Tool getTool() {
+  public Tool<T> getTool() {
     return tool;
   }
   
@@ -45,7 +45,7 @@ public class Draw implements Action, DrawFactory{
   /*============ Shared Methods ============*/
   /*========================================*/
   @Override
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitDraw(this.getPath(), this.getTool(), optionalParams);
   }
 

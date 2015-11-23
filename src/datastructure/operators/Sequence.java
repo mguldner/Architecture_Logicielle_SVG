@@ -10,7 +10,7 @@ import visitors.Visitor;
  * It takes an array of drawings and draws each of them in 
  * the order of the array.
  */
-public class Sequence extends Operator implements SequenceFactory {
+public class Sequence<T> extends Operator<T> implements SequenceFactory {
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/  
@@ -38,7 +38,7 @@ public class Sequence extends Operator implements SequenceFactory {
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitOperator(this.applyFunction(), optionalParams);
   }
 

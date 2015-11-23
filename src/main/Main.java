@@ -140,11 +140,11 @@ public class Main {
     Drawing sequence = seq.createSequence(drawingArray);
      
     //Example with an Alternative :
-    //Drawing sequence = alt.createAlternative(drawingArray,true);
+//    Drawing sequence = alt.createAlternative(drawingArray,true);
     
     //Example with a Loop
-    //Object[] changeParams = {15.0};
-    //Drawing sequence = loop.createLoop(drawingArray, 5, "rotation", changeParams);
+//    Object[] changeParams = {15.0};
+//    Drawing sequence = loop.createLoop(drawingArray, 5, "rotation", changeParams);
     
     /*=========================*/
     /*======== EXPORTS ========*/

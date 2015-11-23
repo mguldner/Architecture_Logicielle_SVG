@@ -11,7 +11,7 @@ import visitors.Visitor;
  * This class is the representation of one type of Action.
  * This action insert a drawing delimited with a path inside an other drawing.
  */
-public class Insert implements Action, InsertFactory {
+public class Insert<T> implements Action<T>, InsertFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -42,7 +42,7 @@ public class Insert implements Action, InsertFactory {
   /*============ Shared Methods ============*/
   /*========================================*/
   @Override
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitInsert(drawing, paths, optionalParams);
   }
 

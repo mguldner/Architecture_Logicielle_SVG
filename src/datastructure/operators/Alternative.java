@@ -12,7 +12,7 @@ import visitors.Visitor;
  * and the second otherwise
  */
 
-public class Alternative extends Operator implements AlternativeFactory{
+public class Alternative<T> extends Operator<T> implements AlternativeFactory{
 
   //if the condition is true, draws the first drawing of the list.
   private boolean firstWanted;
@@ -54,7 +54,7 @@ public class Alternative extends Operator implements AlternativeFactory{
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
   @Override
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitOperator(this.applyFunction(), optionalParams);
   }
 

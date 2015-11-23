@@ -18,7 +18,7 @@ import visitors.Visitor;
  * 
  */
 
-public class Loop extends Operator implements LoopFactory{
+public class Loop<T> extends Operator<T> implements LoopFactory<T>{
 
   // n represents the number of iteration for the Loop
   private int numberIterations;
@@ -39,7 +39,7 @@ public class Loop extends Operator implements LoopFactory{
     super();
   }
   
-  private Loop(Drawing[] drawings, int numberIterations, String change, 
+  private Loop(Drawing<T>[] drawings, int numberIterations, String change, 
                Object[] changeParams) {
     super(drawings);
     this.numberIterations = numberIterations;
@@ -61,8 +61,8 @@ public class Loop extends Operator implements LoopFactory{
   /*========================================*/
   
   @Override
-  public Drawing[] applyFunction() {
-    Drawing[] drawings = new Drawing[this.getDrawings().length * this.getNumberIterations()];
+  public Drawing<T>[] applyFunction() {
+    Drawing<T>[] drawings = new Drawing[this.getDrawings().length * this.getNumberIterations()];
     int compt = 0;
     for (int i = 0; i < this.getNumberIterations(); i++) {
       for (int j = 0; j < this.getDrawings().length; j++) {
@@ -78,14 +78,14 @@ public class Loop extends Operator implements LoopFactory{
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor<T> visitor, Object[] optionalParams) {
     return visitor.visitLoop(this.applyFunction(), this.change, this.changeParams, optionalParams);
   }
 
   @Override
-  public Loop createLoop(Drawing[] drawings, int numberIterations,
+  public Loop<T> createLoop(Drawing<T>[] drawings, int numberIterations,
       String change, Object[] changeParams) {
-    return new Loop(drawings, numberIterations, change, changeParams);
+    return new Loop<T>(drawings, numberIterations, change, changeParams);
   }
 
 }

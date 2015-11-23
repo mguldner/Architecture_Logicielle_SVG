@@ -6,7 +6,7 @@ import visitors.Visitor;
  * This abstract class allows the user to easily add new operations 
  * (basic types being Sequence, Alternative, Loop).
  */
-public abstract class Operator implements Drawing {
+public abstract class Operator<T> implements Drawing<T> {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -16,7 +16,7 @@ public abstract class Operator implements Drawing {
    * The function and its parameters will be implemented in each 
    * inheriting class
    */
-  private Drawing[] drawings;
+  private Drawing<T>[] drawings;
   
   
   /*=================================*/
@@ -26,7 +26,7 @@ public abstract class Operator implements Drawing {
     this.drawings = new Drawing[0];
   }
   
-  public Operator(Drawing[] drawings) {
+  public Operator(Drawing<T>[] drawings) {
     this.drawings = drawings;
   }
 
@@ -34,7 +34,7 @@ public abstract class Operator implements Drawing {
   /*============================*/
   /*========== Getters =========*/
   /*============================*/
-  public Drawing[] getDrawings() {
+  public Drawing<T>[] getDrawings() {
     return this.drawings;
   }
 
@@ -48,8 +48,8 @@ public abstract class Operator implements Drawing {
    * @return an array of Drawings that will be drawn when the 
    *         generateExportModeDrawing method will be called
    */
-  public abstract Drawing[] applyFunction();
+  public abstract Drawing<T>[] applyFunction();
   
-  public abstract String render(Visitor visitor, Object[] optionalParams);
+  public abstract Visitor<T> render(Visitor<T> visitor, Object[] optionalParams);
   
 }

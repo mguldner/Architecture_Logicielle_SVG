@@ -9,7 +9,7 @@ import visitors.Visitor;
  * This class allows the user to easily add new paths 
  * (basic types being PolygonalPath and BezierCurve).
  */
-public abstract class Path implements PathFactory {
+public abstract class Path<T> implements PathFactory {
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -52,5 +52,5 @@ public abstract class Path implements PathFactory {
   /*========================================*/
   /*============ Shared Methods ============*/
   /*========================================*/
-  public abstract Object render(Visitor visitor, Object[] optionalParams);
+  public abstract Visitor<T> render(Visitor<T> visitor, Object[] optionalParams);
 }

@@ -17,7 +17,7 @@ import visitors.Visitor;
  * The <code>applyNewExportModeTool</code> method will have to be 
  * implemented for all pens.
  */
-public class TextTool extends Tool implements TextToolFactory{  
+public class TextTool<T> extends Tool<T> implements TextToolFactory{  
   /*==============================*/
   /*========== Variables =========*/
   /*==============================*/
@@ -79,7 +79,7 @@ public class TextTool extends Tool implements TextToolFactory{
   /*============ Shared Methods ============*/
   /*========================================*/
   @Override
-  public String render(Visitor visitor, Object[] optionalParams) {
+  public Visitor<T> render(Visitor visitor, Object[] optionalParams) {
     return visitor.visitTextTool(this.getFontName(), 
                                  this.getFontSize(), 
                                  this.getFontStyle(), 
