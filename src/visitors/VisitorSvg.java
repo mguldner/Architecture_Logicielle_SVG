@@ -7,7 +7,7 @@ import datastructure.tools.TextTool;
 import exports.ExportSvg;
 import managers.ColorManager;
 import utils.Point2D;
-import utils.UsefulFunctions;
+import java.util.HashMap;
 
 public class VisitorSvg extends Visitor{
   
@@ -69,46 +69,6 @@ public class VisitorSvg extends Visitor{
     svgCode += "\" fill=\"none\"";
     return svgCode;
   }
-  
-  @Override
-  public String visitOperator(Drawing[] drawings, Object[] optionalParams) {
-    String svgCode = "";
-    for (int i = 0; i < drawings.length; i++) {
-      svgCode += drawings[i].render(this, optionalParams);
-    }
-    return svgCode;
-  }
-
-  @Override
-  public String visitLoop(Drawing[] drawings, String change, Object[] changeparams, 
-      Object[] optionalParams) {
-    String svgCode = "";
-    if (change == "rotation") {
-      for (int i = 0; i < drawings.length; i++) {
-        svgCode += "<g transform=\"rotate(" + (double)changeparams[0] * i + " 0 0)\">";
-        svgCode += drawings[i].render(this, optionalParams);
-        svgCode += "</g>";
-      }
-    }
-    if (change == "translation") {
-      for (int i = 0; i < drawings.length; i++) {
-        svgCode += "<g transform=\"translate(" + (double)changeparams[0] * i + " " 
-            + (double)changeparams[1] * i + ")\">";
-        svgCode += drawings[i].render(this, optionalParams);
-        svgCode += "</g>";
-      }
-    } 
-    if (change == "scaling") {
-      for (int i = 0; i < drawings.length; i++) {
-        svgCode += "<g transform=\"scale(" + (double)changeparams[0] * i + " " 
-            + (double)changeparams[1] * i + ")\">";
-        svgCode += drawings[i].render(this, optionalParams);
-        svgCode += "</g>";
-      }
-    } 
-    return svgCode;
-
-  }
 
   @Override
   public String visitDraw(Path path, Tool tool, Object[] optionalParams) {
@@ -118,7 +78,7 @@ public class VisitorSvg extends Visitor{
     svgCode += "/>\n";
     return svgCode;
   }
-  
+
   @Override
   public String visitFill(Path path, ColorManager color,
       Object[] optionalParams) {
@@ -131,6 +91,7 @@ public class VisitorSvg extends Visitor{
     svgCode += "/>\n";
     return svgCode;
   }
+
 
   @Override
   public String visitInsert(Drawing drawing, Path[] paths, Object[] optionalParams) {
@@ -150,6 +111,7 @@ public class VisitorSvg extends Visitor{
     return svgCode;
   }
 
+
   @Override
   public String visitLabel(String text, Point2D position, TextTool textTool,
       Object[] optionalParams) {
@@ -167,6 +129,55 @@ public class VisitorSvg extends Visitor{
     svgCode += drawing.render(new VisitorSvg(), null);
     svgCode += "</svg>";
     ExportSvg.export(svgCode);
+  }
+  
+  @Override
+  public String visitSequence(Drawing[] drawings, Object[] optionalParams) {
+    String svgCode = "";
+    for (int i = 0; i < drawings.length; i++) {
+      svgCode += drawings[i].render(this, optionalParams);
+    }
+    return svgCode;
+  }
+
+  public String visitAlternative(Drawing[] drawings, boolean firstWanted,
+      Object[] optionalParams) {
+    String svgCode = "";
+
+    if (firstWanted) {
+      svgCode += drawings[0].render(this, optionalParams);
+    } else {
+      svgCode += drawings[1].render(this, optionalParams);
+    }
+    return svgCode;
+  }
+
+  @Override
+  public String visitLoop(Drawing drawing, int numIterations,
+      HashMap<String, Double[]> changeParams, Object[] optionalParams) {
+    String svgCode = "";
+    
+    for (int i = 0 ; i < numIterations ; i++) {
+      if (changeParams.containsKey("rotation")) {
+        Double[] value = changeParams.get("rotation");
+        svgCode += "<g transform=\"rotate(" + value[0] * i 
+            + " 0 0)\">";
+        svgCode += drawing.render(this, optionalParams) + "</g>";
+      }
+      if (changeParams.containsKey("translation")) {
+        Double[] value = changeParams.get("translation");
+        svgCode += "<g transform=\"translate(" + value[0] * i + " " 
+            + value[1] * i + ")\">";
+        svgCode += drawing.render(this, optionalParams) + "</g>";
+      }
+      if (changeParams.containsKey("scale")) {
+        Double[] value = changeParams.get("scale");
+        svgCode += "<g transform=\"scale(" + value[0] * i + " " 
+            + value[1] * i + ")\">";
+        svgCode += drawing.render(this, optionalParams) + "</g>";
+      }
+    }
+    return svgCode;
   }
 
 }
