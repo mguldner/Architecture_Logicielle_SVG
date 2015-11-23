@@ -1,5 +1,6 @@
 package datastructure.operators;
 
+import java.util.HashMap;
 import datastructure.Drawing;
 import datastructure.Operator;
 import factories.operators.LoopFactory;
@@ -18,32 +19,31 @@ import visitors.Visitor;
  * 
  */
 
-public class Loop extends Operator implements LoopFactory{
+public class Loop implements Operator, LoopFactory{
 
+  private Drawing drawing;
+  
   // n represents the number of iteration for the Loop
   private int numberIterations;
   
-  // the change to operate : rotation or rotation for the moment
-  private String change;
-  
-  // the parameters of the change : 
-      // for a rotation : a double that represents the angle
-      // for a translation : two double for the vector of translation
-  private Object[] changeParams;
+  /* the parameters of the change : 
+       for a rotation : a double that represents the angle
+       for a translation : two double for the vector of translation
+       for a scale : two double for horizontal and vertical*/
+  private HashMap<String,Double[]> changeParams;
   
   /*=================================*/
   /*========== Constructors =========*/
   /*=================================*/  
   
   public Loop() {
-    super();
+    this.drawing = new Sequence();
   }
   
-  private Loop(Drawing[] drawings, int numberIterations, String change, 
-               Object[] changeParams) {
-    super(drawings);
+  public Loop(Drawing drawing, int numberIterations, 
+      HashMap<String, Double[]> changeParams) {
+    this.drawing = drawing;
     this.numberIterations = numberIterations;
-    this.change = change;
     this.changeParams = changeParams;
   }
   
@@ -55,37 +55,22 @@ public class Loop extends Operator implements LoopFactory{
     return this.numberIterations;
   }
   
-  
-  /*========================================*/
-  /*============ Shared Methods ============*/
-  /*========================================*/
-  
-  @Override
-  public Drawing[] applyFunction() {
-    Drawing[] drawings = new Drawing[this.getDrawings().length * this.getNumberIterations()];
-    int compt = 0;
-    for (int i = 0; i < this.getNumberIterations(); i++) {
-      for (int j = 0; j < this.getDrawings().length; j++) {
-        drawings[compt] = this.getDrawings()[j];
-        compt++;
-      }
-    }
-      
-    
-    return drawings;
+  public HashMap<String, Double[]> getChangeParams() {
+    return this.changeParams;
   }
 
   /*===============================================================*/
   /*============ Methods dedicated to each export mode ============*/
   /*===============================================================*/
   public String render(Visitor visitor, Object[] optionalParams) {
-    return visitor.visitLoop(this.applyFunction(), this.change, this.changeParams, optionalParams);
+    return visitor.visitLoop(this.drawing, this.getNumberIterations(), 
+        this.changeParams, optionalParams);
   }
 
   @Override
-  public Loop createLoop(Drawing[] drawings, int numberIterations,
-      String change, Object[] changeParams) {
-    return new Loop(drawings, numberIterations, change, changeParams);
+  public Loop createLoop(Drawing drawing, int numberIterations, 
+      HashMap<String, Double[]> changeParams) {
+    return new Loop(drawing, numberIterations, changeParams);
   }
 
 }
